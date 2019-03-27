@@ -3,14 +3,24 @@ include '../config/connection.php';
 session_start();
 $companyId = $_SESSION['company_id'];
 $ItemId = $_GET['productId'];
+// $sql = "SELECT IM.ItemId,IM.ItemName,IM.SKU,IM.HSN,IM.Unit,IM.CategoryId,IM.Description,ID.sizeId,
+// ID.PackingTypeId,PM.FirstName,PM.lastName,
+// ID.PackingQty,ID.SubPacking,ID.Quantity,ID.ReorderLabel,IT.TaxId,IP.price,IP.fromDate,ID.itemDetailId
+// FROM ItemMaster IM LEFT JOIN ItemDetailMaster ID ON IM.ItemId = ID.ItemId
+// LEFT JOIN ItemTax IT ON IT.ItemDetailId = ID.itemDetailId
+// LEFT JOIN SuplierItem SI ON SI.ItemId = IM.ItemId
+// LEFT JOIN PersonMaster PM ON PM.PersonId = SI.PersonId
+// LEFT JOIN ItemPrice IP ON IP.ItemDetailId = ID.itemDetailId WHERE IM.ItemId = $ItemId";
+
 $sql = "SELECT IM.ItemId,IM.ItemName,IM.SKU,IM.HSN,IM.Unit,IM.CategoryId,IM.Description,ID.sizeId,
 ID.PackingTypeId,PM.FirstName,PM.lastName,
-ID.PackingQty,ID.SubPacking,ID.Quantity,ID.ReorderLabel,IT.TaxId,IP.price,IP.fromDate,ID.itemDetailId
+ID.PackingQty,ID.SubPacking,PS.Quantity,PS.ReorderLabel,IT.TaxId,IP.price,IP.fromDate,ID.itemDetailId
 FROM ItemMaster IM LEFT JOIN ItemDetailMaster ID ON IM.ItemId = ID.ItemId
+LEFT JOIN ProductStock PS ON PS.itemdetailId = ID.itemDetailId
 LEFT JOIN ItemTax IT ON IT.ItemDetailId = ID.itemDetailId
 LEFT JOIN SuplierItem SI ON SI.ItemId = IM.ItemId
 LEFT JOIN PersonMaster PM ON PM.PersonId = SI.PersonId
-LEFT JOIN ItemPrice IP ON IP.ItemDetailId = ID.itemDetailId WHERE IM.ItemId = $ItemId";
+LEFT JOIN ItemPrice IP ON IP.ItemDetailId = ID.itemDetailId WHERE IM.ItemId = $ItemId AND PS.companyId = $companyId";
 $response = [];
 if($result = mysqli_query($con,$sql)){
   if(mysqli_num_rows($result)>0){
