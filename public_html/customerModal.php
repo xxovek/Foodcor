@@ -55,13 +55,12 @@
               </div>
             </div>
         </div>
-
-         <!-- <div class="h-20px"></div> -->
         <div class="row">
           <div class="col-sm-4">
             <div class="form-group">
         <label for="email">Email</label>
         <input type="email" autocomplete="off" class="form-control form-control-sm" placeholder="Email"  data-provide="tooltip" data-placement="top" data-original-title="Customers EmailId Example:anju@gmail.com" tabindex="4" name="email" id="email">
+        <div class="invalidfeedback2"></div>
       </div>
         </div>
       <div class="col-sm-4">
@@ -79,9 +78,7 @@
       </div>
         </div>
       </div>
-      <!-- <div class="h-20px"></div> -->
-
-      <div class="row">
+       <div class="row">
         <div class="col-sm-6">
             <div class="form-group">
       <label for="GSTIN">GSTIN</label>

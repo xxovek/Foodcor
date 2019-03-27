@@ -12,19 +12,16 @@ if($method == "POST")
   $ItemUnit     = $_POST['ItemUnit'];
   $ItemCategory = $_POST['ItemCategory'];
   $ItemDescription = $_POST['ItemDescription'];
-
   $ItemSizeId        = $_POST['ItemSize'];
   $PackingTypeId     = $_POST['PackingTypeId'];
   $packingQty        = $_POST['ItemSizeQty'];
-  $packingSubQty        = $_POST['ItemSizeSubQty'];
+  $packingSubQty     = $_POST['ItemSizeSubQty'];
   $ItemQty           = $_POST['ItemQuantity'];
   $ItemReorderLabel  = $_POST['ItemReorderLabel'];
-
   $ItemPrice       = $_POST['ItemPrice'];
   $ItemTax         = $_POST['ItemTax'];
   $asondate        = date("Y-m-d");
   $SupplierId      = $_POST['SupplierId'];
-
   $ItemCategory = !empty($ItemCategory) ? $ItemCategory : "NULL";
   $ItemSizeId  = !empty($ItemSizeId) ? $ItemSizeId : "NULL";
   $PackingTypeId = !empty($PackingTypeId) ? $PackingTypeId : "NULL";
@@ -32,20 +29,30 @@ if($method == "POST")
   $SupplierId = !empty($SupplierId) ? $SupplierId : "NULL";
   $packingSubQty = !empty($packingSubQty) ? $packingSubQty : 1;
   $ItemReorderLabel = !empty($ItemReorderLabel) ? $ItemReorderLabel : "NULL";
- $packingQty = !empty($packingQty) ? $packingQty : 1;
-$totalQty =  $packingQty*$ItemQty;
-$sql_insert = "INSERT INTO ItemMaster(companyId, ItemName, SKU, HSN, Unit,CategoryId,Description) VALUES($companyId,
-'$ItemName','$ItemSKU','$ItemHSN','$ItemUnit',$ItemCategory,'$ItemDescription')";
+  $packingQty = !empty($packingQty) ? $packingQty : 1;
+  $totalQty =  $packingQty*$ItemQty;
+  $sql_insert = "INSERT INTO ItemMaster(ItemName,SKU,HSN,Unit,CategoryId,Description) VALUES('$ItemName','$ItemSKU','$ItemHSN','$ItemUnit',$ItemCategory,'$ItemDescription')";
 
 if(mysqli_query($con,$sql_insert) or die(mysqli_error($con))){
   $item_id = mysqli_insert_id($con);
 
-$sql_insert_details = "INSERT INTO ItemDetailMaster(ItemId,SizeId,PackingTypeId,PackingQty,Quantity,totalqty,SubPacking,ReorderLabel) VALUES(
-  $item_id,$ItemSizeId,$PackingTypeId,$packingQty,$ItemQty,$totalQty,$packingSubQty,$ItemReorderLabel)";
+$sql_insert_details = "INSERT INTO ItemDetailMaster(ItemId,SizeId,PackingTypeId,PackingQty,SubPacking) VALUES($item_id,$ItemSizeId,$PackingTypeId,$packingQty,$packingSubQty)";
   // echo $sql_insert_details;
   if(mysqli_query($con,$sql_insert_details) or die(mysqli_error($con))){
     $itemDetailId = mysqli_insert_id($con);
     // $asondate = date("Y-m-d");
+    $sql_insert_PStock = "INSERT INTO ProductStock(itemdetailId,companyId,Quantity,TotalQty,ReorderLabel) VALUES($itemDetailId,$companyId,$ItemQty,$totalQty,$ItemReorderLabel)";
+     mysqli_query($con,$sql_insert_PStock) or die(mysqli_error($con));
+     $check_company_id = "SELECT CompanyId FROM CompanyMaster WHERE CompanyId <> $companyId";
+    if($result_1 = mysqli_query($con,$check_company_id)){
+      if(mysqli_num_rows($result_1)>0){
+        while($row = mysqli_fetch_array($result_1)){
+          $CompanyId = $row['CompanyId'];
+          $sql_insert_PStock = "INSERT INTO ProductStock(itemdetailId,companyId) VALUES($itemDetailId,$CompanyId)";
+          mysqli_query($con,$sql_insert_PStock) or die(mysqli_error($con));
+        }
+      }
+    }
     $sql_insert_price = "INSERT INTO ItemPrice(ItemDetailId,price,fromDate) VALUES('$itemDetailId','$ItemPrice','$asondate')";
     mysqli_query($con,$sql_insert_price) or die(mysqli_error($con));
     $sql_insert_tax = "INSERT INTO ItemTax(ItemDetailId,TaxId,fromDate) VALUES($itemDetailId,$ItemTax,'$asondate')";
@@ -114,6 +121,18 @@ if($method == "PUT")
   $response['msg'] = 'Server Error Please Try Again';
   }
 }
+// function AddProduct($itemDetailId,$companyId){
+//   $check_company_id = "SELECT CompanyId FROM CompanyMaster WHERE CompanyId <> $companyId";
+//     if($result_1 = mysqli_query($con,$check_company_id)){
+//       if(mysqli_num_rows($result_1)>0){
+//         while($row = mysqli_fetch_array($result)){
+//           $CompanyId = $row['CompanyId'];
+//           $sql_insert_PStock = "INSERT INTO ProductStock(itemdetailId,companyId) VALUES($itemDetailId,$CompanyId)";
+//           mysqli_query($con,$sql_insert_PStock) or die(mysqli_error($con));
+//         }
+//       }
+//     }
+// }
 mysqli_close($con);
 exit(json_encode($response));
  ?>

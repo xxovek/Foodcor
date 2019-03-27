@@ -5,7 +5,7 @@ $companyId = $_SESSION['company_id'];
 ?>
 <option data-icon="fa fa-edit" data-toggle="modal" data-target="#SizeModal" style="background: #5cb85c;font-weight:bold;  padding: 5px" value="addSize" id="addSize"> Add New </option>
 <?php
-    if($result = mysqli_query($con,"SELECT DISTINCT(SizeValue),SizeId From SizeMaster where companyId = $companyId"))
+    if($result = mysqli_query($con,"SELECT DISTINCT(SizeValue),SizeId From SizeMaster"))
     {
       if(mysqli_num_rows($result)>0)
       {
@@ -16,4 +16,4 @@ $companyId = $_SESSION['company_id'];
         }
       }
     }
-     ?>
+?>

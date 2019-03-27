@@ -118,39 +118,57 @@ if(!empty($_REQUEST['pid'])){
    $response['msg']=$ctype.' '.$fname." Updated Successfully";
 }
 else {
-$sql1="INSERT INTO PersonMaster (companyId,personTypeId,FirstName,middleName,lastName,EmailId,CompanyName) VALUES($companyId,$ctype1,'$fname','$mname','$lname','$email','$companyName')";
+$i =0;
+$check_company_id = "SELECT companyId,personTypeId FROM PersonMaster WHERE EmailId ='$email' AND personTypeId = 4";
+    if($result_1 = mysqli_query($con,$check_company_id)){
+      if(mysqli_num_rows($result_1)==1){
+        $row = mysqli_fetch_array($result_1);
+          $PersoncompanyId = $row['companyId'];
+          $personTypeId = $row['personTypeId'];
+      }else{
+        $PersoncompanyId = 'NULL';
+      }
+    }
 
-mysqli_query($con,$sql1) or die(mysqli_error($con));
-$personid=mysqli_insert_id($con);
+$sql1="INSERT INTO PersonMaster (companyId,personTypeId,FirstName,middleName,lastName,EmailId,CompanyName,PersonCompanyId) VALUES($companyId,$ctype1,'$fname','$mname','$lname','$email','$companyName',$PersoncompanyId)";
 
+if(mysqli_query($con,$sql1)){
+  $personid = mysqli_insert_id($con);
+  $i++;
 
+  $sql2="INSERT INTO ContactMaster (AddressId,contactNumber,country,CState,city,contactAddress,zipcode) VALUES(1,'$phone','$bcountry','$bstate','$bcity','$billaddr','$bzip')";
+  if(mysqli_query($con,$sql2)){
+    $contactid = mysqli_insert_id($con);
+    $i++;
 
-$sql2="INSERT INTO ContactMaster (AddressId,contactNumber,country,CState,city,contactAddress,zipcode) VALUES(1,'$phone','$bcountry','$bstate','$bcity','$billaddr','$bzip')";
-mysqli_query($con,$sql2);
-$contactid=mysqli_insert_id($con);
+    $sql3="INSERT INTO PersonContact (ContactId,PersonId) VALUES($contactid,$personid)";
+  if(mysqli_query($con,$sql3)){
+    $i++;
 
-// $sqlCompany = "INSERT INTO CompanyMaster(companyName,contactId) VALUES('$companyName',$contactid)";
-// mysqli_query($con,$sqlCompany);
-// $companyIdC=mysqli_insert_id($con);
+    $sql6="INSERT INTO ContactMaster (AddressId,country,CState,city,contactAddress,zipcode) VALUES(2,'$scountry','$sstate','$scity','$shipaddr','$szip')";
+  if(mysqli_query($con,$sql6)){
+    $contactid1=mysqli_insert_id($con);
+    $i++;
 
-// $sqlUser = "INSERT INTO UserMaster(emailId,companyId,PersonId,refCompanyId)VALUES('$email',$companyIdC,$personid,$companyId)";
-// mysqli_query($con,$sqlUser) or die(mysqli_error($con));
+    $sql7="INSERT INTO PersonContact (ContactId,PersonId) VALUES($contactid1,$personid)";
+  if(mysqli_query($con,$sql7)){
+    $i++;
 
-$sql3="INSERT INTO PersonContact (ContactId,PersonId) VALUES($contactid,$personid)";
-mysqli_query($con,$sql3) or die(mysqli_error($con));
+    $sql4="INSERT INTO ContactDocument (DocumentId,PersonId,DocumentNumber) VALUES(4,$personid,'$gstin')";
+  if(mysqli_query($con,$sql4)){
+    $i++;
 
-$sql6="INSERT INTO ContactMaster (AddressId,country,CState,city,contactAddress,zipcode) VALUES(2,'$scountry','$sstate','$scity','$shipaddr','$szip')";
-mysqli_query($con,$sql6);
-$contactid1=mysqli_insert_id($con);
-
-$sql7="INSERT INTO PersonContact (ContactId,PersonId) VALUES($contactid1,$personid)";
-mysqli_query($con,$sql7) or die(mysqli_error($con));
-
-$sql4="INSERT INTO ContactDocument (DocumentId,PersonId,DocumentNumber) VALUES(4,$personid,'$gstin')";
-mysqli_query($con,$sql4) or die(mysqli_error($con));
-$sql5="INSERT INTO ContactDocument (DocumentId,PersonId,DocumentNumber) VALUES(1,$personid,'$PAN')";
-$result5=mysqli_query($con,$sql5) or die(mysqli_error($con));
-if($result5){
+    $sql5="INSERT INTO ContactDocument (DocumentId,PersonId,DocumentNumber) VALUES(1,$personid,'$PAN')";
+if(mysqli_query($con,$sql5)){
+  $i++;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+if($i==7){
  $response['msg']=$ctype.' '.$fname." Added Successfully";
 }
 else{
@@ -159,4 +177,4 @@ else{
 }
 mysqli_close($con);
 exit(json_encode($response));
- ?>
+?>
