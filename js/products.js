@@ -136,37 +136,219 @@ function displayProducts(){
   });
 }
 
+function CheckUserRole(){
+  var retValue;
+  $.ajax({
+    type:'POST',
+    url:'../src/checkuserRole.php',
+    dataType:'json',
+    data :"",
+    async: false,
+    success:function(response){
+      // alert(response.msg);
+      if(response.msg)
+        retValue = response.msg;
+      else
+        retValue = response.msg;
+    }
+});
+// alert(retValue);
+return retValue;
+}
+
+
+
 function editProducts(productId){
-    document.getElementById('ItemForm').reset();
+  document.getElementById('ItemForm').reset();
+
   $.ajax({
     type:'GET',
     url:'../src/fetchProductForUpdate.php',
     data:{productId:productId},
     dataType:'json',
     success:function(response){
-      $('#ItemId').val(response.ItemId);
-      $('#ItemDetailId').val(response.itemDetailId);
-      document.getElementById('ItemName').value = response.ItemName;
-      document.getElementById('ItemSKU').value = response.SKU;
-      document.getElementById('ItemHSN').value = response.HSN;
-      $('#ItemUnit').val(response.Unit).trigger('change');
-      $('#ItemCategory').val(response.CategoryId).trigger('change');
-      document.getElementById('ItemQuantity').value = response.Quantity;
-      document.getElementById('ItemReorderLabel').value = response.ReorderLabel;
-      document.getElementById('ItemSize').value = response.sizeId;
-      $('#ItemSize').val(response.sizeId).trigger('change');
-      document.getElementById('ItemSizeQty').value = response.PackingQty;
-      document.getElementById('ItemSizeSubQty').value = response.SubPacking;
-      $('#PackingTypeId').val(response.PackingTypeId).trigger('change');
-      $('#ItemTax').val(response.TaxId).trigger('change');
-      document.getElementById('ItemPrice').value = response.price;
-      document.getElementById('ItemDescription').value = response.Description;
-      // document.getElementById('SupplierId').value = response.SupplierName;
-      $('#SupplierId').val(response.SupplierName).trigger('change');
-      $('#newproduct').click();
-    },
+                $('#ItemId').val(response.ItemId);
+                $('#ItemDetailId').val(response.itemDetailId);
+                document.getElementById('ItemName').value = response.ItemName;
+                document.getElementById('ItemSKU').value = response.SKU;
+                document.getElementById('ItemHSN').value = response.HSN;
+                $('#ItemUnit').val(response.Unit).trigger('change');
+                $('#ItemCategory').val(response.CategoryId).trigger('change');
+                document.getElementById('ItemQuantity').value = response.Quantity;
+                document.getElementById('ItemReorderLabel').value = response.ReorderLabel;
+                document.getElementById('ItemSize').value = response.sizeId;
+                $('#ItemSize').val(response.sizeId).trigger('change');
+                document.getElementById('ItemSizeQty').value = response.PackingQty;
+                document.getElementById('ItemSizeSubQty').value = response.SubPacking;
+                $('#PackingTypeId').val(response.PackingTypeId).trigger('change');
+                $('#ItemTax').val(response.TaxId).trigger('change');
+                document.getElementById('ItemPrice').value = response.price;
+                document.getElementById('ItemDescription').value = response.Description;
+                // document.getElementById('SupplierId').value = response.SupplierName;
+                $('#SupplierId').val(response.SupplierName).trigger('change');
+                $('#newproduct').click();
+
+      var FunRetVal = CheckUserRole();
+      // alert(FunRetVal);
+      if(FunRetVal){
+      
+        $('#ItemName').prop('disabled', false);
+        $('#ItemSKU').prop('disabled', false);
+        $('#ItemHSN').prop('disabled', false);
+        $('#ItemUnit').prop('disabled', false);
+        $('#ItemCategory').prop('disabled', false);     
+        $('#ItemSize').prop('disabled', false);
+        $('#ItemSizeQty').prop('disabled', false);
+        $('#ItemSizeSubQty').prop('disabled', false);
+        $('#PackingTypeId').prop('disabled', false);
+        $('#ItemTax').prop('disabled', false);
+        $('#ItemPrice').prop('disabled', false);
+        $('#ItemDescription').prop('disabled',false);
+        $('#SupplierId').prop('disabled', false);
+      }
+      else{
+        $('#ItemName').prop('disabled', true);
+        $('#ItemSKU').prop('disabled', true);
+        $('#ItemHSN').prop('disabled', true);
+        $('#ItemUnit').prop('disabled', true);
+        $('#ItemCategory').prop('disabled', true);     
+        $('#ItemSize').prop('disabled', true);
+        $('#ItemSizeQty').prop('disabled', true);
+        $('#ItemSizeSubQty').prop('disabled', true);
+        $('#PackingTypeId').prop('disabled', true);
+        $('#ItemTax').prop('disabled', true);
+        $('#ItemPrice').prop('disabled', true);
+        $('#ItemDescription').prop('disabled',true);
+        $('#SupplierId').prop('disabled', true);
+      }
+
+    }
   });
+// debugger;
 }
+
+// function editProducts(productId){
+//     document.getElementById('ItemForm').reset();
+   
+//   var FunRetVal = CheckUserRole();
+//           if(FunRetVal){
+//             alert(FunRetVal);
+//             $.ajax({
+//               type:'GET',
+//               url:'../src/fetchProductForUpdate.php',
+//               data:{productId:productId},
+//               dataType:'json',
+//               success:function(response){
+
+//                 $('#ItemId').val(response.ItemId);
+//                 $('#ItemDetailId').val(response.itemDetailId);
+//                 document.getElementById('ItemName').value = response.ItemName;
+//                 $('#ItemName').removeAttr('disabled', 'disabled');
+//                 // document.getElementById('ItemName')
+//                 document.getElementById('ItemSKU').value = response.SKU;
+//                 $('#ItemSKU').removeAttr('disabled', 'disabled');
+//                 document.getElementById('ItemHSN').value = response.HSN;
+//                 $('#ItemHSN').removeAttr('disabled', 'disabled');
+
+//                 $('#ItemUnit').val(response.Unit).trigger('change');
+//                 $('#ItemUnit').removeAttr('disabled', 'disabled');
+
+//                 $('#ItemCategory').val(response.CategoryId).trigger('change');
+//                 $('#ItemCategory').removeAttr('disabled', 'disabled');
+
+
+//                 document.getElementById('ItemQuantity').value = response.Quantity;
+//                 document.getElementById('ItemReorderLabel').value = response.ReorderLabel;
+//                 document.getElementById('ItemSize').value = response.sizeId;
+              
+//                 $('#ItemSize').val(response.sizeId).trigger('change').removeAttr('disabled', 'disabled');
+                
+//                 document.getElementById('ItemSizeQty').value = response.PackingQty;
+//                 $('#ItemSizeQty').removeAttr('disabled', 'disabled');
+
+//                 document.getElementById('ItemSizeSubQty').value = response.SubPacking;
+//                 $('#ItemSizeSubQty').removeAttr('disabled', 'disabled');
+
+//                 $('#PackingTypeId').val(response.PackingTypeId).trigger('change');
+//                 $('#PackingTypeId').removeAttr('disabled', 'disabled');
+                
+//                 $('#ItemTax').val(response.TaxId).trigger('change');
+//                 $('#ItemTax').removeAttr('disabled', 'disabled');
+//                 document.getElementById('ItemPrice').value = response.price;
+//                 $('#ItemPrice').removeAttr('disabled', 'disabled');
+//                 document.getElementById('ItemDescription').value = response.Description;
+//                 $('#ItemDescription').removeAttr('disabled', 'disabled');
+
+//                 // document.getElementById('SupplierId').value = response.SupplierName;
+//                 $('#SupplierId').val(response.SupplierName).trigger('change');
+//                 $('#SupplierId').removeAttr('disabled', 'disabled');
+//                 $('#newproduct').click();
+                
+//               },
+//             });
+
+//           }else{ 
+//             alert(FunRetVal);
+
+//             $.ajax({
+//               type:'GET',
+//               url:'../src/fetchProductForUpdate.php',
+//               data:{productId:productId},
+//               dataType:'json',
+//               success:function(response){
+//                 $('#ItemId').val(response.ItemId);
+//                 $('#ItemDetailId').val(response.itemDetailId);
+//                 document.getElementById('ItemName').value = response.ItemName;
+//                 $('#ItemName').attr('disabled', 'disabled');
+//                 // document.getElementById('ItemName')
+//                 document.getElementById('ItemSKU').value = response.SKU;
+//                 $('#ItemSKU').attr('disabled', 'disabled');
+//                 document.getElementById('ItemHSN').value = response.HSN;
+//                 $('#ItemHSN').attr('disabled', 'disabled');
+
+//                 $('#ItemUnit').val(response.Unit).trigger('change');
+//                 $('#ItemUnit').attr('disabled', 'disabled');
+
+//                 $('#ItemCategory').val(response.CategoryId).trigger('change');
+//                 $('#ItemCategory').attr('disabled', 'disabled');
+
+
+//                 document.getElementById('ItemQuantity').value = response.Quantity;
+//                 document.getElementById('ItemReorderLabel').value = response.ReorderLabel;
+//                 document.getElementById('ItemSize').value = response.sizeId;
+              
+//                 $('#ItemSize').val(response.sizeId).trigger('change').attr('disabled', 'disabled');
+                
+//                 document.getElementById('ItemSizeQty').value = response.PackingQty;
+//                 $('#ItemSizeQty').attr('disabled', 'disabled');
+
+//                 document.getElementById('ItemSizeSubQty').value = response.SubPacking;
+//                 $('#ItemSizeSubQty').attr('disabled', 'disabled');
+
+//                 $('#PackingTypeId').val(response.PackingTypeId).trigger('change');
+//                 $('#PackingTypeId').attr('disabled', 'disabled');
+                
+//                 $('#ItemTax').val(response.TaxId).trigger('change');
+//                 $('#ItemTax').attr('disabled', 'disabled');
+//                 document.getElementById('ItemPrice').value = response.price;
+//                 $('#ItemPrice').attr('disabled', 'disabled');
+//                 document.getElementById('ItemDescription').value = response.Description;
+//                 $('#ItemDescription').attr('disabled', 'disabled');
+
+//                 // document.getElementById('SupplierId').value = response.SupplierName;
+//                 $('#SupplierId').val(response.SupplierName).trigger('change');
+//                 $('#SupplierId').attr('disabled', 'disabled');
+
+//                 $('#newproduct').click();
+//               },
+//             });
+
+//           }
+  
+//         }
+    
+
+
 function removeProducts(productId){
   var r = confirm('Are You sure To Remove This Product Parmanetly');
   if(r === true){

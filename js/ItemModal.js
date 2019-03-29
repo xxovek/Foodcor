@@ -5,90 +5,137 @@ spancategory();
 spcategory();
 sptax();
 function SaveItems(){
-        // e.preventDefault();
-        var i=0,serverMethod="POST";
-        var ItemName         = document.getElementById('ItemName').value;
-                    ItemName = ItemName.trim();
-        var ItemSKU          = document.getElementById('ItemSKU').value;
-        var ItemHSN          = document.getElementById('ItemHSN').value;
-        var ItemUnit         = document.getElementById('ItemUnit').value;
-        var ItemCategory     = document.getElementById('ItemCategory').value;;
-        var ItemQuantity     = document.getElementById('ItemQuantity').value;
-        var ItemReorderLabel = document.getElementById('ItemReorderLabel').value;
-        var ItemSize         = document.getElementById('ItemSize').value;
-        var ItemSizeQty      = document.getElementById('ItemSizeQty').value;
-        var ItemSizeSubQty      = document.getElementById('ItemSizeSubQty').value;
-        var PackingTypeId    = document.getElementById('PackingTypeId').value;
-        var ItemTax          = document.getElementById('ItemTax').value;
-        var ItemPrice        = document.getElementById('ItemPrice').value;
-        var ItemDescription  = document.getElementById('ItemDescription').value;
-        var SupplierId       = document.getElementById('SupplierId').value;
-        var ItemId           = document.getElementById('ItemId').value;
-        var ItemDetailId     = document.getElementById('ItemDetailId').value;
-        if(ItemId != ""){
-          serverMethod = 'PUT';
-        }
-        if(ItemName == ""){
+  var FunRetVal = CheckUserRole();
+  // alert(FunRetVal);
+  if(FunRetVal){
+    // e.preventDefault();
+    var i=0,serverMethod="POST";
+    var ItemName         = document.getElementById('ItemName').value;
+        ItemName         = ItemName.trim();
+    var ItemSKU          = document.getElementById('ItemSKU').value;
+    var ItemHSN          = document.getElementById('ItemHSN').value;
+    var ItemUnit         = document.getElementById('ItemUnit').value;
+    var ItemCategory     = document.getElementById('ItemCategory').value;;
+    var ItemQuantity     = document.getElementById('ItemQuantity').value;
+    var ItemReorderLabel = document.getElementById('ItemReorderLabel').value;
+    var ItemSize         = document.getElementById('ItemSize').value;
+    var ItemSizeQty      = document.getElementById('ItemSizeQty').value;
+    var ItemSizeSubQty      = document.getElementById('ItemSizeSubQty').value;
+    var PackingTypeId    = document.getElementById('PackingTypeId').value;
+    var ItemTax          = document.getElementById('ItemTax').value;
+    var ItemPrice        = document.getElementById('ItemPrice').value;
+    var ItemDescription  = document.getElementById('ItemDescription').value;
+    var SupplierId       = document.getElementById('SupplierId').value;
+    var ItemId           = document.getElementById('ItemId').value;
+    var ItemDetailId     = document.getElementById('ItemDetailId').value;
+    if(ItemId != ""){
+      serverMethod = 'PUT';
+    }
+    if(ItemName == ""){
 
-            $('#ItemName').focus();
-            $('.invalidfeedback').html('<font color="#f96868">Product/Service Name is Required</font>');
-            i=1;
-        }
-        if(ItemQuantity == ""){
-            $('#ItemQuantity').focus();
-            $('.invalidfeedback1').html('<font color="#f96868">Initial Quantity on hand is required</font>');
-            i=1;
-        }
-        if(ItemUnit == ""){
+        $('#ItemName').focus();
+        $('.invalidfeedback').html('<font color="#f96868">Product/Service Name is Required</font>');
+        i=1;
+    }
+    if(ItemQuantity == ""){
+        $('#ItemQuantity').focus();
+        $('.invalidfeedback1').html('<font color="#f96868">Initial Quantity on hand is required</font>');
+        i=1;
+    }
+    if(ItemUnit == ""){
 
-            $('#ItemUnit').focus();
-            $('.invalidfeedback3').html('<font color="#f96868">Unit Value is Required</font>');
-            i=1;
-        }
-        if(ItemSize == ""){
+        $('#ItemUnit').focus();
+        $('.invalidfeedback3').html('<font color="#f96868">Unit Value is Required</font>');
+        i=1;
+    }
+    if(ItemSize == ""){
 
-            $('#ItemSize').focus();
-            $('.invalidfeedback4').html('<font color="#f96868">Size Value is Required</font>');
-            i=1;
+        $('#ItemSize').focus();
+        $('.invalidfeedback4').html('<font color="#f96868">Size Value is Required</font>');
+        i=1;
+    }
+  if(i==0){
+      $.ajax({
+        url:'../src/AddItemDetails.php',
+        type:serverMethod,
+        data:({
+          ItemName:ItemName,
+          ItemSKU:ItemSKU,
+          ItemHSN:ItemHSN,
+          ItemUnit:ItemUnit,
+          ItemCategory:ItemCategory,
+          ItemReorderLabel:ItemReorderLabel,
+          ItemSize:ItemSize,
+          ItemSizeQty:ItemSizeQty,
+          ItemSizeSubQty:ItemSizeSubQty,
+          ItemTax:ItemTax,
+          ItemPrice:ItemPrice,
+          ItemDescription:ItemDescription,
+          PackingTypeId:PackingTypeId,
+          ItemQuantity:ItemQuantity,ItemId:ItemId,
+          ItemDetailId:ItemDetailId,SupplierId:SupplierId
+        }),
+        dataType:'json',
+        success:function(response){
+          $('#goback').click();
+          app.toast(response.msg, {
+            actionTitle: 'Success',
+            // actionUrl: 'something',
+            actionColor: 'success',
+            duration: 4000
+          });
+          displayProducts();
+        },
+        complete:function(){
+          document.getElementById('ItemForm').reset();
         }
-      if(i==0){
-          $.ajax({
-            url:'../src/AddItemDetails.php',
-            type:serverMethod,
-            data:({
-              ItemName:ItemName,
-              ItemSKU:ItemSKU,
-              ItemHSN:ItemHSN,
-              ItemUnit:ItemUnit,
-              ItemCategory:ItemCategory,
-              ItemReorderLabel:ItemReorderLabel,
-              ItemSize:ItemSize,
-              ItemSizeQty:ItemSizeQty,
-              ItemSizeSubQty:ItemSizeSubQty,
-              ItemTax:ItemTax,
-              ItemPrice:ItemPrice,
-              ItemDescription:ItemDescription,
-              PackingTypeId:PackingTypeId,
-              ItemQuantity:ItemQuantity,ItemId:ItemId,
-              ItemDetailId:ItemDetailId,SupplierId:SupplierId
-            }),
-            dataType:'json',
-            success:function(response){
-              $('#goback').click();
-              app.toast(response.msg, {
-                actionTitle: 'Success',
-                // actionUrl: 'something',
-                actionColor: 'success',
-                duration: 4000
-              });
-              displayProducts();
-            },
-            complete:function(){
-              document.getElementById('ItemForm').reset();
-            }
-          })
-      }
+      })
   }
+
+  }
+  else{
+
+    var i=0,serverMethod="POST";
+    var ItemName         = document.getElementById('ItemName').value;
+        ItemName         = ItemName.trim();
+    var ItemDetailId     = document.getElementById('ItemDetailId').value;
+    var ItemReorderLabel = document.getElementById('ItemReorderLabel').value;   
+    var ItemId           = document.getElementById('ItemId').value;
+    var ItemQuantity     = document.getElementById('ItemQuantity').value;
+    var ItemSizeQty      = document.getElementById('ItemSizeQty').value;
+    if(ItemId != ""){
+      serverMethod = 'PUT';
+    }
+    if(ItemQuantity == ""){
+      $('#ItemQuantity').focus();
+      $('.invalidfeedback1').html('<font color="#f96868">Initial Quantity on hand is required</font>');
+      i=1;
+  }
+  if(i==0){
+    $.ajax({
+      url:'../src/addItemUserSide.php',
+      type:serverMethod,
+      data:({
+        ItemName:ItemName,ItemReorderLabel:ItemReorderLabel,ItemId:ItemId,ItemDetailId:ItemDetailId,ItemSizeQty:ItemSizeQty,ItemQuantity:ItemQuantity
+      }),
+      dataType:'json',
+      success:function(response){
+        $('#goback').click();
+        app.toast(response.msg, {
+          actionTitle: 'Success',
+          // actionUrl: 'something',
+          actionColor: 'success',
+          duration: 4000
+        });
+        displayProducts();
+      },
+      complete:function(){
+        document.getElementById('ItemForm').reset();
+      }
+    })
+  }
+ }    
+}
 
 function spanunit(){
   var unit ='<select  title="Select Unit" data-live-search="true" data-provide="selectpicker" tabindex="4" data-width="100%" onchange="UnitModal(this.value);" id="ItemUnit" class="form-control form-control-sm" autocomplete="off">';

@@ -2,6 +2,8 @@
 session_start();
 if(isset($_SESSION['company_id']))
 {
+  $companyid = $_SESSION['company_id'];
+  // echo companyid
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -40,6 +42,7 @@ if(isset($_SESSION['company_id']))
   </head>
 
   <body class="sidebar-folded">
+  <!-- <body class="sidebar-folded" id="<?php echo $_SESSION['company_id'];?>"> -->
 
     <!-- Preloader -->
     <div class="preloader">
