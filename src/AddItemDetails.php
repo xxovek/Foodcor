@@ -30,7 +30,7 @@ if($method == "POST")
   $packingSubQty       = !empty($packingSubQty) ? $packingSubQty : 1;
   $ItemReorderLabel    = !empty($ItemReorderLabel) ? $ItemReorderLabel : "NULL";
   $packingQty          = !empty($packingQty) ? $packingQty : 1;
-  $totalQty            =  $packingQty*$ItemQty;
+  $totalQty            =  $packingQty * $ItemQty;
 
 $sql_insert = "INSERT INTO ItemMaster(ItemName,SKU,HSN,Unit,CategoryId,Description) VALUES('$ItemName','$ItemSKU','$ItemHSN','$ItemUnit',$ItemCategory,'$ItemDescription')";
 $i=0;
@@ -105,7 +105,8 @@ if($method == "PUT")
   $packingSubQty = !empty($packingSubQty) ? $packingSubQty : 1;
   $ItemReorderLabel = !empty($ItemReorderLabel) ? $ItemReorderLabel : "NULL";
   $packingQty = !empty($packingQty) ? $packingQty : 1;
-  $totalQty =  $packingQty*$ItemQty;
+  $totalQty =  $packingQty * $ItemQty;
+  
   $sql_update = "UPDATE ItemMaster SET ItemName = '$ItemName',SKU = '$ItemSKU',HSN = '$ItemHSN',Unit = '$ItemUnit',
   CategoryId = $ItemCategory,Description = '$ItemDescription' WHERE ItemId = $ItemId";
 
