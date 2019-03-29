@@ -18,7 +18,7 @@ if($method == "PUT")
 
 
 $sql_update_item = "UPDATE ProductStock SET 
- Quantity = $ItemQty,TotalQty =  $totalQty,
+ Quantity = $ItemQty,TotalQty =  TotalQty+$totalQty,
  ReorderLabel =   $ItemReorderLabel 
  WHERE itemdetailId = '$ItemDetailId' AND companyId = $companyId";
 
