@@ -15,10 +15,10 @@ if($method == "PUT")
   $totalQty            =  $packingQty * $ItemQty;
   $ItemDetailId = $_PUT['ItemDetailId'];
 
-$sql_update_item = "UPDATE ProductStock SET 
- Quantity = Quantity+$ItemQty,TotalQty =  $totalQty,
- ReorderLabel =   $ItemReorderLabel 
- WHERE itemdetailId = '$ItemDetailId' AND companyId = $companyId";
+// $sql_update_item = "UPDATE ProductStock SET 
+//  Quantity = Quantity+$ItemQty,TotalQty =  $totalQty,
+//  ReorderLabel =   $ItemReorderLabel 
+//  WHERE itemdetailId = '$ItemDetailId' AND companyId = $companyId";
 
 if(mysqli_query($con,$sql_update_item) or die(mysqli_error($con))){
     $response['msg'] = 'Inventory '.$ItemName.' Information Updated Successfully';
