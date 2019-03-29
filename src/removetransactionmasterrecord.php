@@ -1,5 +1,7 @@
 <?php
 include '../config/connection.php';
+session_start();
+  $companyId = $_SESSION['company_id'];
 $method = $_SERVER['REQUEST_METHOD'];
 $response = [];
 $formid = $_REQUEST['formid'];
@@ -12,18 +14,20 @@ $resultgetitem = mysqli_query($con,$getitem);
 if(mysqli_num_rows($resultgetitem)>0){
        while($row=mysqli_fetch_array($resultgetitem))
        {
-
+         $itemdetailid = $row['itemDetailId'];
          $itemidno = $row['ItemId'];
          $quantityval = $row['qty'];
            if($formid==1){
-             $sqlup = "UPDATE ItemDetailMaster SET Quantity = Quantity + $quantityval where ItemId=$itemidno";
+             $sqlup ="UPDATE ProductStock SET ProductStock.Quantity=ProductStock.Quantity+$quantityval WHERE ProductStock.itemDetailId=$itemdetailid and ProductStock.companyId=$companyId";
+             // $sqlup = "UPDATE ItemDetailMaster SET Quantity = Quantity + $quantityval where ItemId=$itemidno";
              // $sqlup = "UPDATE ItemDetailMaster SET ItemDetailMaster.Quantity = ItemDetailMaster.Quantity -$qty where ItemDetailMaster.itemDetailId=$itemdetailid";
              mysqli_query($con,$sqlup);
              // echo $sqlup."</br>";
            }
            if($formid==2)
            {
-             $sqlup = "UPDATE ItemDetailMaster SET Quantity = Quantity - $quantityval where ItemId=$itemidno";
+             $sqlup ="UPDATE ProductStock SET ProductStock.Quantity=ProductStock.Quantity-$quantityval WHERE ProductStock.itemDetailId=$itemdetailid and ProductStock.companyId=$companyId";
+             // $sqlup = "UPDATE ItemDetailMaster SET Quantity = Quantity - $quantityval where ItemId=$itemidno";
              // $sqlup = "UPDATE ItemDetailMaster SET ItemDetailMaster.Quantity = ItemDetailMaster.Quantity +$qty where ItemDetailMaster.itemDetailId=$itemdetailid";
              mysqli_query($con,$sqlup);
              // echo $sqlup."</br>";

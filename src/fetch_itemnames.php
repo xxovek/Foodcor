@@ -6,7 +6,7 @@ $companyId = $_SESSION['company_id'];
 
 $sql ="SELECT IM.ItemId,IM.ItemName,SM.SizeValue,IM.Unit  FROM ItemMaster IM
 LEFT JOIN ItemDetailMaster ID ON IM.ItemId = ID.ItemId
-LEFT JOIN SizeMaster SM ON SM.SizeId = ID.sizeId WHERE IM.companyId = $companyId ORDER BY IM.ItemId DESC";
+LEFT JOIN SizeMaster SM ON SM.SizeId = ID.sizeId ORDER BY IM.ItemId DESC";
 if($result = mysqli_query($con,$sql))
 {
  if(mysqli_num_rows($result)>0)

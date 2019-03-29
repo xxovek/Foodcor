@@ -1,12 +1,16 @@
 <?php
 include '../config/connection.php';
-
+session_start();
+$companyId = $_SESSION['company_id'];
 $response = [];
 // session_start();
 $itemid = $_REQUEST['itemname'];
 
 
-$sql = "SELECT IM.HSN,IM.Description,ID.PackingQty,ID.SubPacking,ID.Quantity,ID.totalqty,IT.TaxId,IP.price,ID.itemDetailId,ID.ReorderLabel FROM ItemMaster IM LEFT JOIN ItemDetailMaster ID ON IM.ItemId = ID.ItemId LEFT JOIN ItemTax IT ON IT.ItemDetailId = ID.itemDetailId LEFT JOIN ItemPrice IP ON IP.ItemDetailId = ID.itemDetailId WHERE IM.ItemId = $itemid";
+$sql = "SELECT IM.HSN,IM.Description,ID.PackingQty,ID.SubPacking,PS.Quantity,PS.totalqty,IT.TaxId,IP.price,ID.itemDetailId,PS.ReorderLabel FROM ItemMaster IM
+LEFT JOIN ItemDetailMaster ID ON IM.ItemId = ID.ItemId LEFT JOIN ProductStock PS ON PS.itemdetailId = ID.itemDetailId
+LEFT JOIN ItemTax IT ON IT.ItemDetailId = ID.itemDetailId LEFT JOIN ItemPrice IP ON IP.ItemDetailId = ID.itemDetailId
+WHERE IM.ItemId = $itemid and PS.companyId =$companyId";
 if($result = mysqli_query($con,$sql) or die(mysqli_error($con))){
   $row = mysqli_fetch_array($result);
   $response['HSN'] = $row['HSN'];

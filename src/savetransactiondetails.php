@@ -43,7 +43,7 @@ $companyId = $_SESSION['company_id'];
 
   $tax = $_REQUEST['tax'];
 
-  $sql = "SELECT TaxType,TaxPercent FROM TaxMaster WHERE companyId=$companyId and TaxPercent='$tax'";
+  $sql = "SELECT TaxType,TaxPercent FROM TaxMaster WHERE  TaxPercent='$tax'";
   $result = mysqli_query($con,$sql);
   $row = mysqli_fetch_array($result);
   $TaxType = $row['TaxType'];
@@ -57,13 +57,15 @@ $companyId = $_SESSION['company_id'];
     $response['msg'] = 'Inserted';
     $response['ItemDetailId'] =  $item_id;
     if($formid==1){
-      $sqlup = "UPDATE ItemDetailMaster SET ItemDetailMaster.Quantity = ItemDetailMaster.Quantity -$remqty ,ItemDetailMaster.totalqty=ItemDetailMaster.totalqty-$totalqty where ItemDetailMaster.itemDetailId=$itemdetailid";
+      $sqlup ="UPDATE ProductStock SET ProductStock.Quantity=ProductStock.Quantity-$remqty,ProductStock.TotalQty=ProductStock.TotalQty-$totalqty WHERE ProductStock.itemDetailId=$itemdetailid and ProductStock.companyId=$companyId";
+      // $sqlup = "UPDATE ItemDetailMaster SET ItemDetailMaster.Quantity = ItemDetailMaster.Quantity -$remqty ,ItemDetailMaster.totalqty=ItemDetailMaster.totalqty-$totalqty where ItemDetailMaster.itemDetailId=$itemdetailid";
       // echo $sqlup;
       mysqli_query($con,$sqlup);
     }
     if($formid==2)
     {
-      $sqlup = "UPDATE ItemDetailMaster SET ItemDetailMaster.Quantity = ItemDetailMaster.Quantity +$remqty ,ItemDetailMaster.totalqty=ItemDetailMaster.totalqty+$totalqty where ItemDetailMaster.itemDetailId=$itemdetailid";
+      $sqlup ="UPDATE ProductStock SET ProductStock.Quantity=ProductStock.Quantity+$remqty,ProductStock.TotalQty=ProductStock.TotalQty+$totalqty WHERE ProductStock.itemDetailId=$itemdetailid and ProductStock.companyId=$companyId";
+      // $sqlup = "UPDATE ItemDetailMaster SET ItemDetailMaster.Quantity = ItemDetailMaster.Quantity +$remqty ,ItemDetailMaster.totalqty=ItemDetailMaster.totalqty+$totalqty where ItemDetailMaster.itemDetailId=$itemdetailid";
       mysqli_query($con,$sqlup);
     }
 
