@@ -15,8 +15,18 @@ if($method == "PUT")
   $totalQty            =  $packingQty * $ItemQty;
   $ItemDetailId = $_PUT['ItemDetailId'];
 
+  // $qty = $ItemQty;
+  // $sql_qty_chk = "SELECT IF(Quantity <   $qty, $qty = Quantity +   $qty , $qty = $ItemQty ) From ProductStock 
+  // WHERE itemdetailId = '$ItemDetailId' AND companyId = $companyId;";
+  // mysqli_query($con,$sql_qty_chk);
+
 $sql_update_item = "UPDATE ProductStock SET 
- Quantity = Quantity+$ItemQty,TotalQty =  $totalQty,
+ Quantity = Quantity + $ItemQty,TotalQty =  $totalQty,
+ ReorderLabel =   $ItemReorderLabel 
+ WHERE itemdetailId = '$ItemDetailId' AND companyId = $companyId";
+
+$sql_update_item = "UPDATE ProductStock SET 
+ Quantity = $qty,TotalQty =  $totalQty,
  ReorderLabel =   $ItemReorderLabel 
  WHERE itemdetailId = '$ItemDetailId' AND companyId = $companyId";
 
