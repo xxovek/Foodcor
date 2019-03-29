@@ -8,7 +8,7 @@ $companyId = $_SESSION['company_id'];
 $TaxPercent = $_REQUEST['TaxPercent'];
 
 
-$sql = "SELECT count(TaxId) as taxcount  FROM TaxMaster WHERE TaxPercent='$TaxPercent' and companyId=$companyId";
+$sql = "SELECT count(TaxId) as taxcount  FROM TaxMaster WHERE TaxPercent='$TaxPercent'";
 $result = mysqli_query($con,$sql);
 $row = mysqli_fetch_array($result);
 $response['count'] = $row['taxcount'];

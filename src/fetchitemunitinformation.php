@@ -7,7 +7,8 @@ $companyId = $_SESSION['company_id'];
 $itemunitid = $_REQUEST['itemunitid'];
 $itemnameid = $_REQUEST['itemnameid'];
 
-$sql = "SELECT PackingQty,SubPacking,Quantity FROM ItemDetailMaster  WHERE itemDetailId='$itemnameid'";
+// $sql = "SELECT PackingQty,SubPacking,Quantity FROM ItemDetailMaster  WHERE itemDetailId='$itemnameid'";
+$sql = "SELECT IDM.PackingQty,IDM.SubPacking,PS.Quantity FROM ItemDetailMaster IDM ,ProductStock PS WHERE IDM.itemDetailId = PS.itemdetailId and IDM.itemDetailId=$itemnameid and PS.companyId=$companyId";
 // echo $sql;
 $result = mysqli_query($con,$sql) or die(mysqli_error($con));
  $response['PackingQty'] = 0;

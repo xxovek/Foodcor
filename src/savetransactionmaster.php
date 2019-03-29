@@ -91,15 +91,18 @@ session_start();
             while($row=mysqli_fetch_array($resultgetitem))
             {
               $itemidno = $row['ItemId'];
+              $itemdetailid =$row['itemDetailId'];
               $quantityval = $row['qty'];
                 if($formid==1){
-                  $sqlup = "UPDATE ItemDetailMaster SET Quantity = Quantity + $quantityval where ItemId=$itemidno";
+                  $sqlup ="UPDATE ProductStock SET ProductStock.Quantity=ProductStock.Quantity+$quantityval WHERE ProductStock.itemDetailId=$itemdetailid and ProductStock.companyId=$companyId";
+                  //$sqlup = "UPDATE ItemDetailMaster SET Quantity = Quantity + $quantityval where ItemId=$itemidno";
                   // $sqlup = "UPDATE ItemDetailMaster SET ItemDetailMaster.Quantity = ItemDetailMaster.Quantity -$qty where ItemDetailMaster.itemDetailId=$itemdetailid";
                   mysqli_query($con,$sqlup);
                 }
                 if($formid==2)
                 {
-                  $sqlup = "UPDATE ItemDetailMaster SET Quantity = Quantity - $quantityval where ItemId=$itemidno";
+                  $sqlup ="UPDATE ProductStock SET ProductStock.Quantity=ProductStock.Quantity-$quantityval WHERE ProductStock.itemDetailId=$itemdetailid and ProductStock.companyId=$companyId";
+                  //$sqlup = "UPDATE ItemDetailMaster SET Quantity = Quantity - $quantityval where ItemId=$itemidno";
                   // $sqlup = "UPDATE ItemDetailMaster SET ItemDetailMaster.Quantity = ItemDetailMaster.Quantity +$qty where ItemDetailMaster.itemDetailId=$itemdetailid";
                   mysqli_query($con,$sqlup);
                 }
@@ -136,7 +139,22 @@ session_start();
   else{
     $PaytermsId="NULL";
   }
-  // echo $PaytermsId;
+  $sql = "SELECT PersonCompanyId FROM PersonMaster WHERE PersonId=$personId and companyId=$companyId";
+
+  $result = mysqli_query($con,$sql);
+
+  if(mysqli_num_rows($result)>0)
+  {
+      $row = mysqli_fetch_array($result);
+      $PersonCompanyId = $row['PersonCompanyId'];
+      if(empty($PersonCompanyId)){
+          $PersonCompanyId="NULL";
+      }
+  }
+  else{
+      $PersonCompanyId="NULL";
+  }
+
   $sql1 = "SELECT TransactionNumber FROM TransactionMaster where companyId=$companyId and TransactionTypeId='$formid' ORDER BY TransactionId DESC LIMIT 1";
   $result1 = mysqli_query($con,$sql1);
   $TransactionNumber=0;
@@ -150,9 +168,9 @@ session_start();
      $TransactionNumber=1;
   }
   // echo $TransactionNumber;
-  $sql_insert = "INSERT INTO TransactionMaster(companyId, PersonId, contactId, TransactionTypeId, FinancialYear,
+  $sql_insert = "INSERT INTO TransactionMaster(companyId, PersonId,personCompanyId, contactId, TransactionTypeId, FinancialYear,
     TransactionNumber, discount, DateCreated, DueDate, PaytermsId, remarks,TransactionStatus,AmountRecieved,RemainingAmount) VALUES
-  ($companyId,$personId,$contactId,'$formid','$financialyear','$TransactionNumber','$discount','$datecreated','$duedate',$PaytermsId,'$remark','$maintransactionstatus','$amountreceived','$finaltotal')";
+  ($companyId,$personId,$PersonCompanyId,$contactId,'$formid','$financialyear','$TransactionNumber','$discount','$datecreated','$duedate',$PaytermsId,'$remark','$maintransactionstatus','$amountreceived','$finaltotal')";
    // echo $sql_insert;
   if(mysqli_query($con,$sql_insert)){
     $item_id = mysqli_insert_id($con);
