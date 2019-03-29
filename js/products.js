@@ -1,3 +1,18 @@
+function getAddFlag(){
+  $.ajax({
+    url:'../src/getAddProductFlag.php',
+    type:'GET',
+    dataType:'json',
+    success:function(response){
+      if(response.msg == 1){
+        $('#ProductButton').show();
+      }else{
+        $('#ProductButton').hide();
+      }
+    }
+  });
+}
+getAddFlag();
 $("#qv-invoice-add").on("click", '[data-toggle="quickview"]', function() {
   $("#ItemUnit").val('');
   $("#ItemSize").val('');

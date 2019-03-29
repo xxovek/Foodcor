@@ -157,7 +157,7 @@ if(isset($_SESSION['company_id']))
       <!-- END Footer -->
 
     </main>
-    <div class="fab fab-fixed">
+    <div class="fab fab-fixed" id="ProductButton">
       <a class="btn btn-float btn-primary" href="#qv-invoice-add" title="New Product" data-provide="tooltip" data-toggle="quickview" id="newproduct"><i class="ti-plus"></i></a>
     </div>
 

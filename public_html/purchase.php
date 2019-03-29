@@ -263,9 +263,9 @@ if(isset($_SESSION['company_id']))
     <script src="../assets/js/app.min.js"></script>
     <script src="../assets/js/script.min.js"></script>
     <!-- <script src="../js/invoices.js"></script> -->
-  <script src="../js/purchase.js"></script>
-    <script src="../js/invoice.js"></script>
-
+  <!-- <script src="../js/purchase.js"></script> -->
+  <script src="../js/invoice.js"></script>
+  <script src="../js/PurchaseForCustomers.js"></script>
 
     <script src="../datatables/jquery.dataTables.min.js"></script>
     <script src="../datatables/dataTables.bootstrap4.min.js"></script>

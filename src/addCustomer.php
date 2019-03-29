@@ -1,33 +1,20 @@
 <?php
 include '../config/connection.php';
 session_start();
-$response=[];
+$response  = [];
 
 $companyId = $_SESSION['company_id'];
-
-$ctype=$_REQUEST['ctype'];
-$ctype = !empty($ctype) ? $ctype : "NULL";
-
-$ctype1=$_REQUEST['ctype1'];
-$ctype1 = !empty($ctype1) ? $ctype1 : "NULL";
-
-$fname=$_REQUEST['fname'];
-$mname=$_REQUEST['mname'];
-// $mname = !empty($mname) ? $mname : "NULL";
-
-$lname=$_REQUEST['lname'];
-// $lname = !empty($lname) ? $lname : "NULL";
-
-$email=$_REQUEST['email'];
-// $email = !empty($email) ? $email : "NULL";
-
-$phone=$_REQUEST['phone'];
-// $phone = !empty($phone) ? $phone : "NULL";
-
-
-$billaddr=$_REQUEST['billaddr'];
-// $billaddr = !empty($billaddr) ? $billaddr : "NULL";
-$bcountry=$_REQUEST['bcountry'];
+$ctype     = $_REQUEST['ctype'];
+$ctype     = !empty($ctype) ? $ctype : "NULL";
+$ctype1    = $_REQUEST['ctype1'];
+$ctype1    = !empty($ctype1) ? $ctype1 : "NULL";
+$fname     = $_REQUEST['fname'];
+$mname     = $_REQUEST['mname'];
+$lname     = $_REQUEST['lname'];
+$email     = $_REQUEST['email'];
+$phone     = $_REQUEST['phone'];
+$billaddr  = $_REQUEST['billaddr'];
+$bcountry  = $_REQUEST['bcountry'];
 
 if(!empty($bcountry)){
   $countryname  = "SELECT name FROM countries WHERE id='$bcountry'";
@@ -52,11 +39,10 @@ if(!empty($bcity)){
   $bcity = $row3['name'];
 }
 
-$bzip=$_REQUEST['bzip'];
+$bzip     = $_REQUEST['bzip'];
+$shipaddr = $_REQUEST['shipaddr'];
+$scountry = $_REQUEST['scountry'];
 
-$shipaddr=$_REQUEST['shipaddr'];
-
-$scountry= $_REQUEST['scountry'];
 if(!empty($scountry)){
   $countryname  = "SELECT name FROM countries WHERE id='$scountry'";
   $result1 = mysqli_query($con,$countryname);
@@ -79,43 +65,52 @@ if(!empty($scity)){
   $scity = $row3['name'];
 }
 
-$szip=$_REQUEST['szip'];
-
-$gstin=$_REQUEST['gstin'];
-$PAN=$_REQUEST['Pan'];
+$szip        = $_REQUEST['szip'];
+$gstin       = $_REQUEST['gstin'];
+$PAN         = $_REQUEST['Pan'];
 $companyName = $_REQUEST['companyName'];
 $companyName = !empty($companyName) ? $companyName : "NULL";
 
 if(!empty($_REQUEST['pid'])){
+  $i=0;
   $pid=$_REQUEST['pid'];
 
   $PMUpdate_sql="UPDATE PersonMaster SET CompanyName='$companyName',PersonTypeId =$ctype1,FirstName ='$fname',middleName='$mname',
-   lastName ='$lname',EmailId='$email' where PersonId = $pid";
+   lastName ='$lname' where PersonId = $pid";
 
-   mysqli_query($con,$PMUpdate_sql) or die(mysqli_error($con));
+   if(mysqli_query($con,$PMUpdate_sql)){
+     $i++;
 
-   $CMUpdateBAddr_sql="UPDATE ContactMaster,PersonContact SET contactAddress='$billaddr',contactNumber='$phone',country='$bcountry',
+     $CMUpdateBAddr_sql="UPDATE ContactMaster,PersonContact SET contactAddress='$billaddr',contactNumber='$phone',country='$bcountry',
      CState='$bstate',city ='$bcity',zipcode='$bzip' where ContactMaster.AddressId = 1 and ContactMaster.contactId=PersonContact.ContactId and PersonContact.PersonId= $pid ";
-
-    mysqli_query($con,$CMUpdateBAddr_sql) or die(mysqli_error($con));
+    
+      if(mysqli_query($con,$CMUpdateBAddr_sql)){
+      $i++;
 
     $CMUpdateSAddr_sql="UPDATE ContactMaster,PersonContact SET contactAddress='$shipaddr',contactNumber='$phone',country='$scountry', CState='$sstate',
-     city ='$scity',zipcode='$szip' where ContactMaster.AddressId = 2 and ContactMaster.contactId=PersonContact.ContactId AND PersonContact.PersonId= $pid ";
+    city ='$scity',zipcode='$szip' where ContactMaster.AddressId = 2 and ContactMaster.contactId=PersonContact.ContactId AND PersonContact.PersonId= $pid ";
 
-     mysqli_query($con,$CMUpdateSAddr_sql) or die(mysqli_error($con));
+    if(mysqli_query($con,$CMUpdateSAddr_sql)){
+      $i++;
 
-   $CDUpdateGst_sql="UPDATE ContactDocument SET DocumentNumber='$gstin' where DocumentId='4' AND PersonId='$pid'";
-   // echo $CDUpdateGst_sql;
-
-   mysqli_query($con,$CDUpdateGst_sql) or die(mysqli_error($con));
-
+    $CDUpdateGst_sql="UPDATE ContactDocument SET DocumentNumber='$gstin' where DocumentId='4' AND PersonId='$pid'";
+   if(mysqli_query($con,$CDUpdateGst_sql)){
+    $i++;
+ 
    $CDUpdatePan_sql= "UPDATE ContactDocument SET DocumentNumber='$PAN' where DocumentId='1' AND PersonId='$pid'";
-   // echo $CDUpdatePan_sql;
 
-   mysqli_query($con,$CDUpdatePan_sql) or die(mysqli_error($con));
-
-   // $response['true']=true;
-   $response['msg']=$ctype.' '.$fname." Updated Successfully";
+   if(mysqli_query($con,$CDUpdatePan_sql)){
+    $i++;
+          }
+        }
+      } 
+    }
+  }
+if($i==5){
+  $response['msg']=$ctype.' '.$fname." Updated Successfully";
+}else{
+  $response['msg']='Server Error Please Try Again';
+} 
 }
 else {
 $i =0;

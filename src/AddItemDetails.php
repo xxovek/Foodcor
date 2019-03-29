@@ -6,41 +6,41 @@ $response = [];
 $method = $_SERVER['REQUEST_METHOD'];
 if($method == "POST")
 {
-  $ItemName     = mysqli_real_escape_string($con,$_POST['ItemName']);
-  $ItemSKU      = $_POST['ItemSKU'];
-  $ItemHSN      = $_POST['ItemHSN'];
-  $ItemUnit     = $_POST['ItemUnit'];
-  $ItemCategory = $_POST['ItemCategory'];
-  $ItemDescription = $_POST['ItemDescription'];
-  $ItemSizeId        = $_POST['ItemSize'];
-  $PackingTypeId     = $_POST['PackingTypeId'];
-  $packingQty        = $_POST['ItemSizeQty'];
-  $packingSubQty     = $_POST['ItemSizeSubQty'];
-  $ItemQty           = $_POST['ItemQuantity'];
-  $ItemReorderLabel  = $_POST['ItemReorderLabel'];
-  $ItemPrice       = $_POST['ItemPrice'];
-  $ItemTax         = $_POST['ItemTax'];
-  $asondate        = date("Y-m-d");
-  $SupplierId      = $_POST['SupplierId'];
-  $ItemCategory = !empty($ItemCategory) ? $ItemCategory : "NULL";
-  $ItemSizeId  = !empty($ItemSizeId) ? $ItemSizeId : "NULL";
-  $PackingTypeId = !empty($PackingTypeId) ? $PackingTypeId : "NULL";
-  $ItemTax = !empty($ItemTax) ? $ItemTax : "NULL";
-  $SupplierId = !empty($SupplierId) ? $SupplierId : "NULL";
-  $packingSubQty = !empty($packingSubQty) ? $packingSubQty : 1;
-  $ItemReorderLabel = !empty($ItemReorderLabel) ? $ItemReorderLabel : "NULL";
-  $packingQty = !empty($packingQty) ? $packingQty : 1;
-  $totalQty =  $packingQty*$ItemQty;
-  $sql_insert = "INSERT INTO ItemMaster(ItemName,SKU,HSN,Unit,CategoryId,Description) VALUES('$ItemName','$ItemSKU','$ItemHSN','$ItemUnit',$ItemCategory,'$ItemDescription')";
+  $ItemName            = mysqli_real_escape_string($con,$_POST['ItemName']);
+  $ItemSKU             = $_POST['ItemSKU'];
+  $ItemHSN             = $_POST['ItemHSN'];
+  $ItemUnit            = $_POST['ItemUnit'];
+  $ItemCategory        = $_POST['ItemCategory'];
+  $ItemDescription     = $_POST['ItemDescription'];
+  $ItemSizeId          = $_POST['ItemSize'];
+  $PackingTypeId       = $_POST['PackingTypeId'];
+  $packingQty          = $_POST['ItemSizeQty'];
+  $packingSubQty       = $_POST['ItemSizeSubQty'];
+  $ItemQty             = $_POST['ItemQuantity'];
+  $ItemReorderLabel    = $_POST['ItemReorderLabel'];
+  $ItemPrice           = $_POST['ItemPrice'];
+  $ItemTax             = $_POST['ItemTax'];
+  $asondate            = date("Y-m-d");
+  $SupplierId          = $_POST['SupplierId'];
+  $ItemCategory        = !empty($ItemCategory) ? $ItemCategory : "NULL";
+  $ItemSizeId          = !empty($ItemSizeId) ? $ItemSizeId : "NULL";
+  $PackingTypeId       = !empty($PackingTypeId) ? $PackingTypeId : "NULL";
+  $ItemTax             = !empty($ItemTax) ? $ItemTax : "NULL";
+  $SupplierId          = !empty($SupplierId) ? $SupplierId : "NULL";
+  $packingSubQty       = !empty($packingSubQty) ? $packingSubQty : 1;
+  $ItemReorderLabel    = !empty($ItemReorderLabel) ? $ItemReorderLabel : "NULL";
+  $packingQty          = !empty($packingQty) ? $packingQty : 1;
+  $totalQty            =  $packingQty*$ItemQty;
 
-if(mysqli_query($con,$sql_insert) or die(mysqli_error($con))){
+$sql_insert = "INSERT INTO ItemMaster(ItemName,SKU,HSN,Unit,CategoryId,Description) VALUES('$ItemName','$ItemSKU','$ItemHSN','$ItemUnit',$ItemCategory,'$ItemDescription')";
+$i=0;
+if(mysqli_query($con,$sql_insert)){ 
   $item_id = mysqli_insert_id($con);
-
-$sql_insert_details = "INSERT INTO ItemDetailMaster(ItemId,SizeId,PackingTypeId,PackingQty,SubPacking) VALUES($item_id,$ItemSizeId,$PackingTypeId,$packingQty,$packingSubQty)";
-  // echo $sql_insert_details;
-  if(mysqli_query($con,$sql_insert_details) or die(mysqli_error($con))){
+  $i++;
+  $sql_insert_details = "INSERT INTO ItemDetailMaster(ItemId,SizeId,PackingTypeId,PackingQty,SubPacking) VALUES($item_id,$ItemSizeId,$PackingTypeId,$packingQty,$packingSubQty)";
+  if(mysqli_query($con,$sql_insert_details)){
+    $i++;
     $itemDetailId = mysqli_insert_id($con);
-    // $asondate = date("Y-m-d");
     $sql_insert_PStock = "INSERT INTO ProductStock(itemdetailId,companyId,Quantity,TotalQty,ReorderLabel) VALUES($itemDetailId,$companyId,$ItemQty,$totalQty,$ItemReorderLabel)";
      mysqli_query($con,$sql_insert_PStock) or die(mysqli_error($con));
      $check_company_id = "SELECT CompanyId FROM CompanyMaster WHERE CompanyId <> $companyId";
@@ -54,11 +54,17 @@ $sql_insert_details = "INSERT INTO ItemDetailMaster(ItemId,SizeId,PackingTypeId,
       }
     }
     $sql_insert_price = "INSERT INTO ItemPrice(ItemDetailId,price,fromDate) VALUES('$itemDetailId','$ItemPrice','$asondate')";
-    mysqli_query($con,$sql_insert_price) or die(mysqli_error($con));
-    $sql_insert_tax = "INSERT INTO ItemTax(ItemDetailId,TaxId,fromDate) VALUES($itemDetailId,$ItemTax,'$asondate')";
-    mysqli_query($con,$sql_insert_tax) or die(mysqli_error($con));
-    $sql_insert_supplier = "INSERT INTO SuplierItem(PersonId,ItemId) VALUES($SupplierId,$item_id)";
-      mysqli_query($con,$sql_insert_supplier) or die(mysqli_error($con));
+    if(mysqli_query($con,$sql_insert_price)){
+      $i++;
+      $sql_insert_tax = "INSERT INTO ItemTax(ItemDetailId,TaxId,fromDate) VALUES($itemDetailId,$ItemTax,'$asondate')";
+    if(mysqli_query($con,$sql_insert_tax) ){
+      $i++;
+      $sql_insert_supplier = "INSERT INTO SuplierItem(PersonId,ItemId) VALUES($SupplierId,$item_id)";
+      if(mysqli_query($con,$sql_insert_supplier)){
+        $i++;
+      }
+    }
+    } 
   }else {
     $response['msg'] = 'Error while inserting in Details Master';
   }

@@ -41,4 +41,4 @@ $response['false'] = false;
 
 mysqli_close($con);
 exit(json_encode($response));
- ?>
+?>

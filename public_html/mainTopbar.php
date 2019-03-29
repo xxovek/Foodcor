@@ -2,9 +2,10 @@
 include '../config/connection.php';
 // session_start();
 $company_id= $_SESSION['company_id'];
-$sql ="SELECT logo FROM CompanyMaster WHERE CompanyId ='$company_id'";
+$sql ="SELECT logo,companyName FROM CompanyMaster WHERE CompanyId ='$company_id'";
 $result = mysqli_query($con,$sql);
 $row = mysqli_fetch_array($result);
+$companyName = $row['companyName'];
 if(empty($row['logo']))
 {
   $logo='default-logo.png';
@@ -55,7 +56,9 @@ else
 
     <div class="topbar-divider d-none d-md-block"></div>
   </div>
-
+  <div class="topbar-center">
+  <h2> <strong><?php echo ucwords($companyName);?></strong></h2>
+</div>
   <div class="topbar-right">
     <a class="topbar-btn" href="#qv-global" data-toggle="quickview"><i class="ti-align-right"></i></a>
 
