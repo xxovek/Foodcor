@@ -121,9 +121,10 @@ if(isset($_SESSION['company_id']))
             <!-- <a class="nav-link " href="allSales.php">All Sales</a>
             <a class="nav-link " href="invoices.php">Invoices</a>
               <a class="nav-link " href="purchase.php">Purchase</a> -->
-              <a class="nav-link active" href="#">Purchase Order</a>
-              <a class="nav-link" href="purchaseOrderRecieved.php">Recieved Purchase Orders</a>
-            <!-- <a class="nav-link" href="products.php">Products and Services</a> --> -->
+              <a class="nav-link " href="#">Purchase Order</a>
+              <a class="nav-link active" href="purchaseOrderRecieved.php">Recieved Purchase Orders</a>
+            <!-- <a class="nav-link" href="customers.php">Customers</a>
+            <a class="nav-link" href="products.php">Products and Services</a> -->
           </nav>
         </div>
       </header><!--/.header -->
@@ -226,7 +227,7 @@ if(isset($_SESSION['company_id']))
     <script src="../assets/js/app.min.js"></script>
     <script src="../assets/js/script.min.js"></script>
     <!-- <script src="../js/invoices.js"></script> -->
-  <script src="../js/purchaseorder.js"></script>
+  <script src="../js/purchaseOrderRecieved.js"></script>
     <script src="../js/invoice.js"></script>
 
 
