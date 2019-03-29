@@ -57,7 +57,7 @@ else
     <div class="topbar-divider d-none d-md-block"></div>
   </div>
   <div class="topbar-center">
-  <h2> <strong><?php echo $companyName;?></strong></h2>
+  <h2> <strong><?php echo ucwords($companyName);?></strong></h2>
 </div>
   <div class="topbar-right">
     <a class="topbar-btn" href="#qv-global" data-toggle="quickview"><i class="ti-align-right"></i></a>
