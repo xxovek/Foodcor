@@ -12,7 +12,7 @@ $TransactionType = $_POST['Ttype'];
  LEFT JOIN CompanyMaster CM ON CM.CompanyId = TM.companyId
  LEFT JOIN UserMaster UM ON UM.companyId = TM.companyId
  LEFT JOIN TransactionType TT ON TT.TransactionTypeId =TM.TransactionTypeId
- where TM.personCompanyId = $companyId AND TM.TransactionTypeId = $TransactionType
+ where TM.personCompanyId = $companyId AND TM.TransactionTypeId = $TransactionType AND changeStatusFlag = 0
  GROUP BY TM.TransactionId,TT.TransactionTypeId ORDER BY TM.TransactionId DESC";
 
 $response = [];

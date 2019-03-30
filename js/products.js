@@ -91,8 +91,6 @@ function displayOutStockItems(){
   });
 }
 
-
-
 function displayProducts(){
     $('#tblData tbody').empty();
   var tblData = '';

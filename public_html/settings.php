@@ -85,7 +85,6 @@ display: none;
                   <a class="nav-link" href="#">User Details</a>
                 </li>
                 <li class="nav-item" data-toggle="tab" data-target="#tab3">
-
                   <a class="nav-link" href="#" onclick="displaydocdetails();">Document Details</a>
                 </li>
                 <li class="nav-item" data-toggle="tab" data-target="#tab4" >
@@ -94,7 +93,6 @@ display: none;
               </ul>
             </div>
           </div>
-
           <div class="col-lg-9 tab-content" id="companyinfo">
             <div class="card form-type-material tab-pane fade active show" id="tab1">
             <form  method="post" id="imgtab" enctype="multipart/form-data">
@@ -110,9 +108,7 @@ display: none;
                     <img id="blah"  alt="" />
                   </div>
                     <div class="d-flex flex-column flex-sm-row gap-y gap-items-2 mt-16">
-                      <!-- <div class="file-group file-group-inline"> -->
-                        <!-- <button class="btn btn-sm btn-w-lg btn-bold btn-secondary file-browser" type="button">Change Picture</button>
-                        <input type="file"> -->
+                     
                         <input type='file' name="image" onchange="readURL(this);" required/>
                       <!-- </div> -->
                        <button class="btn btn-w-lg  btn-info" type="submit">Save</button>
@@ -162,7 +158,6 @@ display: none;
                         ?>
                         </select>
                         <span id="setcountry"></span>
-                      <!-- <input class="form-control" type="text" id="ccountry" name="ccountry" placeholder="Country" required> -->
                     </div>
                   </div>
                 </div>
@@ -184,7 +179,7 @@ display: none;
                 <div class="col-md-6">
                 <div class="form-group">
                   <input class="form-control" type="text" id="czip" data-provide="tooltip" data-placement="top" title="Company PIN code Example:411007"  name="czip" minlength="6" maxlength="6"  autocomplete="off" onkeypress="return isNumberKey(event)"  placeholder="Zipcode" required>
-                  <!-- <label>Address</label> -->
+               
                 </div>
               </div>
               </div>
@@ -193,7 +188,6 @@ display: none;
                     <label><i class="ti-check"></i></label>
                     Save Changes
                   </button>
-                <!-- <button class="btn btn-flat btn-primary" type="submit">Save Changes</button> -->
               </footer>
             </form>
           </div>
@@ -230,11 +224,7 @@ display: none;
                       <!-- <label>Last name</label> -->
                     </div>
                   </div>
-                <!-- <div class="col-md-6">
-                  <div class="form-group">
-                    <input class="form-control" type="password"   pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" id="upwd" name="upwd" data-provide="tooltip" data-placement="top" autocomplete="off" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"  placeholder="Password" required>
-                  </div>
-              </div> -->
+                
             </div>
               <div class="row">
                 <div class="col-md-6">

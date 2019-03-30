@@ -120,8 +120,8 @@ if(isset($_SESSION['company_id']))
           <nav class="nav">
             <!-- <a class="nav-link " href="allSales.php">All Sales</a>
             <a class="nav-link " href="invoices.php">Invoices</a> -->
-              <a class="nav-link active" href="#">Purchase</a>
-              <a class="nav-link" href="acceptedPurchaseOrders.php">Accepted Purchase Orders</a>
+              <a class="nav-link" href="purchase.php">Purchase</a>
+              <a class="nav-link active" href="#">Accepted Purchase Orders</a>
                 <!-- <a class="nav-link" href="purchaseorder.php">Purchase Order</a>
             <a class="nav-link" href="customers.php">Customers</a>
             <a class="nav-link" href="products.php">Products and Services</a> -->
@@ -263,10 +263,10 @@ if(isset($_SESSION['company_id']))
     <script src="../assets/js/core.min.js"></script>
     <script src="../assets/js/app.min.js"></script>
     <script src="../assets/js/script.min.js"></script>
-    <!-- <script src="../js/invoices.js"></script> -->
-  <!-- <script src="../js/purchase.js"></script> -->
+    <script src="../js/invoices.js"></script>
+  <script src="../js/purchase.js"></script>
   <script src="../js/invoice.js"></script>
-  <script src="../js/PurchaseForCustomers.js"></script>
+  <!-- <script src="../js/PurchaseForCustomers.js"></script> -->
 
     <script src="../datatables/jquery.dataTables.min.js"></script>
     <script src="../datatables/dataTables.bootstrap4.min.js"></script>
