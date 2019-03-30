@@ -6,7 +6,6 @@ $response = [];
 $method = $_SERVER['REQUEST_METHOD'];
 if($method == "PUT"){
   parse_str(file_get_contents("php://input"), $_PUT);
-//   $ItemId              = $_PUT['ItemId'];
   $ItemName     = mysqli_real_escape_string($con,$_PUT['ItemName']);
   $packingQty          = $_PUT['ItemSizeQty'];
   $ItemQty             = $_PUT['ItemQuantity'];
@@ -14,10 +13,6 @@ if($method == "PUT"){
   $totalQty            =  $packingQty * $ItemQty;
   $ItemDetailId = $_PUT['ItemDetailId'];
 
-  // $qty = $ItemQty;
-  // $sql_qty_chk = "SELECT IF(Quantity <> $qty, $qty = Quantity + $qty , $qty = $ItemQty ) From ProductStock 
-  // WHERE itemdetailId = '$ItemDetailId' AND companyId = $companyId;";
-  // mysqli_query($con,$sql_qty_chk);
 
 $sql = "UPDATE ProductStock
 SET ReorderLabel = $ItemReorderLabel 
