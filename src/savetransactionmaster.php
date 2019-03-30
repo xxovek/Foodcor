@@ -80,7 +80,7 @@ session_start();
   $financialyear = Date('Y');
   $type= "Created";
   if($formtype==="U"){
-      $type= "Updated";
+      $type= "Inserted";
 
      $getitem ="SELECT IDM.ItemId, TD.itemDetailId,TD.qty,TM.TransactionId,TM.TransactionNumber FROM TransactionDetails TD
                 LEFT JOIN TransactionMaster TM ON TM.TransactionId = TD.TransactionId
@@ -93,21 +93,26 @@ session_start();
               $itemidno = $row['ItemId'];
               $itemdetailid =$row['itemDetailId'];
               $quantityval = $row['qty'];
-                // if($formid==1){
-                //   $sqlup ="UPDATE ProductStock SET ProductStock.Quantity=ProductStock.Quantity+$quantityval WHERE ProductStock.itemDetailId=$itemdetailid and ProductStock.companyId=$companyId";
-                //   //$sqlup = "UPDATE ItemDetailMaster SET Quantity = Quantity + $quantityval where ItemId=$itemidno";
-                //   // $sqlup = "UPDATE ItemDetailMaster SET ItemDetailMaster.Quantity = ItemDetailMaster.Quantity -$qty where ItemDetailMaster.itemDetailId=$itemdetailid";
-                //   mysqli_query($con,$sqlup);
-                // }
-                // if($formid==2)
-                // {
-                //   $sqlup ="UPDATE ProductStock SET ProductStock.Quantity=ProductStock.Quantity-$quantityval WHERE ProductStock.itemDetailId=$itemdetailid and ProductStock.companyId=$companyId";
-                //   //$sqlup = "UPDATE ItemDetailMaster SET Quantity = Quantity - $quantityval where ItemId=$itemidno";
-                //   // $sqlup = "UPDATE ItemDetailMaster SET ItemDetailMaster.Quantity = ItemDetailMaster.Quantity +$qty where ItemDetailMaster.itemDetailId=$itemdetailid";
-                //   mysqli_query($con,$sqlup);
-                // }
+                if($formid==1){
+                  // $sqlup ="UPDATE ProductStock SET ProductStock.Quantity=ProductStock.Quantity+$quantityval WHERE ProductStock.itemDetailId=$itemdetailid and ProductStock.companyId=$companyId";
+                  $sqlup ="UPDATE ProductStock SET ProductStock.Quantity=ProductStock.Quantity-$quantityval WHERE ProductStock.itemDetailId=$itemdetailid and ProductStock.companyId=$companyId";
+                  // echo $sqlup;
+                  //$sqlup = "UPDATE ItemDetailMaster SET Quantity = Quantity + $quantityval where ItemId=$itemidno";
+                  // $sqlup = "UPDATE ItemDetailMaster SET ItemDetailMaster.Quantity = ItemDetailMaster.Quantity -$qty where ItemDetailMaster.itemDetailId=$itemdetailid";
+                  mysqli_query($con,$sqlup);
+                }
+                if($formid==2)
+                {
+                  // $sqlup ="UPDATE ProductStock SET ProductStock.Quantity=ProductStock.Quantity-$quantityval WHERE ProductStock.itemDetailId=$itemdetailid and ProductStock.companyId=$companyId";
+                  $sqlup ="UPDATE ProductStock SET ProductStock.Quantity=ProductStock.Quantity+$quantityval WHERE ProductStock.itemDetailId=$itemdetailid and ProductStock.companyId=$companyId";
+                  //$sqlup = "UPDATE ItemDetailMaster SET Quantity = Quantity - $quantityval where ItemId=$itemidno";
+                  // $sqlup = "UPDATE ItemDetailMaster SET ItemDetailMaster.Quantity = ItemDetailMaster.Quantity +$qty where ItemDetailMaster.itemDetailId=$itemdetailid";
+                  mysqli_query($con,$sqlup);
+                }
             }
      }
+     $updtrans = "UPDATE TransactionMaster SET changeStatusFlag=1 where TransactionId=$htransactionid";
+     mysqli_query($con,$updtrans);
      //$deltrans = "DELETE FROM TransactionMaster WHERE TransactionId=$htransactionid";
      // echo $deltrans."</br>";
      //mysqli_query($con,$deltrans);

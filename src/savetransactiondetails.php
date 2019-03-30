@@ -56,6 +56,23 @@ $companyId = $_SESSION['company_id'];
       $item_id = mysqli_insert_id($con);
     $response['msg'] = 'Inserted';
     $response['ItemDetailId'] =  $item_id;
+      if($formtype==="U"){
+        if($formid==1){
+          $sqlup ="UPDATE ProductStock SET  ProductStock.Quantity=$remqty,ProductStock.TotalQty=ProductStock.TotalQty-$totalqty WHERE ProductStock.itemDetailId=$itemdetailid and ProductStock.companyId=$companyId";
+          // $sqlup = "UPDATE ItemDetailMaster SET ItemDetailMaster.Quantity = ItemDetailMaster.Quantity -$remqty ,ItemDetailMaster.totalqty=ItemDetailMaster.totalqty-$totalqty where ItemDetailMaster.itemDetailId=$itemdetailid";
+          // echo $sqlup;
+          mysqli_query($con,$sqlup);
+        }
+        if($formid==2)
+        {
+          $sqlup ="UPDATE ProductStock SET  ProductStock.Quantity=$remqty,ProductStock.TotalQty=ProductStock.TotalQty+$totalqty WHERE ProductStock.itemDetailId=$itemdetailid and ProductStock.companyId=$companyId";
+          // $sqlup = "UPDATE ItemDetailMaster SET ItemDetailMaster.Quantity = ItemDetailMaster.Quantity +$remqty ,ItemDetailMaster.totalqty=ItemDetailMaster.totalqty+$totalqty where ItemDetailMaster.itemDetailId=$itemdetailid";
+          mysqli_query($con,$sqlup);
+        }
+      }
+      else{
+
+
     if($formid==1){
       $sqlup ="UPDATE ProductStock SET ProductStock.Quantity=ProductStock.Quantity-$remqty,ProductStock.TotalQty=ProductStock.TotalQty-$totalqty WHERE ProductStock.itemDetailId=$itemdetailid and ProductStock.companyId=$companyId";
       // $sqlup = "UPDATE ItemDetailMaster SET ItemDetailMaster.Quantity = ItemDetailMaster.Quantity -$remqty ,ItemDetailMaster.totalqty=ItemDetailMaster.totalqty-$totalqty where ItemDetailMaster.itemDetailId=$itemdetailid";
@@ -68,6 +85,7 @@ $companyId = $_SESSION['company_id'];
       // $sqlup = "UPDATE ItemDetailMaster SET ItemDetailMaster.Quantity = ItemDetailMaster.Quantity +$remqty ,ItemDetailMaster.totalqty=ItemDetailMaster.totalqty+$totalqty where ItemDetailMaster.itemDetailId=$itemdetailid";
       mysqli_query($con,$sqlup);
     }
+  }
 
   }else {
     $response['msg'] = 'Server Error Please Try again';
