@@ -3,7 +3,7 @@ include '../config/connection.php';
 session_start();
 $companyId = $_SESSION['company_id'];
 
-$sql = "SELECT TaxId, TaxType, TaxPercent, TaxName, TaxDescription FROM TaxMaster WHERE companyId = $companyId";
+$sql = "SELECT TaxId, TaxType, TaxPercent, TaxName, TaxDescription FROM TaxMaster";
 // echo $sql;
 $response = [];
 if($result = mysqli_query($con,$sql)){

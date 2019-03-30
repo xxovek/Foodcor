@@ -9,7 +9,6 @@ $.ajax({
   url:'../src/fetchAccounting.php',
   dataType:'json',
   success:function(response){
-    // alert(response)
     var count = Object.keys(response).length;
       if(count > 0){
         for(var i=0;i<count;i++){
