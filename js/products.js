@@ -225,7 +225,6 @@ function editProducts(productId){
         // $('#ItemReorderLabel').focus();
         // document.getElementById("ItemQuantity").select();
         // document.getElementById("ItemReorderLabel").select();
-
       }
 
     }
