@@ -1,4 +1,5 @@
 function cal_bal(param1) {
+  alert(param1);
   var param= moment(new Date(param1)).format("YYYY-MM-DD");
   var item=$("#item").val();
   $.ajax({
@@ -53,8 +54,6 @@ function displayStockLedger(){
             data:{fromDate:fromDate,toDate:toDate,item:iname,Obal:Obal[2]},
             success:function(response){
               var count = Object.keys(response).length;
-            //  alert(response.msg);
-              // alert(response);
               if(response.msg === undefined){
                  $('#allSalesTbldiv').show();
                  $('#noDataDiv').hide();
