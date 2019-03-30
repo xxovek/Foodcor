@@ -239,7 +239,7 @@ display: none;
               <div class="row">
                 <div class="col-md-6">
                 <div class="form-group">
-                  <input class="form-control" type="email" id="uemail" data-provide="tooltip" data-placement="bottom" title="User's EmailId Example:johndoe@gmail.com"  name="uemail" autocomplete="off" placeholder="Email" required>
+                  <input class="form-control" type="email" id="uemail" data-provide="tooltip" data-placement="bottom" title="User's EmailId Example:johndoe@gmail.com"  name="uemail" autocomplete="off" placeholder="Email" required readonly>
                   <!-- <label>Email</label> -->
                 </div>
               </div>

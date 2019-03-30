@@ -8,7 +8,7 @@ if($method == "DELETE")
 {
 parse_str(file_get_contents("php://input"), $_DELETE);
 $ItemId = $_DELETE['TaxId'];
-$sql = "DELETE FROM TaxMaster WHERE TaxId = $ItemId and companyId = $companyId";
+$sql = "DELETE FROM TaxMaster WHERE TaxId = $ItemId";
 // echo $sql;
 
 if(mysqli_query($con,$sql)){

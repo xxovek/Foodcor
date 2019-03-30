@@ -7,8 +7,7 @@ $sql = "SELECT SCM.SchemeId,SCM.schemeType,SCM.FromDate,SCM.UptoDate,SCM.OnPurch
 IDM.itemDetailId,IM.ItemName,SM.SizeValue,IM.Unit FROM SchemeMaster SCM 
 LEFT JOIN  ItemDetailMaster IDM ON SCM.ItemDetailId = IDM.itemDetailId
 LEFT JOIN ItemMaster IM ON IM.ItemId = IDM.ItemId
- LEFT JOIN SizeMaster SM ON SM.SizeId = IDM.sizeId  
- WHERE SCM.companyId = $companyId";
+LEFT JOIN SizeMaster SM ON SM.SizeId = IDM.sizeId";
 
 $response = [];
 if($result = mysqli_query($con,$sql)){

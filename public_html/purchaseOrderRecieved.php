@@ -121,8 +121,8 @@ if(isset($_SESSION['company_id']))
             <!-- <a class="nav-link " href="allSales.php">All Sales</a>
             <a class="nav-link " href="invoices.php">Invoices</a>
               <a class="nav-link " href="purchase.php">Purchase</a> -->
-              <a class="nav-link " href="#">Purchase Order</a>
-              <a class="nav-link active" href="purchaseOrderRecieved.php">Recieved Purchase Orders</a>
+              <a class="nav-link " href="purchaseorder.php">Purchase Order</a>
+              <a class="nav-link active" href="#">Recieved Purchase Orders</a>
             <!-- <a class="nav-link" href="customers.php">Customers</a>
             <a class="nav-link" href="products.php">Products and Services</a> -->
           </nav>
@@ -173,14 +173,7 @@ if(isset($_SESSION['company_id']))
 
         </div>
 
-        <!-- <button type="button" class="btn btn-float btn-sm btn-primary" data-toggle="modal" data-target="#modal-invoice">
-          <i class="ti-plus"></i>
-        </button> -->
-      </div><!--/.main-content -->
-      <!-- <div class="fab fab-fixed">
-        <a class="btn btn-float btn-primary" data-target="#modal-invoice" title="New Invoice" data-provide="tooltip" data-formid="2" data-formtype="U" data-transactionid="7"  data-toggle="modal"><i class="ti-plus"></i></a>
-      </div> -->
-
+      </div>
       <!-- Footer -->
       <footer class="site-footer">
         <div class="row">

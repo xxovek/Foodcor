@@ -3,7 +3,6 @@ include '../config/connection.php';
  session_start();
 $companyId = $_SESSION['company_id'];
 $method = $_SERVER['REQUEST_METHOD'];
-// echo $method;
 
 $response =[];
 if($method === "POST"){
