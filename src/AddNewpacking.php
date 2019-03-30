@@ -6,7 +6,7 @@ $method = $_SERVER['REQUEST_METHOD'];
 if($method == "POST")
 {
   $PackingTypeName = $_POST['PackingTypeName'];
-  $sql_insert = "INSERT INTO PackingTypeMaster(companyId,PackingType) VALUES($companyId,'$PackingTypeName')";
+  $sql_insert = "INSERT INTO PackingTypeMaster(PackingType) VALUES('$PackingTypeName')";
   if(mysqli_query($con,$sql_insert)){
     $response['msg'] = 'New Packing Type '.$PackingTypeName.' Added Successfully';
   }else {

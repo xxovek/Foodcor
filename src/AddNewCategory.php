@@ -6,7 +6,7 @@ $method = $_SERVER['REQUEST_METHOD'];
 if($method == "POST")
 {
   $CategoryName = $_POST['CategoryName'];
-  $sql_insert = "INSERT INTO CategoryMaster(companyId,CategoryName) VALUES($companyId,'$CategoryName')";
+  $sql_insert = "INSERT INTO CategoryMaster(CategoryName) VALUES('$CategoryName')";
   if(mysqli_query($con,$sql_insert)){
     $response['msg'] = $CategoryName.' Category Added Successfully';
   }else {
