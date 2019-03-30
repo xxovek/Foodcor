@@ -17,8 +17,9 @@
                                         <label class="require">Product/Service Name</label>
                                         <select data-live-search="true" class="form-control form-control-sm" data-provide="selectpicker" id="item" name="item" title="Please select a item ..." required>
                                             <?php
-          $sql ="SELECT IDM.`itemDetailId`,IM.ItemName,SM.SizeValue,IM.Unit FROM ItemDetailMaster IDM
-          LEFT JOIN ItemMaster IM ON IM.ItemId = IDM.ItemId LEFT JOIN SizeMaster SM ON SM.SizeId = IDM.sizeId WHERE IM.companyId =$companyId";
+          $sql ="SELECT IDM.`itemDetailId`,IM.ItemName,SM.SizeValue,IM.Unit FROM ProductStock PS LEFT JOIN ItemDetailMaster IDM ON IDM.itemDetailId = PS.itemdetailId
+          LEFT JOIN ItemMaster IM ON IM.ItemId = IDM.ItemId LEFT JOIN SizeMaster SM ON SM.SizeId = IDM.sizeId
+          WHERE PS.companyId = $companyId";
              if($result = mysqli_query($con,$sql))
                {
                  if(mysqli_num_rows($result)>0)

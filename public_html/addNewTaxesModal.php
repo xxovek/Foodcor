@@ -40,54 +40,18 @@
     </div>
 
 
-    <!-- <div class="h-30px"></div> -->
-<!-- <div class="row"> -->
-<!-- <div class="col-sm-4">
-<div class="form-group">
-
-    <input type="checkbox" onclick="fun();" id="check1"  value=""> Percent(%)
-  </div>
-  <div class="invalid-feedback"></div>
-</div>
-<div class="h-30px"></div>
-<br>
-<div class="col-sm-4">
-<div class="form-group">
-
-  <input type="checkbox" onclick="fun();" id="check1"  value="">  Non Percent
-</div>
-<div class="invalid-feedback"></div> -->
-<!-- </div> -->
-
-
 <div class="row">
 
 </div>
 
 <div class="form-group" id="TaxValueInputDiv">
-<!-- <div class="flexbox">
-<label class="custom-control custom-checkbox">
-  <input  type="checkbox" class="custom-control-input require" tabindex="4" checked>
-  <span class="custom-control-indicator"></span>
-  <span class="custom-control-description">Percent(%)</span>
-</label>
 
-</div> -->
 
   <label class="require" for="TaxPercent">Tax(%)</label>
 <input type="text"  onkeypress="return isNumberKey1(event);"  class="form-control form-control-sm require" id="TaxPercent" tabindex="5" name="TaxPercent" data-placement="left" data-provide="tooltip" title="Enter Tax value in %" required autocomplete="off">
 <div class="invalidTaxValue"></div>
 </div>
 
-<!-- <div class="h-30px"></div> -->
-<!--
-<div class="flexbox">
-  <label class="custom-control custom-checkbox">
-    <input type="checkbox" class="custom-control-input" >
-    <span class="custom-control-indicator"></span>
-    <span class="custom-control-description">Percent(%)</span>
-  </label>
-</div> -->
 
 
         <div class="h-30px"></div>
@@ -108,6 +72,4 @@
   </div>
   </div>
 </div>
-
-<!-- <script type="text/javascript" src="../js/TaxModal.js"></script> -->
 <script type="text/javascript" src="../js/validations.js"></script>

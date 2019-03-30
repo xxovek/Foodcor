@@ -110,8 +110,16 @@ if($method == "PUT")
   $sql_update = "UPDATE ItemMaster SET ItemName = '$ItemName',SKU = '$ItemSKU',HSN = '$ItemHSN',Unit = '$ItemUnit',
   CategoryId = $ItemCategory,Description = '$ItemDescription' WHERE ItemId = $ItemId";
 
-  $sql_update_item = "UPDATE ItemDetailMaster SET totalqty= $totalQty ,SizeId = $ItemSizeId,PackingTypeId= $PackingTypeId,PackingQty=$packingQty,
-   SubPacking=$packingSubQty,Quantity = $ItemQty,ReorderLabel = $ItemReorderLabel WHERE ItemId = $ItemId";
+  $sql_update_item = "UPDATE ItemDetailMaster SET SizeId = $ItemSizeId,
+  PackingTypeId= $PackingTypeId,PackingQty=$packingQty,
+   SubPacking=$packingSubQty WHERE ItemId = $ItemId";
+  
+  $sql_update_stock = "UPDATE ProductStock SET ReorderLabel = $ItemReorderLabel 
+  WHERE itemdetailId = '$ItemDetailId' AND companyId = $companyId";
+
+  $update_only_qty_stock = "UPDATE ProductStock SET Quantity = Quantity + $ItemQty,
+  TotalQty =  $totalQty
+  WHERE Quantity <> $ItemQty AND itemdetailId = '$ItemDetailId' AND companyId = $companyId";
 
   $sql_update_price = "UPDATE ItemPrice SET price = '$ItemPrice' WHERE ItemDetailId = $ItemDetailId";
 
@@ -120,6 +128,8 @@ if($method == "PUT")
   $sql_update_supplier = "UPDATE SuplierItem SET PersonId = $SupplierId where ItemId = $ItemId";
   if(mysqli_query($con,$sql_update) or die(mysqli_error($con))){
     mysqli_query($con,$sql_update_item) or die(mysqli_error($con));
+    mysqli_query($con,$sql_update_stock) or die(mysqli_error($con));
+    mysqli_query($con,$update_only_qty_stock) or die(mysqli_error($con));
     mysqli_query($con,$sql_update_price) or die(mysqli_error($con));
     mysqli_query($con,$sql_update_tax) or die(mysqli_error($con));
     mysqli_query($con,$sql_update_supplier) or die(mysqli_error($con));

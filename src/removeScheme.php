@@ -8,8 +8,7 @@ if($method == "DELETE")
 {
 parse_str(file_get_contents("php://input"), $_DELETE);
 $sId = $_DELETE['sId'];
-$sql = "DELETE FROM SchemeMaster WHERE SchemeId = $sId and companyId = $companyId";
-// echo $sql;
+$sql = "DELETE FROM SchemeMaster WHERE SchemeId = $sId";
 
 if(mysqli_query($con,$sql)){
   $response['msg'] = 'Scheme Removed Successfully';

@@ -6,7 +6,7 @@ $method = $_SERVER['REQUEST_METHOD'];
 if($method == "POST")
 {
   $UnitName = $_POST['UnitName'];
-  $sql_insert = "INSERT INTO UnitMaster(companyId,UnitType) VALUES($companyId,'$UnitName')";
+  $sql_insert = "INSERT INTO UnitMaster(UnitType) VALUES('$UnitName')";
   if(mysqli_query($con,$sql_insert)){
     $response['msg'] = $UnitName.' New Unit Added Successfully';
   }else {

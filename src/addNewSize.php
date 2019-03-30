@@ -6,7 +6,7 @@ $method = $_SERVER['REQUEST_METHOD'];
 if($method == "POST")
 {
   $SizeValue = $_POST['SizeValue'];
-  $sql_insert = "INSERT INTO SizeMaster(companyId,SizeValue) VALUES($companyId,'$SizeValue')";
+  $sql_insert = "INSERT INTO SizeMaster(SizeValue) VALUES('$SizeValue')";
   if(mysqli_query($con,$sql_insert)){
     $response['msg'] = 'New Size Value-'.$SizeValue.' added successfully';
   }else {

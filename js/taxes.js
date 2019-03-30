@@ -37,7 +37,6 @@ $.ajax({
 }
 
 function removeTaxes(TaxId){
-// alert(TaxId);
 var r = confirm('Are You sure To Remove This Tax Parmanetly');
 if(r === true){
   $.ajax({
@@ -66,8 +65,6 @@ $("#goback").on('click',function(){
 });
 
 function editTaxes(TaxId,TaxName,TaxType,TaxPercent,TaxDescription){
-// alert(TaxDescription);
-
    $('#newTaxesFormBtn').click();
     document.getElementById('NewTaxForm').reset();
     $('#TaxId').val(TaxId);
@@ -90,7 +87,6 @@ $('#TaxPercent').on('keyup',function(){
   $('.invalidTaxValue').html('');
 });
 function SaveTaxes(){
-  // alert("insaveTax");
    var i=0,serverMethod="POST";
   var TaxId = document.getElementById('TaxId').value;
  var TaxName  = document.getElementById('TaxName').value;
@@ -98,9 +94,6 @@ function SaveTaxes(){
  var TaxDescription  = document.getElementById('TaxDescription').value;
  var TaxType  = document.getElementById('TaxType').value;
  var TaxPercent  = document.getElementById('TaxPercent').value;
- // if(TaxId != ""){
-          // serverMethod = "POST";
-        // }
  if(TaxName === ""){
 
              $('#TaxName').focus();
@@ -149,93 +142,3 @@ if(i === 0){
  })
 }
 }
-
-
-
-
-//
-// function SaveItems(){
-//         // e.preventDefault();
-//         var i=0,serverMethod="POST";
-//         var ItemName         = document.getElementById('ItemName').value;
-//                     ItemName = ItemName.trim();
-//         var ItemSKU          = document.getElementById('ItemSKU').value;
-//         var ItemHSN          = document.getElementById('ItemHSN').value;
-//         var ItemUnit         = document.getElementById('ItemUnit').value;
-//         var ItemCategory     = document.getElementById('ItemCategory').value;;
-//         var ItemQuantity     = document.getElementById('ItemQuantity').value;
-//         var ItemReorderLabel = document.getElementById('ItemReorderLabel').value;
-//         var ItemSize         = document.getElementById('ItemSize').value;
-//         var ItemSizeQty      = document.getElementById('ItemSizeQty').value;
-//         var ItemSizeSubQty      = document.getElementById('ItemSizeSubQty').value;
-//         var PackingTypeId    = document.getElementById('PackingTypeId').value;
-//         var ItemTax          = document.getElementById('ItemTax').value;
-//         var ItemPrice        = document.getElementById('ItemPrice').value;
-//         var ItemDescription  = document.getElementById('ItemDescription').value;
-//         var SupplierId       = document.getElementById('SupplierId').value;
-//         var ItemId           = document.getElementById('ItemId').value;
-//         var ItemDetailId     = document.getElementById('ItemDetailId').value;
-//         if(ItemId != ""){
-//           serverMethod = 'PUT';
-//         }
-//         if(ItemName == ""){
-//
-//             $('#ItemName').focus();
-//             $('.invalidfeedback').html('<font color="#f96868">Product/Service Name is Required</font>');
-//             i=1;
-//         }
-//         if(ItemQuantity == ""){
-//             $('#ItemQuantity').focus();
-//             $('.invalidfeedback1').html('<font color="#f96868">Initial Quantity on hand is required</font>');
-//             i=1;
-//         }
-//         if(ItemUnit == ""){
-//
-//             $('#ItemUnit').focus();
-//             $('.invalidfeedback3').html('<font color="#f96868">Unit Value is Required</font>');
-//             i=1;
-//         }
-//         if(ItemSize == ""){
-//
-//             $('#ItemSize').focus();
-//             $('.invalidfeedback4').html('<font color="#f96868">Size Value is Required</font>');
-//             i=1;
-//         }
-//       if(i==0){
-//           $.ajax({
-//             url:'../src/AddItemDetails.php',
-//             type:serverMethod,
-//             data:({
-//               ItemName:ItemName,
-//               ItemSKU:ItemSKU,
-//               ItemHSN:ItemHSN,
-//               ItemUnit:ItemUnit,
-//               ItemCategory:ItemCategory,
-//               ItemReorderLabel:ItemReorderLabel,
-//               ItemSize:ItemSize,
-//               ItemSizeQty:ItemSizeQty,
-//               ItemSizeSubQty:ItemSizeSubQty,
-//               ItemTax:ItemTax,
-//               ItemPrice:ItemPrice,
-//               ItemDescription:ItemDescription,
-//               PackingTypeId:PackingTypeId,
-//               ItemQuantity:ItemQuantity,ItemId:ItemId,
-//               ItemDetailId:ItemDetailId,SupplierId:SupplierId
-//             }),
-//             dataType:'json',
-//             success:function(response){
-//               $('#goback').click();
-//               app.toast(response.msg, {
-//                 actionTitle: 'Success',
-//                 // actionUrl: 'something',
-//                 actionColor: 'success',
-//                 duration: 4000
-//               });
-//               displayProducts();
-//             },
-//             complete:function(){
-//               document.getElementById('ItemForm').reset();
-//             }
-//           })
-//       }
-//   }

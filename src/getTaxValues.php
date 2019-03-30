@@ -5,7 +5,7 @@ $companyId = $_SESSION['company_id'];
 ?>
 <option data-icon="fa fa-edit" data-toggle="modal" data-target="#TaxModal" style="background: #5cb85c;font-weight:bold;  padding: 5px" value="Tax"> Add New </option>
 <?php
-$sql = "SELECT TaxId,concat(TaxType,'(',TaxPercent,'%)') as tax FROM TaxMaster WHERE companyId = $companyId";
+$sql = "SELECT TaxId,concat(TaxType,'(',TaxPercent,'%)') as tax FROM TaxMaster ";
     if($result = mysqli_query($con,$sql) )
     {
       if(mysqli_num_rows($result)>0)

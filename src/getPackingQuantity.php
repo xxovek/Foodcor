@@ -5,7 +5,7 @@ $companyId = $_SESSION['company_id'];
 ?>
 <option data-icon="fa fa-edit" data-toggle="modal" data-target="#PackingType" style="background: #5cb85c;font-weight:bold;  padding: 5px" value="Packing"> Add New </option>
 <?php
-    if($result = mysqli_query($con,"SELECT DISTINCT(PackingType),PackingId From PackingTypeMaster where companyId = $companyId"))
+    if($result = mysqli_query($con,"SELECT DISTINCT(PackingType),PackingId From PackingTypeMaster"))
     {
       if(mysqli_num_rows($result)>0)
       {

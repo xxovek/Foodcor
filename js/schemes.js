@@ -9,9 +9,7 @@ $("#schemes").on("submit",function(e){
   var item=$("#item").val();
   var onpurchase=$("#onpurchase").val();
   var freeqty=$("#freeqty").val();
-  // alert(sId+scheme+from+upto+item+onpurchase+freeqty);
   e.preventDefault();
-
   $.ajax({
             url:"../src/schemes.php",
             method:"POST",
@@ -30,14 +28,10 @@ $("#schemes").on("submit",function(e){
               $("#item").val("");
               $("#onpurchase").val("");
               $("#freeqty").val("");
-             // window.location.reload();
+            
             }
     });
 });
-// function openScheme() {
-// $("#schemeTable").hide();
-// $("#newschemes").show();
-// }
 
 function displaySchemes(){
   $('#tblData tbody').empty();
@@ -77,8 +71,6 @@ $.ajax({
 }
 function editSchemes(sId,sName,from,upto,Item,onpurchase,qty){
   $('#newSchemeBtn').click();
-// $("#schemeTable").hide();
-// $("#newschemes").show();
 $("#item").val(Item).trigger('change');
 $("#scheme").val(sName);
 $("#fromDate").val(from);
@@ -88,7 +80,6 @@ $("#freeqty").val(qty);
 $("#sid").val(sId);
 }
 function removeSchemes(sId){
-// alert(TaxId);
 var r = confirm('Are You sure To Remove This Tax Parmanetly');
 if(r === true){
   $.ajax({
@@ -107,6 +98,4 @@ if(r === true){
     }
   });
 }
-
-
 }
