@@ -13,7 +13,7 @@ function DisplayInvoiceTblData(){
                   var btnData = '';
                   var status = isPersonExists(response[i].emailId);
                     if(status==1){
-                        btnData = '</td><td><button class="btn-link" type="button">accept</button></td></tr>';
+                        btnData = '</td><td><a class="dropdown-item" href="#modal-invoice"  data-formid="2" data-formtype="U" data-transactionid="'+response[i].TId+'"  data-toggle="modal">Accept</a></td></tr>';
                     }else{
                         btnData = '</td><td><button class="btn-link" type="button" onclick="AddSupplier('+response[i].companyId+',\'' + response[i].emailId + '\')">Add As Supplier</button></td></tr>';
                     }
@@ -59,7 +59,7 @@ function isPersonExists(EmailId){
                 sta1 = response.msg;
             }else{
                 sta1 = response.msg;
-            }  
+            }
         }
     })
 return sta1;
@@ -72,7 +72,7 @@ function AddSupplier(companyId,EmailId){
         data:{EmailId:EmailId,companyId:companyId},
         dataType:'json',
         success:function(response){
-           alert(response); 
+           alert(response);
         }
     })
 }
@@ -98,12 +98,11 @@ function DeleteInvoice(TransactionId){
                 });
       }
     }
-    
+
     function PrintInvoice(TransactionId){
       window.location.href="invoicePdf.php?tid="+TransactionId;
     }
-    
+
     function EditInvoice(TransactionId){
       window.location.href="invoicePdfView.php?tid="+TransactionId;
     }
-    
