@@ -220,133 +220,17 @@ function editProducts(productId){
         $('#ItemPrice').prop('disabled', true);
         $('#ItemDescription').prop('disabled',true);
         $('#SupplierId').prop('disabled', true);
+
+        $('#ItemQuantity').focus();
+        // $('#ItemReorderLabel').focus();
+        // document.getElementById("ItemQuantity").select();
+        // document.getElementById("ItemReorderLabel").select();
+
       }
 
     }
   });
-// debugger;
 }
-
-// function editProducts(productId){
-//     document.getElementById('ItemForm').reset();
-   
-//   var FunRetVal = CheckUserRole();
-//           if(FunRetVal){
-//             alert(FunRetVal);
-//             $.ajax({
-//               type:'GET',
-//               url:'../src/fetchProductForUpdate.php',
-//               data:{productId:productId},
-//               dataType:'json',
-//               success:function(response){
-
-//                 $('#ItemId').val(response.ItemId);
-//                 $('#ItemDetailId').val(response.itemDetailId);
-//                 document.getElementById('ItemName').value = response.ItemName;
-//                 $('#ItemName').removeAttr('disabled', 'disabled');
-//                 // document.getElementById('ItemName')
-//                 document.getElementById('ItemSKU').value = response.SKU;
-//                 $('#ItemSKU').removeAttr('disabled', 'disabled');
-//                 document.getElementById('ItemHSN').value = response.HSN;
-//                 $('#ItemHSN').removeAttr('disabled', 'disabled');
-
-//                 $('#ItemUnit').val(response.Unit).trigger('change');
-//                 $('#ItemUnit').removeAttr('disabled', 'disabled');
-
-//                 $('#ItemCategory').val(response.CategoryId).trigger('change');
-//                 $('#ItemCategory').removeAttr('disabled', 'disabled');
-
-
-//                 document.getElementById('ItemQuantity').value = response.Quantity;
-//                 document.getElementById('ItemReorderLabel').value = response.ReorderLabel;
-//                 document.getElementById('ItemSize').value = response.sizeId;
-              
-//                 $('#ItemSize').val(response.sizeId).trigger('change').removeAttr('disabled', 'disabled');
-                
-//                 document.getElementById('ItemSizeQty').value = response.PackingQty;
-//                 $('#ItemSizeQty').removeAttr('disabled', 'disabled');
-
-//                 document.getElementById('ItemSizeSubQty').value = response.SubPacking;
-//                 $('#ItemSizeSubQty').removeAttr('disabled', 'disabled');
-
-//                 $('#PackingTypeId').val(response.PackingTypeId).trigger('change');
-//                 $('#PackingTypeId').removeAttr('disabled', 'disabled');
-                
-//                 $('#ItemTax').val(response.TaxId).trigger('change');
-//                 $('#ItemTax').removeAttr('disabled', 'disabled');
-//                 document.getElementById('ItemPrice').value = response.price;
-//                 $('#ItemPrice').removeAttr('disabled', 'disabled');
-//                 document.getElementById('ItemDescription').value = response.Description;
-//                 $('#ItemDescription').removeAttr('disabled', 'disabled');
-
-//                 // document.getElementById('SupplierId').value = response.SupplierName;
-//                 $('#SupplierId').val(response.SupplierName).trigger('change');
-//                 $('#SupplierId').removeAttr('disabled', 'disabled');
-//                 $('#newproduct').click();
-                
-//               },
-//             });
-
-//           }else{ 
-//             alert(FunRetVal);
-
-//             $.ajax({
-//               type:'GET',
-//               url:'../src/fetchProductForUpdate.php',
-//               data:{productId:productId},
-//               dataType:'json',
-//               success:function(response){
-//                 $('#ItemId').val(response.ItemId);
-//                 $('#ItemDetailId').val(response.itemDetailId);
-//                 document.getElementById('ItemName').value = response.ItemName;
-//                 $('#ItemName').attr('disabled', 'disabled');
-//                 // document.getElementById('ItemName')
-//                 document.getElementById('ItemSKU').value = response.SKU;
-//                 $('#ItemSKU').attr('disabled', 'disabled');
-//                 document.getElementById('ItemHSN').value = response.HSN;
-//                 $('#ItemHSN').attr('disabled', 'disabled');
-
-//                 $('#ItemUnit').val(response.Unit).trigger('change');
-//                 $('#ItemUnit').attr('disabled', 'disabled');
-
-//                 $('#ItemCategory').val(response.CategoryId).trigger('change');
-//                 $('#ItemCategory').attr('disabled', 'disabled');
-
-
-//                 document.getElementById('ItemQuantity').value = response.Quantity;
-//                 document.getElementById('ItemReorderLabel').value = response.ReorderLabel;
-//                 document.getElementById('ItemSize').value = response.sizeId;
-              
-//                 $('#ItemSize').val(response.sizeId).trigger('change').attr('disabled', 'disabled');
-                
-//                 document.getElementById('ItemSizeQty').value = response.PackingQty;
-//                 $('#ItemSizeQty').attr('disabled', 'disabled');
-
-//                 document.getElementById('ItemSizeSubQty').value = response.SubPacking;
-//                 $('#ItemSizeSubQty').attr('disabled', 'disabled');
-
-//                 $('#PackingTypeId').val(response.PackingTypeId).trigger('change');
-//                 $('#PackingTypeId').attr('disabled', 'disabled');
-                
-//                 $('#ItemTax').val(response.TaxId).trigger('change');
-//                 $('#ItemTax').attr('disabled', 'disabled');
-//                 document.getElementById('ItemPrice').value = response.price;
-//                 $('#ItemPrice').attr('disabled', 'disabled');
-//                 document.getElementById('ItemDescription').value = response.Description;
-//                 $('#ItemDescription').attr('disabled', 'disabled');
-
-//                 // document.getElementById('SupplierId').value = response.SupplierName;
-//                 $('#SupplierId').val(response.SupplierName).trigger('change');
-//                 $('#SupplierId').attr('disabled', 'disabled');
-
-//                 $('#newproduct').click();
-//               },
-//             });
-
-//           }
-  
-//         }
-    
 
 
 function removeProducts(productId){
