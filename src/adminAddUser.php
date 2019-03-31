@@ -5,10 +5,10 @@ $companyId = $_SESSION['company_id'];
 $person_id= $_SESSION['person_id'];
 
 $response=[];
-$adminuname = $_REQUEST['adminuname'];
-$adminumname = $_REQUEST['adminumname'];
-$adminulname = $_REQUEST['adminulname'];
-$adminuemail = $_REQUEST['adminuemail'];
+$adminuname    = $_REQUEST['adminuname'];
+$adminumname   = $_REQUEST['adminumname'];
+$adminulname   = $_REQUEST['adminulname'];
+$adminuemail   = $_REQUEST['adminuemail'];
 $usercontactno = $_REQUEST['usercontactno'];
 
 if(empty($_REQUEST['adminuserid']))
@@ -17,7 +17,7 @@ $sql_insert_usercontact = "INSERT INTO ContactMaster(contactNumber) VALUES('$use
 mysqli_query($con, $sql_insert_usercontact) or die(mysqli_error($con));
 $contact_id = mysqli_insert_id($con);
 
-$sql_insert_addperson = "INSERT INTO PersonMaster(companyId,personTypeId,FirstName,middleName,lastName) VALUES('$companyId',4,'$adminuname','$adminumname','$adminulname')";
+$sql_insert_addperson = "INSERT INTO PersonMaster(companyId,personTypeId,FirstName,middleName,lastName) VALUES('$companyId',3,'$adminuname','$adminumname','$adminulname')";
 mysqli_query($con, $sql_insert_addperson) or die(mysqli_error($con));
 $person_id = mysqli_insert_id($con);
 
@@ -32,7 +32,7 @@ else
 {
   $newuser = $_REQUEST['adminuserid'];
 $sql_update_adminusers="UPDATE UserMaster um,PersonMaster pm,ContactMaster cm,PersonContact pc SET um.emailId='$adminuemail',pm.FirstName='$adminuname',
-pm.middleName='$adminumname',pm.lastName='$adminulname',cm.contactNumber='$usercontactno' WHERE um.companyId = pm.companyId AND um.PersonId = pm.PersonId AND pm.personTypeId =4 AND
+pm.middleName='$adminumname',pm.lastName='$adminulname',cm.contactNumber='$usercontactno' WHERE um.companyId = pm.companyId AND um.PersonId = pm.PersonId AND pm.personTypeId =3 AND
 pm.PersonId = pc.PersonId AND pc.ContactId=cm.contactId AND um.companyId='$companyId' AND pm.PersonId='$newuser'";
 $res=mysqli_query($con,$sql_update_adminusers) or die(mysqli_error($con));
 }

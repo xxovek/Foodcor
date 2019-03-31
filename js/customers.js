@@ -388,9 +388,7 @@ function fetchCustomer(param) {
         },
         dataType: 'json',
         success: function(response) {
-            // alert(response.personTypeId);
             $('#ctype').val(response.personTypeId).trigger('change');
-            // $("#ctype").val('<option value="'+response.ptype+'" selected>'+response.ptypename+'</option>');
             $("#cust").html(response.fname + ' ' + response.lname);
             $("#pname").html(response.fname);
             $("#pmname").html(response.mname);
@@ -402,10 +400,9 @@ function fetchCustomer(param) {
             $("#pPAN").html(response.Pan);
             $("#GSTIN").val(response.gstin);
             $("#PAN").val(response.Pan);
-            $("#pbaddr").html(response.billaddress);
+            $("#pbaddr").html(response.billaddress+' ,'+response.bcity+' '+response.bstate);
             $("#shipaddr").val(response.shipaddress);
-            // alert(response.shipaddress);
-            $("#psaddr").html(response.shipaddress);
+            $("#psaddr").html(response.shipaddress+' ,'+response.scity+' '+response.sstate);
             $("#fname").val(response.fname);
             $("#email").val(response.email);
             $("#phone").val(response.phone);
@@ -416,6 +413,7 @@ function fetchCustomer(param) {
             $("#personid").val(response.pid);
             $("#szip").val(response.szip);
             $("#companyName").val(response.CompanyName);
+            $("#companyName1").html(response.CompanyName);
             if (response.bcountryid == "") {
 
             } else {

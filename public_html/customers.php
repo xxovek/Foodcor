@@ -203,14 +203,11 @@ if(isset($_SESSION['company_id']))
 
     });
     </script>
-    <!-- <script src="../select2/select2.min.js"></script> -->
   </body>
-
-
 </html>
 <?php
 }
 else {
   header("Location:login.php");
 }
- ?>
+?>

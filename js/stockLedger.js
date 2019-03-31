@@ -1,5 +1,5 @@
 function cal_bal(param1) {
-  alert(param1);
+
   var param= moment(new Date(param1)).format("YYYY-MM-DD");
   var item=$("#item").val();
   $.ajax({

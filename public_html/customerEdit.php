@@ -99,6 +99,10 @@ if(isset($_SESSION['company_id']))
                     <td style="font-weight:bold">Person Type:</td>
                     <td id="ptype"></td>
                   </tr>
+                  <tr>
+                    <td style="font-weight:bold">Company Name:</td>
+                    <td id="companyName1"></td>
+                  </tr>
                 </tbody>
 
               </table>
@@ -188,7 +192,7 @@ if(isset($_SESSION['company_id']))
     app.ready(function(){
 
       var pid=<?php echo $_REQUEST['pid'] ?>;
-      fetchCustomer(pid);
+      $(window).on("load", fetchCustomer(pid)); 
     });
 
     </script>
