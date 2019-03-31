@@ -27,12 +27,12 @@
         </a>
 
         <ul class="menu-submenu">
-          <li class="menu-item">
+          <!-- <li class="menu-item">
             <a class="menu-link" href="allSales.php">
               <span class="dot"></span>
               <span class="title">All Sales</span>
             </a>
-          </li>
+          </li> -->
 
           <li class="menu-item">
             <a class="menu-link" href="invoices.php">
