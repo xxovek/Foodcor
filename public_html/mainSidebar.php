@@ -99,7 +99,6 @@
           <span class="title">Reports</span>
           <span class="arrow"></span>
         </a>
-
         <ul class="menu-submenu">
           <li class="menu-item">
             <a class="menu-link" href="openingclosingReport.php">
@@ -107,7 +106,6 @@
               <span class="title">Stock Report</span>
             </a>
           </li>
-
           <li class="menu-item">
             <a class="menu-link" href="purchaseReport.php">
               <span class="dot"></span>
@@ -120,9 +118,16 @@
               <span class="title">Stock Ledger Report</span>
             </a>
           </li>
+          <li class="menu-item">
+            <a class="menu-link" href="MonthlyPurchaseReport.php">
+              <span class="dot"></span>
+              <span class="title">Monthly Reports</span>
+            </a>
+          </li>
+         
         </ul>
       </li>
-
+      <span id="sp"></span>
     </ul>
   </nav>
 
@@ -141,4 +146,18 @@
        $('a[href="'+matches[0]+'"]').closest('li').addClass('menu-item active');
        $('a[href="'+matches[0]+'"]').closest('ul').closest('li').addClass('menu-item active');
     }
-  </script>
+
+getAdminDetails();
+function getAdminDetails(){
+  $.ajax({
+    url:'../src/getAdminDetails.php',
+    type:'POST',
+    dataType:'json',
+    success:function(response){
+      if(response.msg){
+        $("#sp").append('<li class="menu-category">Outlets</li><li class="menu-item"><a class="menu-link" href="AllOutlets.php"><span class="icon pe-7s-note"></span><span class="title">Super Stockage</span></a></li>');
+      }
+    }
+  });
+}   
+</script>
