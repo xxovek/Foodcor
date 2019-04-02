@@ -1,5 +1,6 @@
 DisplayInvoiceTblData();
 function DisplayInvoiceTblData(){
+
     $("#purchaseorderTblBody").empty();
   var TotalRevenue = 0;
     $.ajax({
@@ -10,6 +11,13 @@ function DisplayInvoiceTblData(){
             success:function(response){
               var count = response.length;
               for (var i = 0; i < count; i++) {
+                var btnData = '';
+                var status = isPersonExists(response[i].emailId);
+                  if(status==1){
+                      btnData = '</td><td><a class="dropdown-item" href="#modal-invoice"  data-formid="1" data-formtype="U" data-transactionid="'+response[i].TId+'"  data-toggle="modal">Accept</a></td></tr>';
+                  }else{
+                      btnData = '</td><td><button class="btn-link" type="button" onclick="AddCustomer('+response[i].companyId+',\'' + response[i].emailId + '\')">Add As Customer</button></td></tr>';
+                  }
                 $("#purchaseorderTblBody").append('<tr><th scope="row">'+(i + 1)+'</th><td>'
                 +response[i].InvoiceNumber+'</td><td>'
                 +response[i].name+'</td><td>'
@@ -17,12 +25,12 @@ function DisplayInvoiceTblData(){
                 +response[i].DueDate+'</td><td>'
                 +response[i].Balance+'</td><td>'
                 +response[i].Total+'</td><td>'
-                +response[i].status+
-                '</td><td><button class=" btn-link dropdown-toggle" type="button" data-toggle="dropdown">Edit</button><div class="dropdown-menu"><a class="dropdown-item" href="#" onclick="PrintInvoice('+response[i].TId+')">Print</a><a class="dropdown-item" href="#modal-invoice"  data-formid="5" data-formtype="U" data-transactionid="'+response[i].TId+'"  data-toggle="modal">Edit</a><a class="dropdown-item" href="#" onclick="EditInvoice('+response[i].TId+')">View</a><a class="dropdown-item" href="#" onclick="DeleteInvoice('+response[i].TId+')">Delete</a></div></td></tr>');
+                +response[i].status+btnData);
+                // '</td><td><button class=" btn-link dropdown-toggle" type="button" data-toggle="dropdown">Edit</button><div class="dropdown-menu"><a class="dropdown-item" href="#" onclick="PrintInvoice('+response[i].TId+')">Print</a><a class="dropdown-item" href="#modal-invoice"  data-formid="5" data-formtype="U" data-transactionid="'+response[i].TId+'"  data-toggle="modal">Edit</a><a class="dropdown-item" href="#" onclick="EditInvoice('+response[i].TId+')">View</a><a class="dropdown-item" href="#" onclick="DeleteInvoice('+response[i].TId+')">Delete</a></div></td></tr>');
                 // alert(response[i].Total);
                 TotalRevenue +=parseFloat(response[i].Total);
               }
-        
+
               $('#purchaseorderTbl').DataTable({
                 searching: true,
                 retrieve: true,
@@ -35,6 +43,36 @@ function DisplayInvoiceTblData(){
               });
               }
             });
+}
+function isPersonExists(EmailId){
+    var sta1 = 0;
+    $.ajax({
+        type:'GET',
+        url:'../src/getPersonExistscustomer.php',
+        data:{EmailId:EmailId},
+        dataType:'json',
+        async: false,
+        success:function(response){
+            if(response.msg){
+                sta1 = response.msg;
+            }else{
+                sta1 = response.msg;
+            }
+        }
+    })
+return sta1;
+}
+
+function AddCustomer(companyId,EmailId){
+    $.ajax({
+        type:'GET',
+        url:'../src/AddCustomerPurchaseForm.php',
+        data:{EmailId:EmailId,companyId:companyId},
+        dataType:'json',
+        success:function(response){
+           alert(response);
+        }
+    })
 }
 
 function DeleteInvoice(TransactionId){
@@ -58,11 +96,11 @@ function DeleteInvoice(TransactionId){
                 });
       }
     }
-    
+
     function PrintInvoice(TransactionId){
       window.location.href="invoicePdf.php?tid="+TransactionId;
     }
-    
+
     function EditInvoice(TransactionId){
       window.location.href="invoicePdfView.php?tid="+TransactionId;
-    }    
+    }

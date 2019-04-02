@@ -4,7 +4,7 @@ session_start();
 $companyId = $_SESSION['company_id'];
 ?>
 <?php
-if($result = mysqli_query($con,"SELECT distinct(PaytermType) as Paytermval FROM PaymentTerms WHERE companyId='$companyId'"))
+if($result = mysqli_query($con,"SELECT distinct(PaytermType) as Paytermval FROM PaymentTerms"))
 {
  if(mysqli_num_rows($result)>0)
  {

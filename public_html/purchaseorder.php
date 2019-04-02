@@ -123,7 +123,7 @@ if(isset($_SESSION['company_id']))
               <a class="nav-link " href="purchase.php">Purchase</a> -->
               <a class="nav-link active" href="#">Purchase Order</a>
               <a class="nav-link" href="purchaseOrderRecieved.php">Recieved Purchase Orders</a>
-            <!-- <a class="nav-link" href="products.php">Products and Services</a> --> -->
+            <!-- <a class="nav-link" href="products.php">Products and Services</a> -->
           </nav>
         </div>
       </header><!--/.header -->
