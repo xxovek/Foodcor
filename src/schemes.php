@@ -1,15 +1,14 @@
 <?php
 include '../config/connection.php';
 session_start();
-$companyId = $_SESSION['company_id'];
+// $companyId = $_SESSION['company_id'];
 $response  = [];
-$scheme    = $_REQUEST['scheme'];
-$from      = $_REQUEST['from'];
-$upto      = $_REQUEST['upto'];
-$item      = $_REQUEST['item'];
-$onpurchase= $_REQUEST['onpurchase'];
-$freeqty   = $_REQUEST['freeqty'];
-
+$scheme    = $_POST['scheme'];
+$from      = $_POST['from'];
+$upto      = $_POST['upto'];
+$item      = $_POST['item'];
+$onpurchase= $_POST['onpurchase'];
+$freeqty   = $_POST['freeqty'];
 if(!empty($_REQUEST['sId']))
 {
   $sId=$_REQUEST['sId'];

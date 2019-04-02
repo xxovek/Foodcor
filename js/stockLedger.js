@@ -1,5 +1,4 @@
 function cal_bal(param1) {
-
   var param= moment(new Date(param1)).format("YYYY-MM-DD");
   var item=$("#item").val();
   $.ajax({
@@ -93,5 +92,4 @@ function displayStockLedger(){
     });
 
 }
-
 }
