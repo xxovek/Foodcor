@@ -7,15 +7,16 @@ function displaySuperStockages() {
         dataType: "json",
         success: function(response) {
             var count = response.length;
-           
+
             if (count > 0) {
                 for (var i = 0; i < count; i++) {
                     tblData  += '<tr><th scope="row">'+(i+1)+'</th>';
                     tblData  += '<td>'+response[i].companyName+'</td>';
                     tblData  += '<td>'+response[i].PersonName+'</td>';
                     tblData  += '<td>'+response[i].Distributor+'</td>';
-                    tblData  += '<td>'+response[i].Registered+'</td></tr>';
-                   
+                    tblData  += '<td>'+response[i].Registered+'</td>';
+                    tblData  += '<td><button class="btn btn-primary" onclick="completeinformation('+response[i].companyId+')">Detail</button> </td>' ;
+                    tblData  += '</tr>';
                 }
                 $('#tblDatabody').html(tblData);
                 var countTable = $('thead tr th').length;
@@ -39,4 +40,10 @@ function displaySuperStockages() {
 
         }
     });
+}
+
+function completeinformation(param){
+
+  window.location.href="Detailinfodistributors.php?id="+param+"";
+
 }

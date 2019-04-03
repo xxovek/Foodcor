@@ -2,6 +2,7 @@
 session_start();
 if(isset($_SESSION['company_id']))
 {
+  $companydetailid=$_REQUEST['id'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -59,7 +60,7 @@ if(isset($_SESSION['company_id']))
       <header class="header bg-ui-general">
         <div class="header-action">
           <nav class="nav">
-            <a class="nav-link active" href="#">All Salers</a>
+            <!-- <a class="nav-link active" href="#">All Salers</a> -->
 
           </nav>
         </div>
@@ -67,28 +68,28 @@ if(isset($_SESSION['company_id']))
 
 
       <div class="main-content">
+        <div class="row" id="showcompanyinfo" style="font-family: initial;">
+
+        </div>
         <div class="row">
 
-            <div class="col-lg-12"><br>
+            <div class="col-lg-6"><br>
         <div class="card">
-          <h4 class="card-title"><strong>Super Stockage</strong>  Information</h4>
-          <!-- <h4 class="card-title"><strong>Products</strong> Services</h4> -->
-
-
+          <h4 class="card-title"><strong>Distributor Information</strong></h4>
           <div class="card-body table-responsive">
             <div id="tbl">
-            <table class="table table-striped table-bordered" cellspacing="0"   id="tblData">
+            <table class="table table-striped table-bordered" cellspacing="0"   id="tblData1">
               <thead>
               <tr>
                   <th class="text-center">#</th>
                   <th>Company Name</th>
-                  <th >Person Name</th>
-                  <th>Number Of Distributors</th>
-                  <th>Registred On</th>
+                  <th>Person Name</th>
+                  <!-- <th>Email</th> -->
+                  <th>Type</th>
                   <th>Action</th>
                 </tr>
               </thead>
-              <tbody id="tblDatabody">
+              <tbody id="tblmemberbody">
 
               </tbody>
 
@@ -98,7 +99,35 @@ if(isset($_SESSION['company_id']))
           </div>
         </div>
         </div>
+        <div class="col-lg-6"><br>
+    <div class="card">
+      <h4 class="card-title"><strong>Product Stock</strong></h4>
+      <!-- <h4 class="card-title"><strong>Products</strong> Services</h4> -->
 
+
+      <div class="card-body table-responsive">
+        <div id="tbl">
+        <table class="table table-striped table-bordered" cellspacing="0"   id="tblData2">
+          <thead>
+          <tr>
+              <th class="text-center">#</th>
+              <th>Item Name</th>
+              <th>Description</th>
+              <th>Price</th>
+              <th>Quantity</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="tblproductstockbody">
+
+          </tbody>
+
+        </table>
+      </div>
+
+      </div>
+    </div>
+    </div>
       </div>
     </div><!--/.main-content -->
 
@@ -135,7 +164,14 @@ if(isset($_SESSION['company_id']))
     <!-- END Global quickview -->
 
     <!-- Scripts -->
-    <script src="../js/outlets.js"></script>
+      <script src="../js/Detailinfodistributors.js"></script>
+     <script>
+     showcompanydetail(<?php echo $companydetailid; ?>);
+     displayMembers(<?php echo $companydetailid; ?>);
+     displayProductStock(<?php echo $companydetailid; ?>);
+     </script>
+
+    <!-- <script src="../js/outlets.js"></script> -->
     <script src="../assets/js/core.min.js"></script>
     <script src="../assets/js/app.min.js"></script>
     <script src="../assets/js/script.min.js"></script>
