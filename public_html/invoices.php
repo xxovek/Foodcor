@@ -202,6 +202,19 @@ if(isset($_SESSION['company_id']))
                     </tr>
                   </thead>
                   <tbody  id="invoiceTblBody"></tbody>
+                  <tfoot id="tfootData">
+                    <tr>
+                      <th></th>
+                      <th></th>
+                      <th></th>
+                      <th></th>
+                      <th></th>
+                      <th></th>
+                      <th></th>
+                      <th></th>
+                      <th></th>
+                    </tr>
+                </tfoot>
                 </table>
 
               </div>

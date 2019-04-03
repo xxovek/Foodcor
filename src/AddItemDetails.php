@@ -10,8 +10,8 @@ if($method == "POST")
   $ItemSKU             = $_POST['ItemSKU'];
   $ItemHSN             = $_POST['ItemHSN'];
   $ItemUnit            = $_POST['ItemUnit'];
-  $ItemCategory        = $_POST['ItemCategory'];
-  $ItemDescription     = $_POST['ItemDescription'];
+  $ItemCategory        = mysqli_real_escape_string($con,$_POST['ItemCategory']);
+  $ItemDescription     = mysqli_real_escape_string($con,$_POST['ItemDescription']);
   $ItemSizeId          = $_POST['ItemSize'];
   $PackingTypeId       = $_POST['PackingTypeId'];
   $packingQty          = $_POST['ItemSizeQty'];
@@ -83,7 +83,7 @@ if($method == "PUT")
   $ItemHSN      = $_PUT['ItemHSN'];
   $ItemUnit     = $_PUT['ItemUnit'];
   $ItemCategory = $_PUT['ItemCategory'];
-  $ItemDescription = $_PUT['ItemDescription'];
+  $ItemDescription = mysqli_real_escape_string($con,$_PUT['ItemDescription']);
 
   $ItemSizeId        = $_PUT['ItemSize'];
   $PackingTypeId     = $_PUT['PackingTypeId'];

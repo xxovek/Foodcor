@@ -140,10 +140,6 @@ if(isset($_SESSION['company_id']))
               </div>
             </div>
           </div>
-
-
-
-
           <div class="col-lg-12"><br>
             <div class="card">
               <h4 class="card-title"><strong>Purchase Order</strong></h4>
@@ -164,6 +160,7 @@ if(isset($_SESSION['company_id']))
                     </tr>
                   </thead>
                   <tbody  id="purchaseorderTblBody" ></tbody>
+                  <tfoot id="tfootData"></tfoot>
                 </table>
 
               </div>

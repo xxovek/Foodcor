@@ -297,14 +297,17 @@ function displayCustomers() {
         url: "../src/displayCustomers.php",
         dataType: "json",
         success: function(response) {
-            
             var count = response.length;
+            var CTD = '';
             if (count > 0) {
                 for (var i = 0; i < count; i++) {
                     var c_id = response[i].pid;
-
-                    $("#tabledata").append('<tr><th scope="row">' + (i + 1) + '</th><td>' + response[i].name + '</td><td>' + response[i].ptype + '</td><td>' + response[i].email + '</td><td><button class=" btn-link dropdown-toggle" data-toggle="dropdown">Edit</button><div class="dropdown-menu"><a class="dropdown-item" href="customerEdit.php?pid=' + response[i]['pid'] + '">View</a><a class="dropdown-item" href="#" onClick="removecustomers(' + c_id + ');">Delete</a></div></td></tr>');
-
+                    if(response[i].personTypeId==4){
+                        CTD = '<td>-</td>';
+                    }else{
+                        CTD = '<td><button class=" btn-link dropdown-toggle" data-toggle="dropdown">Edit</button><div class="dropdown-menu"><a class="dropdown-item" href="customerEdit.php?pid=' + response[i]['pid'] + '">View</a><a class="dropdown-item" href="#" onClick="removecustomers(' + c_id + ');">Delete</a></div></td>'; 
+                    }
+                    $("#tabledata").append('<tr><th scope="row">' + (i + 1) + '</th><td>' + response[i].name + '</td><td>' + response[i].ptype + '</td><td>' + response[i].email + '</td>'+CTD+'</tr>');
                 }
                 var countTable = $('thead tr th').length;
                 var arr = [];

@@ -2,8 +2,9 @@
 include '../config/connection.php';
 session_start();
 $companyId = $_SESSION['company_id'];
-$sql = "SELECT PM.PersonId,PM.FirstName,COALESCE(PM.middleName,' ') middleName,PM.lastName,COALESCE(PM.EmailId,' ') EmailId,PT.PersonType FROM PersonMaster PM INNER JOIN
-PersonType PT ON PT.personTypeId = PM.personTypeId WHERE PM.companyId = $companyId";
+$sql = "SELECT PT.personTypeId,PM.PersonId,PM.FirstName,COALESCE(PM.middleName,' ') middleName,PM.lastName,COALESCE(PM.EmailId,' ') EmailId,PT.PersonType,COALESCE(PM.CompanyName,'-') CompanyName
+FROM PersonMaster PM INNER JOIN PersonType PT ON PT.personTypeId = PM.personTypeId
+WHERE PM.companyId =  $companyId";
 $response = [];
 if($result = mysqli_query($con,$sql)){
   if(mysqli_num_rows($result)>0){
@@ -11,8 +12,10 @@ if($result = mysqli_query($con,$sql)){
       array_push($response,[
         'pid' => $row['PersonId'],
         'ptype' => $row['PersonType'],
+        'personTypeId'=>$row['personTypeId'],
         'name' => ucwords($row['FirstName']).' '.$row['lastName'],
-        'email' => $row['EmailId']
+        'email' => $row['EmailId'],
+        'CompanyName' =>$row['CompanyName']
       ]);
     }
   }

@@ -23,7 +23,7 @@ if(!empty($_REQUEST['sId']))
 else {
     $sql_insert = "INSERT INTO SchemeMaster(schemeType,FromDate,UptoDate,ItemDetailId,OnPurchase,freeQty)
      VALUES('$scheme','$from','$upto','$item','$onpurchase','$freeqty')";
-     if(mysqli_query($con,$sql_insert)){
+     if(mysqli_query($con,$sql_insert) or die(mysqli_error($con))){
        $response['msg'] = ' New  '.$scheme.' Scheme Added Successfully';
      }else {
        $response['msg'] = 'Server Error Please Try again';

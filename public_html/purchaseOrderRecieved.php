@@ -222,8 +222,6 @@ if(isset($_SESSION['company_id']))
     <!-- <script src="../js/invoices.js"></script> -->
   <script src="../js/purchaseOrderRecieved.js"></script>
     <script src="../js/invoice.js"></script>
-
-
     <script src="../datatables/jquery.dataTables.min.js"></script>
     <script src="../datatables/dataTables.bootstrap4.min.js"></script>
     <script src="../datatables/dataTables.buttons.min.js"></script>
