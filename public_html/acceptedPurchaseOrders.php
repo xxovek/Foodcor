@@ -203,7 +203,6 @@ if(isset($_SESSION['company_id']))
                   </thead>
                   <tbody  id="purchaseTblBody" ></tbody>
                   <tfoot id="tfootData" >
-                   
                 </tfoot>
                 </table>
 
