@@ -1,6 +1,4 @@
-
 displayTaxes();
-
 function displayTaxes(){
   $('#tblData tbody').empty();
 var tblData = '';

@@ -131,7 +131,7 @@ if(isset($_SESSION['company_id']))
       <!-- END Footer -->
 
     </main>
-    <div class="fab fab-fixed">
+    <div class="fab fab-fixed" id="ProductButton">
       <a class="btn btn-float btn-primary" href="#qv-Taxes-addDiv" title="New Tax" data-provide="tooltip" data-toggle="quickview" id="newTaxesFormBtn"><i class="ti-plus"></i></a>
     </div>
 
@@ -161,6 +161,23 @@ if(isset($_SESSION['company_id']))
     <script src="../datatables/buttons.html5.min.js"></script>
     <!-- <script src="../datatables/buttons.print.min.js"></script> -->
     <script src="../datatables/buttons.colVis.min.js"></script>
+    <script>
+    function getAddFlag(){
+  $.ajax({
+    url:'../src/getAddProductFlag.php',
+    type:'GET',
+    dataType:'json',
+    success:function(response){
+      if(response.msg == 1){
+        $('#ProductButton').show();
+      }else{
+        $('#ProductButton').hide();
+      }
+    }
+  });
+}
+getAddFlag();
+    </script>
   </body>
 
 </html>

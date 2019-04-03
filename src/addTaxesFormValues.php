@@ -21,7 +21,6 @@ if($method === "POST"){
     }else {
       $response['msg'] = 'Server Error Please Try again';
     }
-
   }else {
     $sql_insert = "INSERT INTO TaxMaster(TaxType,TaxPercent,TaxName,TaxDescription) VALUES('$TaxType','$TaxPercent','$TaxName','$TaxDesc')";
     // echo $sql_insert;
@@ -34,8 +33,7 @@ if($method === "POST"){
 
 }
 else{
-
 }
 mysqli_close($con);
 exit(json_encode($response));
- ?>
+?>
