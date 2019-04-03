@@ -175,17 +175,12 @@ if(isset($_SESSION['company_id']))
                           <div class="progress-bar" role="progressbar" style="width: 95%; height: 20px;background :#7cd200;" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
                       </div>
-
-
                       </div>
-
                       </div>
                     </div>
-
           <div class="col-lg-12"><br>
             <div class="card">
               <h4 class="card-title"><strong>Purchase</strong></h4>
-
               <div class="card-body table-responsive">
               <table  id="purchaseTbl" class="table table-striped table-bordered" cellspacing="0"  >
                   <thead class="text-center" >
@@ -201,30 +196,19 @@ if(isset($_SESSION['company_id']))
                       <th>Action</th>
                     </tr>
                   </thead>
-                  <tbody  id="purchaseTblBody" ></tbody>
+                  <tbody id="purchaseTblBody"></tbody>
                 </table>
-
               </div>
             </div>
           </div>
-
         </div>
-
-        <!-- <button type="button" class="btn btn-float btn-sm btn-primary" data-toggle="modal" data-target="#modal-invoice">
-          <i class="ti-plus"></i>
-        </button> -->
-      </div><!--/.main-content -->
-      <!-- <div class="fab fab-fixed">
-        <a class="btn btn-float btn-primary" data-target="#modal-invoice" title="New Invoice" data-provide="tooltip" data-formid="2" data-formtype="U" data-transactionid="7"  data-toggle="modal"><i class="ti-plus"></i></a>
-      </div> -->
-
+      </div>
       <!-- Footer -->
       <footer class="site-footer">
         <div class="row">
           <div class="col-md-6">
             <p class="text-center text-md-left">Copyright © 2017 <a href="http://thetheme.io/theadmin">TheAdmin</a>. All rights reserved.</p>
           </div>
-
           <div class="col-md-6">
             <ul class="nav nav-primary nav-dotted nav-dot-separated justify-content-center justify-content-md-end">
               <li class="nav-item">
@@ -241,12 +225,8 @@ if(isset($_SESSION['company_id']))
         </div>
       </footer>
       <!-- END Footer -->
-
     </main>
     <!-- END Main container -->
-
-
-
     <!-- Global quickview -->
     <div id="qv-global" class="quickview" data-url="../assets/data/quickview-global.html">
       <div class="spinner-linear">
