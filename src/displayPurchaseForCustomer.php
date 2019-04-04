@@ -16,7 +16,7 @@ $TransactionType = $_POST['Ttype'];
  // GROUP BY TM.TransactionId,TT.TransactionTypeId ORDER BY TM.TransactionId DESC";
 
 
- $sql = "SELECT TM.TransactionId,PM.FirstName,PM.lastName,DATE_FORMAT(TM.DateCreated,'%d %b %Y') AS DateCreated, COALESCE(DATE_FORMAT(TM.DueDate,'%d %b %Y'),'-') as DueDate
+ $sql = "SELECT TM.TransactionId,TM.companyId,CM.companyName,UM.emailId,PM.FirstName,PM.lastName,DATE_FORMAT(TM.DateCreated,'%d %b %Y') AS DateCreated, COALESCE(DATE_FORMAT(TM.DueDate,'%d %b %Y'),'-') as DueDate
  ,CONCAT(TM.FinancialYear,'-',TM.TransactionNumber) as InvoiceNumber,
  SUM(TD.BillQty*TD.rate*
  (CASE WHEN TD.itemunitval =1 THEN 1
@@ -40,8 +40,10 @@ $TransactionType = $_POST['Ttype'];
  WHEN TM.TransactionStatus IN('Closed','Paid') THEN 0 WHEN TM.TransactionStatus = 'Partial' THEN TM.RemainingAmount ELSE 0 END) AS Balance
  FROM TransactionMaster TM INNER JOIN TransactionDetails TD ON TD.TransactionId = TM.TransactionId
  LEFT JOIN PersonMaster PM ON PM.PersonId = TM.PersonId
+ LEFT JOIN CompanyMaster CM ON CM.CompanyId = TM.companyId
+ LEFT JOIN UserMaster UM ON UM.companyId = TM.companyId
  LEFT JOIN TransactionType TT ON TT.TransactionTypeId =TM.TransactionTypeId
- where TM.companyId = $companyId AND TM.TransactionTypeId =$TransactionType and TM.changeStatusFlag = 0
+ where TM.personCompanyId = $companyId AND TM.TransactionTypeId =$TransactionType and TM.changeStatusFlag = 0
  GROUP BY TM.TransactionId,TT.TransactionTypeId ORDER BY TM.TransactionId DESC";
 
 
