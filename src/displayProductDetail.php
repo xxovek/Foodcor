@@ -8,7 +8,7 @@ FROM ItemMaster IM
 LEFT JOIN ItemDetailMaster ID ON IM.ItemId = ID.ItemId LEFT JOIN ItemPrice IP ON IP.ItemDetailId = ID.itemDetailId
 LEFT JOIN ProductStock PS ON PS.itemdetailId = ID.itemDetailId
 LEFT JOIN SizeMaster SM ON SM.SizeId = ID.sizeId WHERE PS.companyId = $companyId ORDER BY IM.ItemId DESC";
- 
+
 $response = [];
 if($result = mysqli_query($con,$sql)){
   if(mysqli_num_rows($result)>0){
