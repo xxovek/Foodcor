@@ -139,12 +139,12 @@ function fetch_Items(){
   $invoice_number = $_REQUEST['tid'];
   include '../config/connection.php';
 
-  $sql="SELECT IDM.ItemId,IM.ItemName,SM.SizeValue,IM.Unit,TD.rate, TD.itemDetailId,TD.itemunitval,TD.qty,TD.BillQty,TD.TaxType,TD.TaxPercent,TM.discount,IFNULL(TD.discountAmount,0) as discountAmount,TD.description,TM.TransactionId,TM.FinancialYear,TM.TransactionNumber,TM.DueDate,TM.DateCreated,TM.PersonId,TM.contactId
-   FROM TransactionDetails TD LEFT JOIN TransactionMaster TM ON TM.TransactionId = TD.TransactionId
+  $sql="SELECT IDM.ItemId,IM.ItemName,SM.SizeValue,IM.Unit,TD.rate,(CASE WHEN TD.itemunitval = 1 THEN (TD.BillQty*TD.rate) WHEN TD.itemunitval=2 THEN (IDM.SubPacking*TD.BillQty*TD.rate) WHEN TD.itemunitval=3 THEN (IDM.PackingQty*TD.BillQty*TD.rate) ELSE TD.BillQty*TD.rate END) AS BillingQty, TD.itemDetailId,TD.itemunitval,TD.qty,TD.BillQty,TD.TaxType,TD.TaxPercent,TM.discount,IFNULL(TD.discountAmount,0) as discountAmount,TD.description,TM.TransactionId,TM.FinancialYear,TM.TransactionNumber,TM.DueDate,TM.DateCreated,TM.PersonId,TM.contactId
+  FROM TransactionDetails TD LEFT JOIN TransactionMaster TM ON TM.TransactionId = TD.TransactionId
   LEFT JOIN ItemDetailMaster IDM ON IDM.itemDetailId = TD.itemDetailId
   LEFT JOIN ItemMaster IM ON IM.ItemId = IDM.ItemId
   LEFT JOIN   SizeMaster SM ON SM.SizeId = IDM.sizeId
-  WHERE  TM.TransactionId =  $invoice_number";
+  WHERE  TM.TransactionId = $invoice_number";
   $response = [];
   $itemtable='';
 
@@ -163,7 +163,7 @@ function fetch_Items(){
             'billingqty' => $row['BillQty'],
             'rate' => $row['rate'],
             'discountAmount' =>$row['discountAmount'],
-            'Amount' => round($total,2),
+            'Amount' => round($row['BillingQty'],2),
             'taxpercent' =>$row['TaxPercent'].'% '.$row['TaxType']
             ]);
     }
