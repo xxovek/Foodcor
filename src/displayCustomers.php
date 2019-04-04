@@ -1,7 +1,11 @@
 <?php
 include '../config/connection.php';
 session_start();
-$companyId = $_SESSION['company_id'];
+if(isset($_SESSION['company_id'])){
+  $companyId = $_SESSION['company_id'];
+}else{
+  $companyId = $_POST['company_id'];
+}
 $sql = "SELECT PT.personTypeId,PM.PersonId,PM.FirstName,COALESCE(PM.middleName,' ') middleName,PM.lastName,COALESCE(PM.EmailId,' ') EmailId,PT.PersonType,COALESCE(PM.CompanyName,'-') CompanyName
 FROM PersonMaster PM INNER JOIN PersonType PT ON PT.personTypeId = PM.personTypeId
 WHERE PM.companyId =  $companyId";
