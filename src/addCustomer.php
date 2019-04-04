@@ -1,9 +1,12 @@
 <?php
 include '../config/connection.php';
 session_start();
+if(isset($_SESSION['company_id'])){
+  $companyId = $_SESSION['company_id'];
+}else{
+  $companyId = $_POST['company_id'];
+}
 $response  = [];
-
-$companyId = $_SESSION['company_id'];
 $ctype     = $_REQUEST['ctype'];
 $ctype     = !empty($ctype) ? $ctype : "NULL";
 $ctype1    = $_REQUEST['ctype1'];

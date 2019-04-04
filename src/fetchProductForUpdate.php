@@ -1,7 +1,11 @@
 <?php
 include '../config/connection.php';
 session_start();
-$companyId = $_SESSION['company_id'];
+if(isset($_SESSION['company_id'])){
+  $companyId = $_SESSION['company_id'];
+}else{
+  $companyId = $_POST['company_id'];
+}
 $ItemId = $_GET['productId'];
 // $sql = "SELECT IM.ItemId,IM.ItemName,IM.SKU,IM.HSN,IM.Unit,IM.CategoryId,IM.Description,ID.sizeId,
 // ID.PackingTypeId,PM.FirstName,PM.lastName,
