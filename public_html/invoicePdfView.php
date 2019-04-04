@@ -78,6 +78,7 @@ $t_id=$_REQUEST['tid'];
                   <th class="text-center">Description</th>
                   <th class="text-center">Shipping Quantity</th>
                   <th class="text-center">Billing Quantity</th>
+                  <th class="text-center">Unit</th>
                   <th class="text-center">Unit Cost</th>
                   <th class="text-center">Discount</th>
                   <th class="text-center">Amount</th>
@@ -109,7 +110,7 @@ $t_id=$_REQUEST['tid'];
                 </table>
                 <br>
                 <span class="bt-1 d-inline-block pt-10 pl-40">
-                  Sub - Total amount: <span id="subtotal"></span>
+                  Sub Total amount: <span id="subtotal"></span>
                   <br>
                   Total: <span id="total"></span>
                 </span>
@@ -181,7 +182,7 @@ $t_id=$_REQUEST['tid'];
   </body>
   <script type="text/javascript">
     $(document).ready(function(){
-     
+
       companyBasics();
       invoiceDetails();
       itemDetails();
@@ -220,16 +221,31 @@ $t_id=$_REQUEST['tid'];
           data:{tid:'<?php echo $t_id ?>'},
         success:function(data){
           var subtotal=0;
+          var totalqty ='';
           var response=JSON.parse(data);
           var count=Object.keys(response).length;
           for (var i = 0; i < count; i++) {
-            subtotal+=response[i]['total'];
+            subtotal+=response[i]['amt'];
+            var valueunit = parseInt(response[i]['itemunitval']);
+            switch (valueunit) {
+              case 1:
+                  totalqty = 'Nos';
+                  break;
+              case 2:
+                  totalqty = 'Packet';
+                  break;
+              case 3:
+                  totalqty = 'Bag';
+                  break;
+              default:
+                  totalqty = 'Nos';
+                }
             $("#loadtable").append('<tr class="text-center"><td>'+(i+1)+'</td><td>'+response[i]['iname']+'</td><td>'+response[i]['qty']+
-            '</td><td>'+response[i]['BillQty']+'</td><td>'+response[i]['rate']+'</td><td>'+response[i]['discountAmount']+'</td><td>'+response[i]['total'].toFixed(2)+'</td><td>'+response[i]['tax']+'</td></tr>')
+            '</td><td>'+response[i]['BillQty']+'</td><td>'+totalqty+'</td><td>'+response[i]['rate']+'</td><td>'+response[i]['discountAmount']+'</td><td>'+response[i]['amt']+'</td><td>'+response[i]['tax']+'</td></tr>')
           }
           $("#subtotal").html(subtotal.toFixed(2));
           tryied(response[0]['TransactionId'],response[0]['discount']);
-         
+
         }
       });
     }
@@ -243,7 +259,7 @@ $t_id=$_REQUEST['tid'];
         dataType:'json',
         success:function(response){
           var count=response.length;
-          
+
           var FinalTotal = response[count-1].FinalTotal;
           for (var i = 0; i < count; i++) {
             $("#taxcal").append('<tr class="text-center"><td>CGST @</td><td>'+response[i]['GST']+
@@ -252,7 +268,7 @@ $t_id=$_REQUEST['tid'];
           }
           $("#total").html(FinalTotal);
           var discounttotal=(parseFloat(FinalTotal)*parseFloat(discount))/100;
-          
+
           //var finaltotal=FinalTotal-discounttotal;
           $("#discounttotal").html(discounttotal.toFixed(2));
           $("#finaltotal").html(FinalTotal);

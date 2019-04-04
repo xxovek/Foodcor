@@ -86,7 +86,7 @@ function displayMembers(param) {
     });
 }
 function completemember(param){
-  alert(param);
+  // alert(param);
   // window.location.href="Detailinfodistributors.php?id="+param+"";
 }
 
@@ -100,7 +100,7 @@ function displayProductStock(param) {
         dataType: "json",
         success: function(response) {
             var count = response.length;
-            alert(count);
+            // alert(count);
             if (count > 0) {
                 for (var i = 0; i < count; i++) {
                     tblData  += '<tr><th scope="row">'+(i+1)+'</th>';
@@ -136,5 +136,5 @@ function displayProductStock(param) {
 }
 //
 function completemember1(param){
-  alert(param);
+  // alert(param);
 }  //

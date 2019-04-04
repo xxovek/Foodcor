@@ -1,6 +1,5 @@
 <?php
 include '../config/connection.php';
-
 $response = [];
 
   $ItemName     = 'Thumsup';//mysqli_real_escape_string($con,$_POST['ItemName']);
