@@ -3,7 +3,6 @@ include '../config/connection.php';
 session_start();
 $companyId = $_SESSION['company_id'];
 $TransactionType = $_POST['Ttype'];
-
  $sql = "SELECT TM.TransactionId,PM.FirstName,PM.lastName,DATE_FORMAT(TM.DateCreated,'%d %b %Y') AS DateCreated, 
  COALESCE(DATE_FORMAT(TM.DueDate,'%d %b %Y'),'-') as DueDate,CONCAT(TM.FinancialYear,'-',TM.TransactionNumber) as InvoiceNumber,
  TM.AmountRecieved AS Balance,TM.TransactionStatus
