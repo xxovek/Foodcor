@@ -1,8 +1,11 @@
 <?php
 include '../config/connection.php';
 session_start();
-$companyId = $_SESSION['company_id'];
-
+if(isset($_SESSION['company_id'])){
+  $companyId = $_SESSION['company_id'];
+}else{
+  $companyId = $_POST['company_id'];
+}
 $sql = "SELECT IM.Description,IM.ItemId,IM.ItemName,IM.SKU,IM.HSN,IM.Unit,SM.SizeValue,PS.Quantity,PS.TotalQty,PS.ReorderLabel,IP.price,ID.SubPacking
 FROM ItemMaster IM
 LEFT JOIN ItemDetailMaster ID ON IM.ItemId = ID.ItemId LEFT JOIN ItemPrice IP ON IP.ItemDetailId = ID.itemDetailId

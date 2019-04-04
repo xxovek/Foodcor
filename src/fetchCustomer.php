@@ -3,7 +3,7 @@ include '../config/connection.php';
 $pid=$_REQUEST['pid'];
 $sql = "SELECT * FROM ContactMaster cm,PersonMaster pm,PersonType pt,PersonContact pc where pt.personTypeId=pm.personTypeId and
  pc.ContactId=cm.ContactId and pc.PersonId=pm.PersonId  AND pm.PersonId=$pid";
- // echo $sql;
+
 $response = [];
 $sqlgst = mysqli_query($con,"SELECT DocumentNumber FROM ContactDocument where DocumentId='4' AND PersonId=$pid");
 $resgst=mysqli_fetch_array($sqlgst);

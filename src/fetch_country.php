@@ -1,6 +1,5 @@
 <?php
 include '../config/connection.php';
-
 ?>
  <option value=""></option>
  <?php
@@ -15,4 +14,4 @@ if($result = mysqli_query($con,"SELECT name,id From countries"))
     }
   }
 }
- ?>
+?>
