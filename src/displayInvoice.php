@@ -31,7 +31,7 @@ $TransactionType = $_POST['Ttype'];
  LEFT JOIN TransactionType TT ON TT.TransactionTypeId =TM.TransactionTypeId
  where TM.companyId = $companyId AND TM.TransactionTypeId =$TransactionType
  GROUP BY TM.TransactionId,TT.TransactionTypeId ORDER BY TM.TransactionId DESC";
-heelo
+
 $response = [];
 if($result = mysqli_query($con,$sql)or die(mysqli_error($con))){
   if(mysqli_num_rows($result)>0){
