@@ -2,6 +2,8 @@ DisplayInvoiceTblData();
 function DisplayInvoiceTblData(){
     $("#purchaseTblBody").empty();
   var TotalRevenue = 0;
+  var TotalBalance = 0;
+  var tfootData = '';
     $.ajax({
             url:"../src/displayPurchaseForCustomer.php",
             type:"POST",
@@ -22,13 +24,14 @@ function DisplayInvoiceTblData(){
                 +response[i].name+'</td><td>'
                 +response[i].DateCreated+'</td><td>'
                 +response[i].DueDate+'</td><td>'
-                +response[i].Balance+'</td><td>'
-                +response[i].Total+'</td><td>'
+                +parseFloat(response[i].Balance).toFixed(2)+'</td><td>'
+                +parseFloat(response[i].Total).toFixed(2)+'</td><td>'
                 +response[i].status+btnData);
-                // '</td><td><button class=" btn-link dropdown-toggle" type="button" data-toggle="dropdown">Edit</button><div class="dropdown-menu"><a class="dropdown-item" href="#" onclick="PrintInvoice('+response[i].TId+')">Print</a><a class="dropdown-item" href="#modal-invoice"  data-formid="2" data-formtype="U" data-transactionid="'+response[i].TId+'"  data-toggle="modal">Edit</a><a class="dropdown-item" href="#" onclick="EditInvoice('+response[i].TId+')">View</a><a class="dropdown-item" href="#" onclick="DeleteInvoice('+response[i].TId+')">Delete</a></div></td></tr>');
-                // alert(response[i].Total);
                 TotalRevenue +=parseFloat(response[i].Total);
+                TotalBalance +=parseFloat(response[i].Balance);
               }
+              tfootData += '<tr style="font-weight:bold"><td></td><td></td><td></td><td></td><td>Total</td><td>'+TotalBalance.toFixed(2)+'</td><td>'+TotalRevenue.toFixed(2)+'</td><td></td><td></td></tr>';
+              $('#tfootData').html(tfootData);
               // alert(TotalRevenue);
               $('#totalRevenue').html(TotalRevenue.toFixed(2));
               $('#totalOrders').html(count);

@@ -183,7 +183,7 @@ if(isset($_SESSION['company_id']))
               <h4 class="card-title"><strong>Purchase</strong></h4>
               <div class="card-body table-responsive">
               <table  id="purchaseTbl" class="table table-striped table-bordered" cellspacing="0"  >
-                  <thead class="text-center" >
+                  <thead class="text-center" style="font-weight:bold">
                     <tr>
                       <th>#</th>
                       <th>Invoice</th>
@@ -197,6 +197,19 @@ if(isset($_SESSION['company_id']))
                     </tr>
                   </thead>
                   <tbody id="purchaseTblBody"></tbody>
+                  <tfoot id="tfootData">
+                  <tr>
+                      <th></th>
+                      <th></th>
+                      <th></th>
+                      <th></th>
+                      <th>Total</th>
+                      <th></th>
+                      <th></th>
+                      <th></th>
+                      <th></th>
+                    </tr>
+                  </tfoot>
                 </table>
               </div>
             </div>

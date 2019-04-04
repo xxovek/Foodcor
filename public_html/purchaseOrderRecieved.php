@@ -165,6 +165,19 @@ if(isset($_SESSION['company_id']))
                     </tr>
                   </thead>
                   <tbody  id="purchaseorderTblBody" ></tbody>
+                  <tfoot id="tfootData">
+                  <tr>
+                      <th></th>
+                      <th></th>
+                      <th></th>
+                      <th></th>
+                      <th>Total</th>
+                      <th></th>
+                      <th></th>
+                      <th></th>
+                      <th></th>
+                    </tr>
+                  </tfoot>
                 </table>
 
               </div>

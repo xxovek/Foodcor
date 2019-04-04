@@ -189,7 +189,7 @@ if(isset($_SESSION['company_id']))
               <div class="card-body table-responsive">
               <table  id="invoiceTbl" class="table table-striped table-bordered" cellspacing="0">
                   <thead class="text-center">
-                    <tr>
+                    <tr style="font-weight:bold">
                       <th>#</th>
                       <th>Invoice</th>
                       <th>Customer</th>
