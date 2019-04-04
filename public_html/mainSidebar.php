@@ -53,6 +53,12 @@
             </a>
           </li>
           <li class="menu-item">
+            <a class="menu-link" href="Payment.php">
+              <span class="dot"></span>
+              <span class="title">Payment</span>
+            </a>
+          </li>
+          <li class="menu-item">
             <a class="menu-link" href="customers.php">
               <span class="dot"></span>
               <span class="title">Customers</span>
