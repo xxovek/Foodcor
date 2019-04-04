@@ -139,12 +139,12 @@ function fetch_Items(){
   $invoice_number = $_REQUEST['tid'];
   include '../config/connection.php';
 
-  $sql="SELECT IDM.ItemId,IM.ItemName,SM.SizeValue,IM.Unit,TD.rate,(CASE WHEN TD.itemunitval = 1 THEN (TD.BillQty*TD.rate) WHEN TD.itemunitval=2 THEN (IDM.SubPacking*TD.BillQty*TD.rate) WHEN TD.itemunitval=3 THEN (IDM.PackingQty*TD.BillQty*TD.rate) ELSE TD.BillQty*TD.rate END) AS BillingQty, TD.itemDetailId,TD.itemunitval,TD.qty,TD.BillQty,TD.TaxType,TD.TaxPercent,TM.discount,IFNULL(TD.discountAmount,0) as discountAmount,TD.description,TM.TransactionId,TM.FinancialYear,TM.TransactionNumber,TM.DueDate,TM.DateCreated,TM.PersonId,TM.contactId
+  $sql="SELECT IDM.ItemId,IM.ItemName,SM.SizeValue,IM.Unit,TD.rate,(CASE WHEN TD.itemunitval = 1 THEN (TD.BillQty*TD.rate) WHEN TD.itemunitval=2
+  THEN (IDM.SubPacking*TD.BillQty*TD.rate) WHEN TD.itemunitval=3 THEN (IDM.PackingQty*TD.BillQty*TD.rate) ELSE TD.BillQty*TD.rate END) AS BillingQty, TD.itemDetailId,TD.itemunitval,TD.qty,TD.BillQty,TD.TaxType,TD.TaxPercent,TM.discount,IFNULL(TD.discountAmount,0) as discountAmount,TD.description,TM.TransactionId,TM.FinancialYear,TM.TransactionNumber,TM.DueDate,TM.DateCreated,TM.PersonId,TM.contactId
   FROM TransactionDetails TD LEFT JOIN TransactionMaster TM ON TM.TransactionId = TD.TransactionId
   LEFT JOIN ItemDetailMaster IDM ON IDM.itemDetailId = TD.itemDetailId
   LEFT JOIN ItemMaster IM ON IM.ItemId = IDM.ItemId
-  LEFT JOIN   SizeMaster SM ON SM.SizeId = IDM.sizeId
-  WHERE  TM.TransactionId = $invoice_number";
+  LEFT JOIN   SizeMaster SM ON SM.SizeId = IDM.sizeId WHERE  TM.TransactionId = $invoice_number";
   $response = [];
   $itemtable='';
 
@@ -277,6 +277,7 @@ function fetch_Items(){
 }
 return $itemtable;
 }
+
 function subtotal(){
   $invoice_number = $_REQUEST['tid'];
   include '../config/connection.php';
@@ -320,9 +321,33 @@ function taxcal($Tid,$param2)
 include '../config/connection.php';
 $response = [];
 $taxtable = '';
-$sql = "SELECT TD.TransactionId,TD.TaxType,TD.TaxPercent,TD.TaxPercent/2 AS IGST,SUM(TD.BillQty*TD.rate) AS Total_before_tax,
-((SUM(TD.BillQty*TD.rate)*TD.TaxPercent)/100)/2 AS Tax,SUM(TD.BillQty*TD.rate)+(SUM(TD.BillQty*TD.rate)*TD.TaxPercent)/100 AS Total_after_tax
+// $sql = "SELECT TD.TransactionId,TD.TaxType,TD.TaxPercent,TD.TaxPercent/2 AS IGST,SUM(TD.BillQty*TD.rate) AS Total_before_tax,
+// ((SUM(TD.BillQty*TD.rate)*TD.TaxPercent)/100)/2 AS Tax,SUM(TD.BillQty*TD.rate)+(SUM(TD.BillQty*TD.rate)*TD.TaxPercent)/100 AS Total_after_tax
+// FROM TransactionDetails TD WHERE TD.TransactionId = $Tid GROUP BY TD.TaxPercent,TD.TransactionId";
+
+
+$sql = "SELECT TD.TransactionId,TD.TaxType,TD.TaxPercent,TD.TaxPercent/2 AS IGST,
+SUM(TD.BillQty*TD.rate*
+(CASE WHEN TD.itemunitval =1 THEN 1
+ WHEN TD.itemunitval=2 THEN (SELECT IDM.SubPacking FROM ItemDetailMaster IDM where IDM.itemDetailId = TD.itemDetailId)
+ WHEN TD.itemunitval=3 THEN (SELECT IDM.PackingQty FROM ItemDetailMaster IDM where IDM.itemDetailId = TD.itemDetailId)
+ ELSE 1 END)) as Total_before_tax ,
+SUM(TD.BillQty*TD.rate*
+(CASE WHEN TD.itemunitval =1 THEN 1
+WHEN TD.itemunitval=2 THEN (SELECT IDM.SubPacking FROM ItemDetailMaster IDM where IDM.itemDetailId = TD.itemDetailId)
+WHEN TD.itemunitval=3 THEN (SELECT IDM.PackingQty FROM ItemDetailMaster IDM where IDM.itemDetailId = TD.itemDetailId)
+ ELSE 1 END)*TD.TaxPercent/100)/2 as Tax,
+SUM(TD.BillQty*TD.rate*
+(CASE WHEN TD.itemunitval =1 THEN 1
+ WHEN TD.itemunitval=2 THEN (SELECT IDM.SubPacking FROM ItemDetailMaster IDM where IDM.itemDetailId = TD.itemDetailId)
+ WHEN TD.itemunitval=3 THEN (SELECT IDM.PackingQty FROM ItemDetailMaster IDM where IDM.itemDetailId = TD.itemDetailId)
+ ELSE 1 END))+SUM(TD.BillQty*TD.rate*
+(CASE WHEN TD.itemunitval =1 THEN 1
+WHEN TD.itemunitval=2 THEN (SELECT IDM.SubPacking FROM ItemDetailMaster IDM where IDM.itemDetailId = TD.itemDetailId)
+WHEN TD.itemunitval=3 THEN (SELECT IDM.PackingQty FROM ItemDetailMaster IDM where IDM.itemDetailId = TD.itemDetailId)
+ ELSE 1 END)*TD.TaxPercent/100) AS Total_after_tax
 FROM TransactionDetails TD WHERE TD.TransactionId = $Tid GROUP BY TD.TaxPercent,TD.TransactionId";
+
 $result = mysqli_query($con,$sql);
 $subtotal = 0;
 $finalTotal = 0;
