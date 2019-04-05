@@ -27,7 +27,6 @@ if($method === "POST"){
       $response['msg'] = 'Server Error Please Try again';
     }
   }
-
 }
 else{
   $response['msg'] = 'Server Error Please Try again';

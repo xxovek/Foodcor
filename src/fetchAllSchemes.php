@@ -1,7 +1,5 @@
 <?php
 include '../config/connection.php';
-session_start();
-$companyId = $_SESSION['company_id'];
 
 $sql = "SELECT SCM.SchemeId,SCM.schemeType,SCM.FromDate,SCM.UptoDate,SCM.OnPurchase,SCM.freeQty,
 IDM.itemDetailId,IM.ItemName,SM.SizeValue,IM.Unit FROM SchemeMaster SCM 
