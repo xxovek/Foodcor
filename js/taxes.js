@@ -1,4 +1,27 @@
 displayTaxes();
+
+
+function CheckUserRole(){
+  var retValue;
+  $.ajax({
+    type:'POST',
+    url:'../src/checkuserRole.php',
+    dataType:'json',
+    data :"",
+    async: false,
+    success:function(response){
+      // alert(response.msg);
+      if(response.msg)
+        retValue = response.msg;
+      else
+        retValue = response.msg;
+    }
+});
+// alert(retValue);
+return retValue;
+}
+
+
 function displayTaxes(){
   $('#tblData tbody').empty();
 var tblData = '';
@@ -8,6 +31,9 @@ $.ajax({
   dataType:'json',
   success:function(response){
     var count = Object.keys(response).length;
+    var FunRetVal = CheckUserRole();
+    if(FunRetVal){
+
       if(count > 0){
         for(var i=0;i<count;i++){
 
@@ -19,6 +45,21 @@ $.ajax({
             '</td><td class="text-center"><button class="btn-link dropdown-toggle" type="button" data-toggle="dropdown">Edit</button><div class="dropdown-menu"><a class="dropdown-item" href="#" onclick="editTaxes(\''+response[i].TaxId+'\',\''+response[i].TaxName+'\',\''+response[i].TaxType+'\',\''+response[i].TaxPercent+'\',\''+response[i].Description+'\')">View/Edit</a><a class="dropdown-item" href="#" onclick="removeTaxes('+response[i].TaxId+')" >Delete</a></div></td></tr>');                                                                                                                                                                  // functionname(\''+ response[i].TaxId +'\',\''+response[i]['IssuesDate']+'\')
           }
       }
+    }
+    else{
+
+      if(count > 0){
+        for(var i=0;i<count;i++){
+
+            $('#tblDatabody').append('<tr><td class="text-center">'+(i + 1)+'</td><td>'
+            +response[i].TaxName+'</td><td>'
+            +response[i].TaxType+'</td><td>'
+            +response[i].TaxPercent+'</td><td>'
+            +response[i].Description+
+            '</td><td class="text-center"><button disabled title="Edit Action Not allowed" class="btn-link dropdown-toggle" type="button" data-toggle="dropdown">Edit</button><div class="dropdown-menu"><a class="dropdown-item" href="#" onclick="editTaxes(\''+response[i].TaxId+'\',\''+response[i].TaxName+'\',\''+response[i].TaxType+'\',\''+response[i].TaxPercent+'\',\''+response[i].Description+'\')">View/Edit</a><a class="dropdown-item" href="#" onclick="removeTaxes('+response[i].TaxId+')" >Delete</a></div></td></tr>');                                                                                                                                                                  // functionname(\''+ response[i].TaxId +'\',\''+response[i]['IssuesDate']+'\')
+          }
+      }
+    }
 
       $('#tblData').DataTable({
         searching: true,
@@ -30,9 +71,14 @@ $.ajax({
         buttons: ['copy','csv', 'excel', 'pdf'],
         destroy: true
       });
+
+
   }
 });
 }
+
+
+
 
 function removeTaxes(TaxId){
 var r = confirm('Are You sure To Remove This Tax Parmanetly');
