@@ -1,7 +1,11 @@
 <?php
 include '../config/connection.php';
  session_start();
-$companyId = $_SESSION['company_id'];
+if(isset($_SESSION['company_id'])){
+  $companyId = $_SESSION['company_id'];
+}else{
+  $companyId = $_POST['company_id'];
+}
 $method = $_SERVER['REQUEST_METHOD'];
 
 $response =[];
@@ -33,6 +37,7 @@ if($method === "POST"){
 
 }
 else{
+  $response['msg'] = 'Server Error Please Try again';
 }
 mysqli_close($con);
 exit(json_encode($response));
