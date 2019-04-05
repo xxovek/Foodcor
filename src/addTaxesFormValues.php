@@ -1,13 +1,6 @@
 <?php
 include '../config/connection.php';
- session_start();
-if(isset($_SESSION['company_id'])){
-  $companyId = $_SESSION['company_id'];
-}else{
-  $companyId = $_POST['company_id'];
-}
 $method = $_SERVER['REQUEST_METHOD'];
-
 $response =[];
 if($method === "POST"){
   $TaxId = $_POST['TaxId'];
