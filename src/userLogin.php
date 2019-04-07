@@ -4,7 +4,7 @@ $response = [];
 $email     = trim($_REQUEST['uname']);
 $upassword = trim($_REQUEST['pwd']);
 
-$sql = "SELECT flag,PersonId,companyId FROM UserMaster WHERE emailId='$email' AND upassword='$upassword'";
+$sql = "SELECT flag,PersonId,companyId,isAdmin FROM UserMaster WHERE emailId='$email' AND upassword='$upassword'";
 $result = mysqli_query($con,$sql) ;
 if(mysqli_num_rows($result)==1){
     $response['msg'] = 1;
