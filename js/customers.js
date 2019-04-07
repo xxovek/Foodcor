@@ -164,7 +164,6 @@ function fetchsinglesstate() {
     $.ajax({
         url: '../src/fetch_single_state.php',
         type: 'GET',
-
         success: function(response) {
             getstate += response;
             getstate += '</select>';
@@ -280,12 +279,12 @@ function fun() {
         setTimeout(function() {
             $("#scity").val(bcity).trigger('change');
         }, 1000);
-       
+
         $("#szip").val(bzip).attr('disabled', true);
         $("#shipaddr").val(billaddr).attr('disabled', true);
     } else {
         $("#sstate").val("").trigger('change');
-       
+
         $("#szip").val('').attr('disabled', false);
         $("#shipaddr").val('').attr('disabled', false);
     }
@@ -305,7 +304,7 @@ function displayCustomers() {
                     if(response[i].personTypeId==4){
                         CTD = '<td>-</td>';
                     }else{
-                        CTD = '<td><button class=" btn-link dropdown-toggle" data-toggle="dropdown">Edit</button><div class="dropdown-menu"><a class="dropdown-item" href="customerEdit.php?pid=' + response[i]['pid'] + '">View</a><a class="dropdown-item" href="#" onClick="removecustomers(' + c_id + ');">Delete</a></div></td>'; 
+                        CTD = '<td><button class=" btn-link dropdown-toggle" data-toggle="dropdown">Edit</button><div class="dropdown-menu"><a class="dropdown-item" href="customerEdit.php?pid=' + response[i]['pid'] + '">View</a><a class="dropdown-item" href="#" onClick="removecustomers(' + c_id + ');">Delete</a></div></td>';
                     }
                     $("#tabledata").append('<tr><th scope="row">' + (i + 1) + '</th><td>' + response[i].name + '</td><td>' + response[i].ptype + '</td><td>' + response[i].email + '</td>'+CTD+'</tr>');
                 }
