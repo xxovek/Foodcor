@@ -4,7 +4,7 @@ session_start();
 $companyId = $_SESSION['company_id'];
 
 
-$sql ="SELECT IM.ItemId,IM.ItemName,SM.SizeValue,IM.Unit  FROM ItemMaster IM
+$sql ="SELECT IM.ItemId,IM.ItemName,SM.SizeValue,IM.Unit,ID.PackingQty  FROM ItemMaster IM
 LEFT JOIN ItemDetailMaster ID ON IM.ItemId = ID.ItemId
 LEFT JOIN SizeMaster SM ON SM.SizeId = ID.sizeId ORDER BY IM.ItemId DESC";
 if($result = mysqli_query($con,$sql))
@@ -13,7 +13,7 @@ if($result = mysqli_query($con,$sql))
  {
    while($row=mysqli_fetch_array($result))
    {?>
-   <option value='<?php echo $row['ItemId'];?>'><?php echo ucfirst($row['ItemName']).' '.$row['SizeValue'].' '.$row['Unit'];?></option>
+   <option value='<?php echo $row['ItemId'];?>'><?php echo ucfirst($row['ItemName'].' '.$row['SizeValue'].' '.$row['Unit'].' *'.$row['PackingQty'].'Pieces');?></option>
    <?php
    }
  }

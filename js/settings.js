@@ -1,26 +1,4 @@
 $("#tab3").trigger('reset');
-fetchCompany();
-fetchUser();
-displaydocdetails();
-displayAdminUsers();
-function fetchCompany() {
-$.ajax({
-  url:'../src/companyDetails.php',
-  dataType:'json',
-  success:function(response){
-    $("#cname").val(response.cName);
-    $("#cphone").val(response.phone);
-    $("#caddr").val(response.addr);
-    $("#ccountry").append('<option value="'+response.country+'" selected>'+response.country+'</option>');
-    $("#ccity").append('<option value="'+response.city+'" selected>'+response.city+'</option>');
-    $("#czip").val(response.zip);
-    $("#cid").val(response.cid);
-    $("#cstate").append('<option value="'+response.state+'" selected>'+response.state+'</option>');
-    $("#logo1").html('<img class="avatar avatar-xl" src="../public_html/assets/img/'+response.logo+'" alt="...">');
-  }
-});
-}
-
 function fetchUser() {
 $.ajax({
   url:'../src/userDetails.php',
@@ -34,6 +12,49 @@ $.ajax({
     $("#uname1").html(response.ufname+' '+response.ulname);
   }
 });
+}
+
+// fetchUser();
+// displaydocdetails();
+// displayAdminUsers();
+fetchCompany();
+
+
+// spancountry();
+// function spancountry() {
+//     var getcountry = '<select  tabindex="8" title="Select Country" data-provide="selectpicker" data-width="100%" data-live-search="true" id="bcountry"  name="bcountry" autocomplete="off">';
+//     $.ajax({
+//         url: '../src/fetch_country.php',
+//         type: 'GET',
+//         success: function(response) {
+//             getcountry += response;
+//             getcountry += '</select>';
+//             $("#spancountry").html(getcountry);
+//         }
+//     });
+// }
+function fetchCompany() {
+
+$.ajax({
+  url:'../src/companyDetails.php',
+  dataType:'json',
+  success:function(response){
+    // alert(response);
+    $("#cname").val(response.cName);
+    $("#cphone").val(response.phone);
+    $("#caddr").val(response.addr);
+    $("#country").val(response.country);
+    $("#state").val(response.state);
+    $("#city").val(response.city);
+    $("#czip").val(response.zip);
+    $("#cid").val(response.cid);
+    $("#logo1").html('<img class="avatar avatar-xl" src="../public_html/assets/img/'+response.logo+'" alt="...">');
+  }
+});
+}
+function changeaddress(){
+  $("#hidecountry").hide();
+  $("#showcountry").show();
 }
 
 
@@ -140,10 +161,7 @@ else if(uemail=="")
 {
 $("#uemail").focus();
 }
-// else if(upwd=="" || upwd.length<2)
-// {
-// $("#upwd").focus();
-// }
+
 else {
 $.ajax({
   url:'../src/addUser.php',
@@ -332,10 +350,6 @@ function checkUserEmailAvailabilityAdmin(param) {
       else{
         $("#check_uemail_availablity").html(' ');
       }
-  //     $("#email-availability").html(response);
-  //     setTimeout(function(){
-  //   $("#email-availability").hide();
-  // }, 3000);
     },
     error: function () { }
   });
@@ -354,3 +368,6 @@ function displayAdminUsersTable(param)
   $("#addusertab").hide();
   }
 }
+
+// $("#spanstate").html('<select data-live-search="true" class="form-control form-control-sm " data-width="100%" data-provide="selectpicker"   id="cstate" name="cstate" title="Select State" ></select>');
+// $("#spancity").html('<select data-live-search="true" class="form-control form-control-sm " data-width="100%" data-provide="selectpicker"   id="ccity" name="ccity" title="Select City" >');
