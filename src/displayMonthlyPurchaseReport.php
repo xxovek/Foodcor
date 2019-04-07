@@ -6,9 +6,21 @@ $MonthDate = $_REQUEST['month'];
 $TransactionType = $_REQUEST['TransactionType'];
 
 $sql = "SELECT TM.TransactionId as Tid,COALESCE(DATE_FORMAT(TM.DateCreated,'%d %b %Y'),'-') as InvDate,CONCAT(TM.FinancialYear,'-',TM.TransactionNumber) as InvoiceNumber,
-TT.TransactionType,TM.TransactionNumber as TransactionNumber,TM.TransactionTypeId,CONCAT(PM.FirstName,' ',PM.lastName) as personName, COALESCE(DATE_FORMAT(TM.DueDate,'%d %b %Y'),'-') as dueDate,
-COALESCE(SUM(TD.BillQty*TD.rate),0) AS TotalBeforeTax,COALESCE((SUM(TD.BillQty*TD.rate*(IFNULL(TD.TaxPercent,0))*0.01)),0) AS TotalGST,COALESCE((SUM(TD.BillQty*TD.rate*(IFNULL(TD.TaxPercent,0))*0.01)/2),0) AS CGST,COALESCE((SUM(TD.BillQty*TD.rate*(IFNULL(TD.TaxPercent,0))*0.01)/2),0) AS SGST,
-COALESCE((SUM(TD.BillQty*TD.rate)+(SUM(TD.BillQty*TD.rate*(IFNULL(TD.TaxPercent,0.00000000000001))*0.01))),0)  AS Total,COALESCE(TM.TransactionStatus,'-') AS TransactionStatus
+TT.TransactionType,TM.TransactionNumber as TransactionNumber,TM.TransactionTypeId,CONCAT(PM.FirstName,' ',PM.lastName) as personName, COALESCE(DATE_FORMAT(TM.DueDate,'%d %b %Y'),'-') as dueDate,COALESCE(TM.TransactionStatus,'-') AS TransactionStatus,
+SUM(TD.BillQty*TD.rate*
+ (CASE WHEN TD.itemunitval =1 THEN 1
+  WHEN TD.itemunitval=2 THEN (SELECT IDM.SubPacking FROM ItemDetailMaster IDM where IDM.itemDetailId = TD.itemDetailId)
+  WHEN TD.itemunitval=3 THEN (SELECT IDM.PackingQty FROM ItemDetailMaster IDM where IDM.itemDetailId = TD.itemDetailId)
+  ELSE 1 END))+SUM(TD.BillQty*TD.rate*
+ (CASE WHEN TD.itemunitval =1 THEN 1
+ WHEN TD.itemunitval=2 THEN (SELECT IDM.SubPacking FROM ItemDetailMaster IDM where IDM.itemDetailId = TD.itemDetailId)
+ WHEN TD.itemunitval=3 THEN (SELECT IDM.PackingQty FROM ItemDetailMaster IDM where IDM.itemDetailId = TD.itemDetailId)
+  ELSE 1 END)*TD.TaxPercent/100) AS Total,
+  SUM(TD.BillQty*TD.rate*
+ (CASE WHEN TD.itemunitval =1 THEN 1
+ WHEN TD.itemunitval=2 THEN (SELECT IDM.SubPacking FROM ItemDetailMaster IDM where IDM.itemDetailId = TD.itemDetailId)
+ WHEN TD.itemunitval=3 THEN (SELECT IDM.PackingQty FROM ItemDetailMaster IDM where IDM.itemDetailId = TD.itemDetailId)
+  ELSE 1 END)) AS TotalBeforeTax
 FROM TransactionMaster TM LEFT JOIN TransactionDetails TD ON TD.TransactionId = TM.TransactionId
 LEFT JOIN PersonMaster PM ON PM.PersonId = TM.PersonId
 LEFT JOIN TransactionType TT ON TT.TransactionTypeId = TM.TransactionTypeId
@@ -22,10 +34,10 @@ if($result = mysqli_query($con,$sql)or die(mysqli_error($con))){
         'InvoiceNumber'=> $row['InvoiceNumber'],
         'TranNo' => $row['TransactionNumber'],
         'TotalBeforeTax' => $row['TotalBeforeTax'],
-        'TotalGST' => $row['TotalGST'],
-        'CGST' => $row['CGST'],
-        'SGST' => $row['SGST'],
         'Total' => $row['Total'],
+        'TotalGST' => $row['Total']-$row['TotalBeforeTax'],
+        'CGST' => ($row['Total']-$row['TotalBeforeTax'])/2,
+        'SGST' => ($row['Total']-$row['TotalBeforeTax'])/2,
         'name' => ucwords($row['personName']),
         'DateCreated' => $row['InvDate'],
         'status' => $row['TransactionStatus']
