@@ -6,10 +6,10 @@ $aId       = $_REQUEST['aid'];
 
 $sql = "SELECT TT.TransactionType,TM.TransactionId,PM.FirstName,PM.lastName,TM.DateCreated, COALESCE(TM.DueDate,'-') as DueDate,CONCAT(TM.FinancialYear,'-',TM.TransactionNumber) as InvoiceNumber,
 (SUM(TD.qty*TD.rate)+(SUM(TD.qty*TD.rate*(IFNULL(TD.TaxPercent,0.00000001))*0.01))) AS TOTAL
- FROM TransactionMaster TM INNER JOIN TransactionDetails TD ON TD.TransactionId = TM.TransactionId
+ FROM TransactionMaster TM LEFT JOIN TransactionDetails TD ON TD.TransactionId = TM.TransactionId
  LEFT JOIN PersonMaster PM ON PM.PersonId = TM.PersonId
  LEFT JOIN TransactionType TT ON TT.TransactionTypeId =TM.TransactionTypeId
- where TM.companyId =$companyId  AND TM.`AccountId` =$aId
+ where TM.companyId =$companyId  AND TM.AccountId = $aId
  GROUP BY TM.TransactionId,TT.TransactionTypeId";
 
 $response = [];
