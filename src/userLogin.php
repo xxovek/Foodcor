@@ -13,6 +13,7 @@ if(mysqli_num_rows($result)==1){
     $_SESSION['person_id']  = $row['PersonId'];
     $_SESSION['company_id'] = $row['companyId'];
     $_SESSION['company_flag'] = $row['flag'];
+    $_SESSION['isAdmin'] = $row['isAdmin'];
 }else{
     $response['msg'] = 0;
 }
