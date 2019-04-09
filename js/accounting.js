@@ -1,6 +1,4 @@
-
 display();
-
 function display(){
   $('#tblData tbody').empty();
 var tblData = '';
@@ -45,7 +43,6 @@ $.ajax({
   dataType:'json',
   data:{aid:param},
   success:function(response){
-    // alert(response)
     var count = Object.keys(response).length;
       if(count > 0){
         for(var i=0;i<count;i++){
