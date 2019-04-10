@@ -1,6 +1,8 @@
 <?php
 require_once 'dompdf/autoload.inc.php';
 use Dompdf\Dompdf;
+ini_set('max_execution_time', 300); //300 seconds = 5 minutes
+ini_set('memory_limit', '3000M'); //This might be too large, but depends on the data set
 $dompdf = new Dompdf();
 
 function company_info()
