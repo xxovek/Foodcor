@@ -11,7 +11,7 @@ if(isset($_SESSION['company_id']))
     <meta name="description" content="Responsive admin dashboard and web application ui kit. Stylized tables to allow audience grabs the information in a glance.">
     <meta name="keywords" content="table, toolbar">
 
-    <title>Reports | Purchase report</title>
+    <title>Reports | Sales report</title>
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,300i" rel="stylesheet">
@@ -92,7 +92,7 @@ if(isset($_SESSION['company_id']))
         </div>
           <div class="col-lg-12">
             <div class="card">
-              <h4 class="card-title"><strong>Purchase Report</strong></h4>
+              <h4 class="card-title"><strong>Sales Report</strong></h4>
               <div class="card-body table-responsive" id="noDataDiv" style="display:none">
 
               </div>

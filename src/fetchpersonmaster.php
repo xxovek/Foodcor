@@ -3,7 +3,7 @@ include '../config/connection.php';
 session_start();
 $companyId = $_REQUEST['companyId'];
 
-$sql = "SELECT PM.PersonId,PM.FirstName,PM.middleName,PM.lastName
+$sql = "SELECT PM.PersonId,PM.FirstName,PM.middleName,PM.lastName, PM.PersonCompanyId
 ,PM.EmailId,PM.CompanyName,PM.companyId,PT.PersonType from PersonMaster PM , PersonType PT
 where PM.companyId =$companyId and PM.PersonCompanyId NOT IN('4') and PM.personTypeId = PT.personTypeId";
 
@@ -20,7 +20,8 @@ if($result = mysqli_query($con,$sql)or die(mysqli_error($con))){
         'EmailId' => $row['EmailId'],
         'CompanyName' => $row['CompanyName'],
         'PersonType' => $row['PersonType'],
-        'companyId' => $row['companyId']
+        'companyId' => $row['companyId'],
+        'PersonCompanyId'=>$row['PersonCompanyId']
 
       ]);
     }

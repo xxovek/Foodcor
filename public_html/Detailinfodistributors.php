@@ -169,6 +169,7 @@ if(isset($_SESSION['company_id']))
      showcompanydetail(<?php echo $companydetailid; ?>);
      displayMembers(<?php echo $companydetailid; ?>);
      displayProductStock(<?php echo $companydetailid; ?>);
+    
      </script>
 
     <!-- <script src="../js/outlets.js"></script> -->

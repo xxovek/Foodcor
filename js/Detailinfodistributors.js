@@ -59,7 +59,7 @@ function displayMembers(param) {
                     tblData  += '<td>'+response[i].FirstName+' '+response[i].lastName+'</td>';
                     // tblData  += '<td>'+response[i].EmailId+'</td>';
                     tblData  += '<td>'+response[i].PersonType+'</td>';
-                    tblData  += '<td><button class="btn btn-success" onclick="completemember('+response[i].PersonId+')"><i class="fa fa-eye"></i></button> </td>' ;
+                    tblData  += '<td><button class="btn btn-success" onclick="completemember('+response[i].PersonCompanyId+')"><i class="fa fa-eye"></i></button> </td>' ;
                     tblData  += '</tr>';
                 }
                 $('#tblmemberbody').html(tblData);
@@ -86,9 +86,9 @@ function displayMembers(param) {
     });
 }
 function completemember(param){
-  // alert(param);
-  // window.location.href="Detailinfodistributors.php?id="+param+"";
-}
+    // alert(param);
+   window.location.href="Detailinfodistributors.php?id="+param+"";
+ }
 
 function displayProductStock(param) {
   // alert(param);
