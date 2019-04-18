@@ -291,6 +291,7 @@ function fun() {
 }
 
 function displayCustomers() {
+    $("#tabledata").empty();
     $.ajax({
         type: "POST",
         url: "../src/displayCustomers.php",
@@ -308,21 +309,15 @@ function displayCustomers() {
                     }
                     $("#tabledata").append('<tr><th scope="row">' + (i + 1) + '</th><td>' + response[i].name + '</td><td>' + response[i].ptype + '</td><td>' + response[i].email + '</td>'+CTD+'</tr>');
                 }
-                var countTable = $('thead tr th').length;
-                var arr = [];
-                for (var i = 0; i < countTable; i++) {
-                    arr.push(i);
-                }
                 $('#example1').DataTable({
-                    bPaginate: $('tbody tr').length > 10,
-                    order: [],
-                    // "bInfo": false,
-                    columnDefs: [{
-                        orderable: false,
-                        targets: arr
-                    }],
-                    dom: 'Bfrtip',
-                    buttons: ['copy', 'excel', 'pdf', 'print']
+                    searching: true,
+                retrieve: true,
+                bPaginate: $('tbody tr').length>10,
+                order: [],
+                columnDefs: [ { orderable: false, targets: [0,1,2,3,4] } ],
+                dom: 'Bfrtip',
+                buttons: ['copy','csv', 'excel','pdf'],
+                destroy: true
                 });
             } else {
 
@@ -353,21 +348,15 @@ function displaytransactions(param) {
                         t_id + '">View</a><a class="dropdown-item" href="invoicePdf.php?tid=' + t_id + '">Print</a></div></td></tr>');
 
                 }
-                var countTable = $('thead tr th').length;
-                var arr = [];
-                for (var i = 0; i < countTable; i++) {
-                    arr.push(i);
-                }
                 $('#example2').DataTable({
-                    bPaginate: $('tbody tr').length > 10,
-                    order: [],
-                    // "bInfo": false,
-                    columnDefs: [{
-                        orderable: false,
-                        targets: arr
-                    }],
-                    dom: 'Bfrtip',
-                    buttons: ['copy', 'excel', 'pdf', 'print']
+                    searching: true,
+                retrieve: true,
+                bPaginate: $('tbody tr').length>10,
+                order: [],
+                columnDefs: [ { orderable: false, targets: [0,1,2,3,4] } ],
+                dom: 'Bfrtip',
+                buttons: ['copy','csv', 'excel','pdf'],
+                destroy: true
                 });
             } else {
 
@@ -476,7 +465,13 @@ function removecustomers(param) {
             }),
             success: function(data) {
                 $("#" + param).closest('tr').remove();
-                window.location.reload();
+                app.toast('Customer Removed SuccessFully', {
+                    actionTitle: 'Success',
+                    // actionUrl: 'something',
+                    actionColor: 'success',
+                    duration: 4000
+                  });
+                  displayCustomers();
             }
         });
     }

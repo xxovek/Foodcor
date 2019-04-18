@@ -10,7 +10,7 @@ COM.contactNumber,COM.country,COM.CState,COM.city,COM.zipcode FROM PersonMaster 
 LEFT JOIN CompanyMaster CM ON PM.companyId = CM.CompanyId
 LEFT JOIN ContactMaster COM ON COM.contactId = CM.contactId WHERE PM.companyId = $PersonCompanyId AND PM.EmailId = '$EmailId'";
 
-if($result = mysqli_query($con,$check_sql)){
+if($result = mysqli_query($con,$check_sql) or die(mysqli_error('1'))){
     $row = mysqli_fetch_array($result);
     $FirstName      = $row['FirstName'];
     $middleName     = $row['middleName'];
@@ -54,11 +54,11 @@ if(mysqli_query($con,$sql_person)){
   if(mysqli_query($con,$sql7)){
     $i++;
 
-    $sql4="INSERT INTO ContactDocument (DocumentId,PersonId,DocumentNumber) VALUES(4,$personid)";
+    $sql4="INSERT INTO ContactDocument (DocumentId,PersonId) VALUES(4,$personid)";
   if(mysqli_query($con,$sql4)){
     $i++;
 
-    $sql5="INSERT INTO ContactDocument (DocumentId,PersonId,DocumentNumber) VALUES(1,$personid)";
+    $sql5="INSERT INTO ContactDocument (DocumentId,PersonId) VALUES(1,$personid)";
 if(mysqli_query($con,$sql5)){
   $i++;
 }
@@ -69,7 +69,7 @@ if(mysqli_query($con,$sql5)){
   }
 }
 if($i == 7){
-    $response['msg'] = 'Supplier Added SuccessFully';
+    $response['msg'] = 'Supplier '.$companyName.' Added SuccessFully';
 }else{
     $response['msg'] = 'Error While Adding';
 }
