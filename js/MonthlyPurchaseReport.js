@@ -43,17 +43,24 @@ if(i === 0){
                   $('#tfootData').html(tfootData);
 
                   $('#allSalesTbl').DataTable({
-                    searching: true,
-                    retrieve: true,
                     bPaginate: $('tbody tr').length > 10,
-                    order: [],
-                    columnDefs: [{
-                        orderable: false,
-                        targets: [0,1,2,3,4,5,6,7,8]
-                    }],
-                    dom: 'Bfrtip',
-                    buttons: ['copy', 'excel', 'pdf', 'print'],
-                    destroy: true
+                      order: [],
+                      columnDefs: [{
+                          orderable: false,
+                          targets: [0,1,2,3,4,5,6,7,8]
+                      }],
+                      searching: true,
+                    retrieve: true,
+                    destroy: true,
+                      dom: 'Bfrtip',
+                      buttons: [
+                        { extend: 'copy', footer: true },
+                        { extend: 'excel', footer: true },
+                        { extend: 'csv', footer: true },
+                        { extend: 'pdf', footer: true },
+                        { extend: 'print', footer: true }
+                    ]
+                   
                 });
             }
     });
@@ -61,6 +68,8 @@ if(i === 0){
 }
 
 function DisplaySalesReportTblDataOnclick(){
+  $('#tblData').empty();
+  $('#tfootData').empty();
     var month = document.getElementById('month').value;
     var i=0;
     var tblData,tfootData = '';
@@ -110,8 +119,10 @@ function DisplaySalesReportTblDataOnclick(){
                           orderable: false,
                           targets: [0,1,2,3,4,5,6,7,8]
                       }],
+                    searching: true,
+                    retrieve: true,
+                    destroy: true,
                       dom: 'Bfrtip',
-                      // buttons: ['copy','excel','pdf','print']
                       buttons: [
                         { extend: 'copy', footer: true },
                         { extend: 'excel', footer: true },
