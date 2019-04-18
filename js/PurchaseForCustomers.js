@@ -75,7 +75,13 @@ function AddSupplier(companyId,EmailId){
         data:{EmailId:EmailId,companyId:companyId},
         dataType:'json',
         success:function(response){
-           alert(response);
+           app.toast(response.msg, {
+            actionTitle: 'Success',
+            // actionUrl: 'something',
+            actionColor: 'success',
+            duration: 4000
+          });
+          DisplayInvoiceTblData();
         }
     })
 }

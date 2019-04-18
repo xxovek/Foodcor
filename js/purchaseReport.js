@@ -1,10 +1,8 @@
 DisplayPurchaseReportTblData();
-
 function DisplayPurchaseReportTblData(){
   var fromDate = "";
   var toDate = "";
   var tblData = ''
-
     $.ajax({
             url:"../src/displayPurchaseReport.php",
             method:"POST",
@@ -41,8 +39,6 @@ function DisplayPurchaseReportTblData(){
 
 }
 
-
-
 function DisplayPurchaseReportTblDataOnclick(){
 
   var fromDate = document.getElementById('fromDate').value;
@@ -55,7 +51,6 @@ function DisplayPurchaseReportTblDataOnclick(){
     i=1;
   }
   else {
-    // var fromDate = moment(new Date(fdate)).format("YYYY-MM-DD");
     var fromDate = moment(new Date(fromDate)).format("YYYY-MM-DD");
 
   }
@@ -68,10 +63,7 @@ function DisplayPurchaseReportTblDataOnclick(){
       var toDate = moment(new Date(toDate)).format("YYYY-MM-DD");
   }
   if(i === 0){
-
     $('#allSalesTbldiv').hide();
-
-
     $.ajax({
             url:"../src/displayPurchaseReport.php",
             method:"POST",
@@ -104,7 +96,5 @@ function DisplayPurchaseReportTblDataOnclick(){
             }
           }
     });
-
 }
-
 }
