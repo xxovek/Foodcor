@@ -15,8 +15,8 @@ $currentcompanyId = $row1['companyId'];
 $response = [];
 if($currentcompanyId===$companyId)
 {
-  $sql = "SELECT IDM.ItemId, TD.itemDetailId,TD.itemunitval,TM.PersonId,TM.companyId,
-          TD.qty,TD.rate,TD.TaxType,TD.TaxPercent,TD.discountAmount,TD.description,
+  $sql = "SELECT IDM.ItemId, TD.itemDetailId,TD.itemunitval,TM.PersonId,TM.companyId,IDM.PackingQty,IDM.SubPacking,
+          TD.qty,TD.rate,TD.TaxType,TD.BillQty,TD.TaxPercent,TD.discountAmount,TD.description,
           TM.discount,TM.TransactionId,TM.PaytermsId,TM.FinancialYear,TM.TransactionNumber,
           TM.DueDate,TM.DateCreated,TM.remarks,TM.contactId FROM TransactionDetails TD
           LEFT JOIN TransactionMaster TM ON TM.TransactionId = TD.TransactionId
@@ -24,9 +24,9 @@ if($currentcompanyId===$companyId)
           WHERE TM.TransactionId = '$transactionno' and TM.companyId=$companyId";
 }
 else {
-  $sql = "SELECT IDM.ItemId,PM.PersonId, TD.itemDetailId,
+  $sql = "SELECT IDM.ItemId,PM.PersonId, TD.itemDetailId,IDM.PackingQty,IDM.SubPacking,
           TD.itemunitval,TM.companyId,
-          TD.qty,TD.rate,TD.TaxType,TD.TaxPercent,TD.discountAmount,TD.description,
+          TD.qty,TD.rate,TD.TaxType,TD.BillQty,TD.TaxPercent,TD.discountAmount,TD.description,
           TM.discount,TM.TransactionId,TM.PaytermsId,TM.FinancialYear,TM.TransactionNumber,
           TM.DueDate,TM.DateCreated,TM.remarks,TM.contactId FROM TransactionDetails TD
           LEFT JOIN TransactionMaster TM ON TM.TransactionId = TD.TransactionId
@@ -40,11 +40,11 @@ $result = mysqli_query($con,$sql);
 
 if(mysqli_num_rows($result)>0){
     // $row = mysqli_fetch_array($result);
-       while($row=mysqli_fetch_array($result)){
-
+      while($row=mysqli_fetch_array($result)){
       array_push($response,[
         'itemDetailId' => $row['itemDetailId'],
         'qty' => $row['qty'],
+        'BillQty' => $row['BillQty'],
         'rate' => $row['rate'],
         'itemunitval' => $row['itemunitval'],
         'TaxType' => $row['TaxType'],
@@ -61,7 +61,9 @@ if(mysqli_num_rows($result)>0){
         'itemid' => $row['ItemId'],
         'remarks' => $row['remarks'],
         'contactId' => $row['contactId'],
-        'PaytermsId' => $row['PaytermsId']
+        'PaytermsId' => $row['PaytermsId'],
+        'PackingQty' => $row['PackingQty'],
+        'SubPacking' => $row['SubPacking']
       ]);
     }
   }

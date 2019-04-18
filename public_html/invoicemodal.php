@@ -12,6 +12,7 @@
         <input type="hidden" id="hiddenformid" />
         <input type="hidden" id="hiddenformtype" />
         <input type="hidden" id="hiddentransactionid" />
+        <input type="hidden" id="invtemp" />
         <input type="hidden" id="remainamount" />
         <button type="button" class="close" data-dismiss="modal">
           <span aria-hidden="true">&times;</span>

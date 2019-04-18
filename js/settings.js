@@ -1,4 +1,34 @@
 $("#tab3").trigger('reset');
+
+fetchUser();
+displaydocdetails();
+displayAdminUsers();
+fetchCompany();
+function fetchCompany() {
+  fetchsinglebstate();
+  fetchsinglebcity();
+$.ajax({
+  url:'../src/companyDetails.php',
+  dataType:'json',
+  success:function(response){
+    $("#cname").val(response.cName);
+    $("#cphone").val(response.phone);
+    $("#caddr").val(response.addr);
+        $("#ccountry").val(response.bcountryid);
+          $("#cstate").val(response.bstateid);
+            $("#ccity").val(response.bcityid);
+
+    // $("#ccountry").append('<option value="'+response.country+'" selected>'+response.country+'</option>');
+    // $("#ccity").append('<option value="'+response.city+'" selected>'+response.city+'</option>');
+    // $("#cstate").append('<option value="'+response.state+'" selected>'+response.state+'</option>');
+    $("#czip").val(response.zip);
+    $("#cid").val(response.cid);
+
+    $("#logo1").html('<img class="avatar avatar-xl" src="../public_html/assets/img/'+response.logo+'" alt="...">');
+  }
+});
+}
+
 function fetchUser() {
 $.ajax({
   url:'../src/userDetails.php',
@@ -12,49 +42,6 @@ $.ajax({
     $("#uname1").html(response.ufname+' '+response.ulname);
   }
 });
-}
-
-// fetchUser();
-// displaydocdetails();
-// displayAdminUsers();
-fetchCompany();
-
-
-// spancountry();
-// function spancountry() {
-//     var getcountry = '<select  tabindex="8" title="Select Country" data-provide="selectpicker" data-width="100%" data-live-search="true" id="bcountry"  name="bcountry" autocomplete="off">';
-//     $.ajax({
-//         url: '../src/fetch_country.php',
-//         type: 'GET',
-//         success: function(response) {
-//             getcountry += response;
-//             getcountry += '</select>';
-//             $("#spancountry").html(getcountry);
-//         }
-//     });
-// }
-function fetchCompany() {
-
-$.ajax({
-  url:'../src/companyDetails.php',
-  dataType:'json',
-  success:function(response){
-    // alert(response);
-    $("#cname").val(response.cName);
-    $("#cphone").val(response.phone);
-    $("#caddr").val(response.addr);
-    $("#country").val(response.country);
-    $("#state").val(response.state);
-    $("#city").val(response.city);
-    $("#czip").val(response.zip);
-    $("#cid").val(response.cid);
-    $("#logo1").html('<img class="avatar avatar-xl" src="../public_html/assets/img/'+response.logo+'" alt="...">');
-  }
-});
-}
-function changeaddress(){
-  $("#hidecountry").hide();
-  $("#showcountry").show();
 }
 
 
@@ -161,7 +148,10 @@ else if(uemail=="")
 {
 $("#uemail").focus();
 }
-
+// else if(upwd=="" || upwd.length<2)
+// {
+// $("#upwd").focus();
+// }
 else {
 $.ajax({
   url:'../src/addUser.php',
@@ -368,6 +358,75 @@ function displayAdminUsersTable(param)
   $("#addusertab").hide();
   }
 }
+spancountry();
+$("#spanstate").html('<select data-live-search="true" class="form-control form-control-sm " data-width="100%" data-provide="selectpicker"   id="cstate" name="cstate" title="Select State" ></select>');
+$("#spancity").html('<select data-live-search="true" class="form-control form-control-sm " data-width="100%" data-provide="selectpicker"   id="ccity" name="ccity" title="Select City" >');
+function spancountry() {
+    var getcountry = '<select title="Select Country" class="form-control form-control-sm" tabindex="8" title="Select Country" data-provide="selectpicker" data-width="100%" data-live-search="true" id="ccountry" onchange="spanstate(this.value);" name="ccountry" autocomplete="off">';
+    $.ajax({
+        url: '../src/fetch_country.php',
+        type: 'GET',
+        success: function(response) {
+            getcountry += response;
+            getcountry += '</select>';
+            $("#spancountry").html(getcountry);
+        }
+    });
+}
 
-// $("#spanstate").html('<select data-live-search="true" class="form-control form-control-sm " data-width="100%" data-provide="selectpicker"   id="cstate" name="cstate" title="Select State" ></select>');
-// $("#spancity").html('<select data-live-search="true" class="form-control form-control-sm " data-width="100%" data-provide="selectpicker"   id="ccity" name="ccity" title="Select City" >');
+function spanstate(country) {
+    var getstate = '<select title="Select State" class="form-control form-control-sm" tabindex="9" data-provide="selectpicker"  data-live-search="true" id="cstate"  onchange="spancity(this.value)" name="cstate" autocomplete="off">';
+    $.ajax({
+        url: '../src/fetch_state.php',
+        type: 'GET',
+        data: ({
+            user_id: country
+        }),
+        success: function(response) {
+            getstate += response;
+            getstate += '</select>';
+            $("#spanstate").html(getstate);
+        }
+    });
+}
+
+function spancity(state) {
+    var getcity = '<select title="Select City" class="form-control form-control-sm" tabindex="10" data-provide="selectpicker"  data-live-search="true" id="ccity"  name="ccity" autocomplete="off">';
+    $.ajax({
+        url: '../src/fetch_city.php',
+        type: 'GET',
+        data: ({
+            user_id: state
+        }),
+        success: function(response) {
+            getcity += response;
+            getcity += '</select>';
+            $("#spancity").html(getcity);
+        }
+    });
+}
+function fetchsinglebstate() {
+    var getstate = '<select title="Select State" class="form-control form-control-sm" tabindex="9" data-provide="selectpicker"  data-live-search="true" id="bstate"  onchange="spancity(this.value)" name="bstate" autocomplete="off">';
+    $.ajax({
+        url: '../src/fetch_single_state.php',
+        type: 'GET',
+        success: function(response) {
+            getstate += response;
+            getstate += '</select>';
+            $("#spanstate").html(getstate);
+        }
+    });
+}
+
+function fetchsinglebcity() {
+    var getcity = '<select title="Select City" class="form-control form-control-sm" tabindex="10" data-provide="selectpicker"  data-live-search="true" id="bcity"  name="bcity" autocomplete="off">';
+    $.ajax({
+        url: '../src/fetch_single_city.php',
+        type: 'GET',
+        success: function(response) {
+            getcity += response;
+            getcity += '</select>';
+            $("#spancity").html(getcity);
+        }
+    });
+}

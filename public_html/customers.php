@@ -28,7 +28,7 @@ if(isset($_SESSION['company_id']))
     <link rel="icon" href="../assets/img/favicon.png">
     <!-- <link href="../select2/select2.min.css" rel="stylesheet" media="all"> -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
+    
   </head>
 
   <body class="sidebar-folded">
@@ -155,7 +155,7 @@ if(isset($_SESSION['company_id']))
             <p class="text-center text-md-left">Copyright © 2017 <a href="http://thetheme.io/theadmin">TheAdmin</a>. All rights reserved.</p>
           </div>
 
-          <div class="col-md-6">
+          <div class="c    <!--  -->ol-md-6">
             <ul class="nav nav-primary nav-dotted nav-dot-separated justify-content-center justify-content-md-end">
               <li class="nav-item">
                 <a class="nav-link" href="../help/articles.html">Documentation</a>
