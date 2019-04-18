@@ -70,7 +70,7 @@ var customer='';
         },
         success: function(msg) {
 
-          customer+='<select  class="form-control" data-provide="selectpicker" data-live-search="true"  title="Choose a terms" onchange="addcustomer()" id="customername">';
+          customer+='<select  class="form-control" data-provide="selectpicker" data-live-search="true"  title="Choose a Name" onchange="addcustomer()" id="customername">';
           customer+=msg;
           // customer+='<option data-icon="fa fa-edit" style="font-weight: bold;  padding: 5px;color: #797878;border: 2px solid #71bd71;"  value="#ac">Add Customer</option>';
           customer+='<option value=""></option>';
