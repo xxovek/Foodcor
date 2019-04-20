@@ -11,6 +11,7 @@ function DisplayInvoiceTblData(){
             data:{Ttype:1},
             success:function(response){
               var count = response.length;
+            
               for (var i = 0; i < count; i++) {
                   var btnData = '';
                   var status = isPersonExists(response[i].emailId);

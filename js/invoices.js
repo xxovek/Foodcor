@@ -56,10 +56,12 @@ var r = confirm("Are You Sure To Remove This Invoice");
                 },
           dataType: "json",
             success: function () {
-                  alert('Invoice Deleted successfull')
+                  alert('Invoice Deleted successfull');
+                  DisplayInvoiceTblData();
                 },
                 error: function (xhr, ajaxOptions, thrownError) {
-                  alert('Error While Delete Invoice')
+                  alert('Error While Delete Invoice');
+                  DisplayInvoiceTblData();
                 }
             });
   }
