@@ -47,6 +47,7 @@ $TransactionType = $_POST['Ttype'];
  GROUP BY TM.TransactionId,TT.TransactionTypeId ORDER BY TM.TransactionId DESC";
 
 
+
 $response = [];
 if($result = mysqli_query($con,$sql)or die(mysqli_error($con))){
   if(mysqli_num_rows($result)>0){

@@ -19,7 +19,7 @@ $flag =$_SESSION['company_flag'];
     <!-- Styles -->
     <link href="../assets/css/core.min.css" rel="stylesheet">
     <link href="../assets/css/app.min.css" rel="stylesheet">
-    <link href="assets/css/style.css" rel="stylesheet">
+    <link href="../assets/css/style.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,300i" rel="stylesheet">
 
     <link rel="stylesheet" href="../datatables/CSS/buttons.bootstrap4.min.css" />
@@ -40,16 +40,10 @@ display: none;
   </head>
 
   <body class="sidebar-folded">
-    <div class="preloader">
-      <div class="spinner-dots">
-        <span class="dot1"></span>
-        <span class="dot2"></span>
-        <span class="dot3"></span>
-      </div>
-    </div>
+
 
     <!-- Sidebar -->
-  <?php include 'sidebar.php' ?>
+ <?php include 'sidebar.php' ?>
     <!-- END Sidebar -->
     <!-- Topbar -->
 <?php include 'navbar.php'; ?>
@@ -143,35 +137,102 @@ display: none;
                   </div>
                   <div class="col-md-6">
                     <div class="form-group">
-                    <label  data-provide="tooltip" data-placement="top" data-original-title="Select  Country"  data-provide="tooltip" >Country
-                    </label>
-                        <span id="spancountry"></span>
+                      <!-- <input class="form-control" type="text" id="cphone" name="cphone" data-provide="tooltip" data-placement="top" title="Company's Contact Number Example:9898989898"  onkeypress="return isNumberKey(event)" maxlength="10" onblur="phonenumber(this);" placeholder="Contact Number"  autocomplete="off" required>
+                      <span id="msgid"></span> -->
+                      <button class="btn btn-w-lg  btn-success" type="button" onclick="changeaddress();">Change Address</button>
                     </div>
                   </div>
                 </div>
-                <hr>
-                <div class="row">
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <label  data-provide="tooltip" data-placement="top" data-original-title="Select  State"  data-provide="tooltip" >State
-                      </label>
-                      <span id="spanstate"></span>
-                    </div>
-                  </div>
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <label   data-provide="tooltip" data-placement="top" data-original-title="Select City"  data-provide="tooltip" >City
-                      </label>
-                    <span id="spancity"></span>
-                    </div>
+                <div class="row" id="hidecountry">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <input class="form-control" type="text" id="country"  readonly>
                   </div>
                 </div>
                 <div class="col-md-6">
-                <div class="form-group">
-                  <input class="form-control" type="text" id="czip" data-provide="tooltip" data-placement="top" title="Company PIN code Example:411007"  name="czip" minlength="6" maxlength="6"  autocomplete="off" onkeypress="return isNumberKey(event)"  placeholder="Zipcode" required>
+                  <div class="form-group">
+                                          <input class="form-control" type="text" id="state"  readonly>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <input class="form-control" type="text" id="city"  readonly>
+                  </div>
+                </div>
+                </div>
+                <div class="row" id="showcountry" style="display:none;">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <select title="Select Country" class="form-control form-control-sm"   data-provide="selectpicker" data-width="100%" data-live-search="true" id="ccountry" onchange="spanstate(this.value);" name="ccountry" autocomplete="off">
+                      <?php
+                     if($result = mysqli_query($con,"SELECT name,id From countries"))
+                     {
+                       if(mysqli_num_rows($result)>0)
+                       {
+                         while($row=mysqli_fetch_array($result))
+                         {?>
+                         <option value='<?php echo $row['id'];?>'><?php echo $row['name'];?></option>
+                         <?php
+                         }
+                       }
+                     }
+                     ?>
+                    </select>
 
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <select title="Select State" class="form-control form-control-sm" data-provide="selectpicker" data-width="100%" data-live-search="true" id="cstate" name="cstate" autocomplete="off">
+
+                    <?php
+
+                    if($result = mysqli_query($con,"SELECT name,id From states"))
+                    {
+                      if(mysqli_num_rows($result)>0)
+                      {
+                        while($row=mysqli_fetch_array($result))
+                        {?>
+                        <option value='<?php echo $row['id'];?>'><?php echo $row['name'];?></option>
+                        <?php
+                        }
+                      }
+                    }
+                     ?>
+                        </select>
+
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <select title="Select City" class="form-control form-control-sm"  data-provide="selectpicker" data-width="100%" data-live-search="true" id="ccity"  name="ccity" autocomplete="off">
+
+                    <?php
+                    if($result = mysqli_query($con,"SELECT name,id From cities "))
+                    {
+                      if(mysqli_num_rows($result)>0)
+                      {
+                        while($row=mysqli_fetch_array($result))
+                        {?>
+                        <option value='<?php echo $row['id'];?>'><?php echo $row['name'];?></option>
+                        <?php
+                        }
+                      }
+                    }
+                     ?>
+                       </select>
+                          <!--  -->
+                  </div>
                 </div>
               </div>
+              <div class="row">
+
+              <div class="col-md-6">
+              <div class="form-group">
+                <input class="form-control" type="text" id="czip" data-provide="tooltip" data-placement="top" title="Company PIN code Example:411007"  name="czip" minlength="6" maxlength="6"  autocomplete="off" onkeypress="return isNumberKey(event)"  placeholder="Zipcode" required>
+               </div>
+              </div>
+            </div>
               </div>
               <footer class="card-footer text-right">
                 <button type="submit" class="btn btn-label btn-primary" >
@@ -400,15 +461,12 @@ display: none;
 
     <!-- Scripts -->
 
-    <script src="../assets/js/core.min.js"></script>
-    <script src="../assets/js/app.min.js"></script>
-    <script src="assets/js/script.js"></script>
+
     <!-- <script src="../select2/select2.min.js"></script> -->
   </body>
-  <script src="../js/settings.js"></script>
-  <script src="../js/validations.js"></script>
-
-  <!-- <script src="../select2/select2.min.js"></script> -->
+  <script src="../assets/js/core.min.js"></script>
+  <script src="../assets/js/app.min.js"></script>
+  <script src="../assets/js/script.min.js"></script>
   <script src="../datatables/jquery.dataTables.min.js"></script>
   <script src="../datatables/dataTables.bootstrap4.min.js"></script>
   <script src="../datatables/dataTables.buttons.min.js"></script>
@@ -417,8 +475,10 @@ display: none;
   <script src="../datatables/pdfmake.min.js"></script>
   <script src="../datatables/vfs_fonts.js"></script>
   <script src="../datatables/buttons.html5.min.js"></script>
-  <!-- <script src="../datatables/buttons.print.min.js"></script> -->
+  <script src="../datatables/buttons.print.min.js"></script>
   <script src="../datatables/buttons.colVis.min.js"></script>
+    <script src="../js/settings.js"></script>
+  <script src="../js/validations.js"></script>
 
 <script type="text/javascript">
   $(document).ready(function(){

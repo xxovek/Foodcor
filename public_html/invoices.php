@@ -311,6 +311,7 @@ if(isset($_SESSION['company_id']))
               $("#hiddenformid").val(formid);
               $("#hiddenformtype").val(formtype);
               $("#hiddentransactionid").val(transactionid);
+              $("#invtemp").val(transactionid);
               // setcurrentdate();
               getcustomer();
               getpayterms();
