@@ -113,9 +113,8 @@ session_start();
      }
      $updtrans = "UPDATE TransactionMaster SET changeStatusFlag=1 where TransactionId=$htransactionid";
      mysqli_query($con,$updtrans);
-     //$deltrans = "DELETE FROM TransactionMaster WHERE TransactionId=$htransactionid";
-     // echo $deltrans."</br>";
-     //mysqli_query($con,$deltrans);
+     $deltrans = "DELETE FROM TransactionMaster WHERE TransactionId=$htransactionid";
+     mysqli_query($con,$deltrans);
   }
   $response = [];
   $sqlty = "SELECT TransactionType,AccountAffected,inventoryAffected FROM TransactionType WHERE TransactionTypeId='$formid'";
