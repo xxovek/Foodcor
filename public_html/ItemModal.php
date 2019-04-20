@@ -95,18 +95,20 @@
   </div>
   <div class="col-sm-6">
     <div class="form-group">
-      <label>Packing Quantity</label>
+      <label class="require" for="ItemSizeQty">Packing Quantity</label>
         <input type="text" class="form-control form-control-sm" id="ItemSizeQty" data-placement="top" tabindex="13" data-provide="tooltip" title="Enter Number of Quantity available in Box,Caret Example:Thumsup caret Contain 24 Bottles Enter 24" autocomplete="off" required>
-    </div>
+        <div class="invalidfeedback5"></div>
+      </div>
   </div>
 
 </div>
 <div class="row">
   <div class="col-sm-6">
 <div class="form-group ">
-    <label>Sub Packing Quantity</label>
+    <label  class="require" for="ItemSizeSubQty">Sub Packing Quantity</label>
     <input type="text" class="form-control form-control-sm" id="ItemSizeSubQty" data-placement="top" tabindex="14" data-provide="tooltip" title="Enter Number of Quantity available in Sub Packing Example:Thumsup caret Contain 24 Bottles Enter 24" autocomplete="off" required>
-    </div>
+    <div class="invalidfeedback6"></div> 
+  </div>
   </div>
   <div class="col-sm-6">
     <h6 title="Select The Suplier" data-provide="tooltip">Preferred Supplier</h6>

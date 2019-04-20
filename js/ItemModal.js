@@ -6,7 +6,6 @@ spcategory();
 sptax();
 function SaveItems(){
   var FunRetVal = CheckUserRole();
-  // alert(FunRetVal);
   if(FunRetVal){
     // e.preventDefault();
     var i=0,serverMethod="POST";
@@ -20,7 +19,7 @@ function SaveItems(){
     var ItemReorderLabel = document.getElementById('ItemReorderLabel').value;
     var ItemSize         = document.getElementById('ItemSize').value;
     var ItemSizeQty      = document.getElementById('ItemSizeQty').value;
-    var ItemSizeSubQty      = document.getElementById('ItemSizeSubQty').value;
+    var ItemSizeSubQty   = document.getElementById('ItemSizeSubQty').value;
     var PackingTypeId    = document.getElementById('PackingTypeId').value;
     var ItemTax          = document.getElementById('ItemTax').value;
     var ItemPrice        = document.getElementById('ItemPrice').value;
@@ -54,6 +53,18 @@ function SaveItems(){
         $('.invalidfeedback4').html('<font color="#f96868">Size Value is Required</font>');
         i=1;
     }
+    if(ItemSizeQty == ""){
+
+      $('#ItemSizeQty').focus();
+      $('.invalidfeedback5').html('<font color="#f96868">Packing Quantity is  Required</font>');
+      i=1;
+  }
+  if(ItemSizeSubQty == ""){
+
+    $('#ItemSizeSubQty').focus();
+    $('.invalidfeedback6').html('<font color="#f96868">Sub Packing Quantity is  Required</font>');
+    i=1;
+}
   if(i==0){
       $.ajax({
         url:'../src/AddItemDetails.php',
@@ -258,4 +269,10 @@ $('#spanunit').on('change',function(){
 });
 $('#spansize').on('change',function(){
   $('.invalidfeedback4').html('');
+});
+$('#ItemSizeQty').on('keyup',function(){
+  $('.invalidfeedback5').html('');
+});
+$('#ItemSizeSubQty').on('keyup',function(){
+  $('.invalidfeedback6').html('');
 });
