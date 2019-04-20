@@ -1,6 +1,7 @@
 DisplayInvoiceTblData();
 function DisplayInvoiceTblData(){
     $("#purchaseTblBody").empty();
+    $('#tfootData').empty();
   var TotalRevenue = 0;
   var TotalBalance = 0;
     $.ajax({
@@ -23,7 +24,12 @@ function DisplayInvoiceTblData(){
                 TotalRevenue +=parseFloat(response[i].Total);
                 TotalBalance +=parseFloat(response[i].Balance);
               }
-              tfootData += '<tr style="font-weight:bold"><td></td><td></td><td></td><td></td><td>Total</td><td>'+TotalBalance.toFixed(2)+'</td><td>'+TotalRevenue.toFixed(2)+'</td><td></td><td></td></tr>';
+              if(count==0){
+                tfootData = '';
+              }
+              else{
+                tfootData = '<tr style="font-weight:bold"><td></td><td></td><td></td><td></td><td>Total</td><td>'+TotalBalance.toFixed(2)+'</td><td>'+TotalRevenue.toFixed(2)+'</td><td></td><td></td></tr>';
+              }
               $('#tfootData').html(tfootData);
               $('#totalRevenue').html(TotalRevenue.toFixed(2));
               $('#totalOrders').html(count);
@@ -54,10 +60,11 @@ var r = confirm("Are You Sure To Remove This Purchase");
                 },
           dataType: "json",
             success: function () {
-                  alert('Invoice Deleted successfull')
+                  alert('Invoice Deleted successfull');
+                   DisplayInvoiceTblData();
                 },
                 error: function (xhr, ajaxOptions, thrownError) {
-                  alert('Error While Delete Invoice')
+                  alert('Error While Delete Invoice');
                 }
             });
   }

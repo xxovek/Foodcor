@@ -15,22 +15,24 @@ $currentcompanyId = $row1['companyId'];
 $response = [];
 if($currentcompanyId===$companyId)
 {
-  $sql = "SELECT IDM.ItemId, TD.itemDetailId,TD.itemunitval,TM.PersonId,TM.companyId,IDM.PackingQty,IDM.SubPacking,
+  $sql = "SELECT IDM.ItemId, TD.itemDetailId,TD.itemunitval,TM.PersonId,TM.companyId,IDM.PackingQty,IDM.SubPacking,PS.TotalQty,
           TD.qty,TD.rate,TD.TaxType,TD.BillQty,TD.TaxPercent,TD.discountAmount,TD.description,
           TM.discount,TM.TransactionId,TM.PaytermsId,TM.FinancialYear,TM.TransactionNumber,
           TM.DueDate,TM.DateCreated,TM.remarks,TM.contactId FROM TransactionDetails TD
           LEFT JOIN TransactionMaster TM ON TM.TransactionId = TD.TransactionId
           LEFT JOIN ItemDetailMaster IDM ON IDM.itemDetailId = TD.itemDetailId
+          LEFT JOIN ProductStock PS ON IDM.itemDetailId = PS.itemDetailId
           WHERE TM.TransactionId = '$transactionno' and TM.companyId=$companyId";
 }
 else {
-  $sql = "SELECT IDM.ItemId,PM.PersonId, TD.itemDetailId,IDM.PackingQty,IDM.SubPacking,
+  $sql = "SELECT IDM.ItemId,PM.PersonId, TD.itemDetailId,IDM.PackingQty,IDM.SubPacking,PS.TotalQty,
           TD.itemunitval,TM.companyId,
           TD.qty,TD.rate,TD.TaxType,TD.BillQty,TD.TaxPercent,TD.discountAmount,TD.description,
           TM.discount,TM.TransactionId,TM.PaytermsId,TM.FinancialYear,TM.TransactionNumber,
           TM.DueDate,TM.DateCreated,TM.remarks,TM.contactId FROM TransactionDetails TD
           LEFT JOIN TransactionMaster TM ON TM.TransactionId = TD.TransactionId
           LEFT JOIN ItemDetailMaster IDM ON IDM.itemDetailId = TD.itemDetailId
+          LEFT JOIN ProductStock PS ON IDM.itemDetailId = PS.itemDetailId
           LEFT JOIN PersonMaster PM ON PM.PersonCompanyId = TM.companyId
           WHERE TM.TransactionId = '$transactionno' and PM.companyId=$companyId and PM.PersonCompanyId=$currentcompanyId";
 }
@@ -63,7 +65,8 @@ if(mysqli_num_rows($result)>0){
         'contactId' => $row['contactId'],
         'PaytermsId' => $row['PaytermsId'],
         'PackingQty' => $row['PackingQty'],
-        'SubPacking' => $row['SubPacking']
+        'SubPacking' => $row['SubPacking'],
+        'TotalQty' => $row['TotalQty']
       ]);
     }
   }

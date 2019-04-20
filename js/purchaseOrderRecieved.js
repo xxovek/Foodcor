@@ -90,10 +90,11 @@ function DeleteInvoice(TransactionId){
                     },
               dataType: "json",
                 success: function () {
-                      alert('Purchase Order Deleted successfull')
+                      alert('Purchase Order Deleted successfull');
+                      DisplayInvoiceTblData();
                     },
                     error: function (xhr, ajaxOptions, thrownError) {
-                      alert('Error While Delete Invoice')
+                      alert('Error While Delete Invoice');
                     }
                 });
       }
