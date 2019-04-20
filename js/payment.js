@@ -1,6 +1,7 @@
 DisplayInvoiceTblData();
 function DisplayInvoiceTblData(){
     $("#invoiceTblBody").empty();
+    $('#tfootData').empty();
   var TotalBalance = 0.00;
   var tfootData = '';
     $.ajax({
@@ -31,7 +32,7 @@ function DisplayInvoiceTblData(){
                 retrieve: true,
                 bPaginate: $('tbody tr').length>10,
                 order: [],
-                columnDefs: [ { orderable: false, targets: [0,1,2,3,4,5,6,7,8] } ],
+                columnDefs: [ { orderable: false, targets: [0,1,2,3,4,5,6,7] } ],
                 dom: 'Bfrtip',
                 buttons: ['copy','csv', 'excel', 'pdf'],
                 destroy: true

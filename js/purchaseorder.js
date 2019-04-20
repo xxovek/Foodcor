@@ -1,6 +1,7 @@
 DisplayInvoiceTblData();
 function DisplayInvoiceTblData(){
     $("#purchaseorderTblBody").empty();
+    $('#tfootData').empty();
   var TotalRevenue = 0;
   var TotalBalance =0.00;
   var tfootData = '';

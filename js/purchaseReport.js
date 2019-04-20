@@ -3,6 +3,8 @@ function DisplayPurchaseReportTblData(){
   var fromDate = "";
   var toDate = "";
   var tblData = ''
+  var tfootData = '';
+  var tQty = 0,total=0;
     $.ajax({
             url:"../src/displayPurchaseReport.php",
             method:"POST",
@@ -19,7 +21,11 @@ function DisplayPurchaseReportTblData(){
                 tblData  += '<td>'+response[i].Rate+'</td>';
                 tblData  += '<td>'+response[i].Total+'</td>';
                 tblData  += '<td>'+response[i].supplierName+'</td></tr>';
+                tQty += parseInt(response[i].Quantity);
+                total += parseFloat(response[i].Total);
               }
+              tfootData += '<tr style="font-weight:bold"><td></td><td>Total</td><td></td><td></td><td>'+tQty.toFixed(2)+'</td><td></td><td>'+total.toFixed(2)+'</td><td></td></tr>';
+              $('#tfootData').html(tfootData);
              $('#tblData').html(tblData);
              $('#allSalesTbl').DataTable({
                  searching: true,
@@ -30,9 +36,15 @@ function DisplayPurchaseReportTblData(){
                      orderable: false,
                      targets: [0, 1, 2, 3, 4, 5,6,7]
                  }],
-                 dom: 'Bfrtip',
-                 buttons: ['copy', 'excel', 'pdf', 'print'],
-                 destroy: true
+                 destroy: true,
+                      dom: 'Bfrtip',
+                      buttons: [
+                        { extend: 'copy', footer: true },
+                        { extend: 'excel', footer: true },
+                        { extend: 'csv', footer: true },
+                        { extend: 'pdf', footer: true },
+                        { extend: 'print', footer: true }
+                    ]
              });
             }
     });
@@ -40,9 +52,9 @@ function DisplayPurchaseReportTblData(){
 }
 
 function DisplayPurchaseReportTblDataOnclick(){
-
   var fromDate = document.getElementById('fromDate').value;
-
+  var tfootData = '';
+  var tQty = 0,total=0;
   var toDate = document.getElementById('toDate').value;
   var i=0;
   var tblData = '';
@@ -52,14 +64,12 @@ function DisplayPurchaseReportTblDataOnclick(){
   }
   else {
     var fromDate = moment(new Date(fromDate)).format("YYYY-MM-DD");
-
   }
   if(toDate == ""){
       $('#toDate').focus();
       i=1;
   }
   else{
-      // var toDate = moment(new Date(tdate)).format("YYYY-MM-DD");
       var toDate = moment(new Date(toDate)).format("YYYY-MM-DD");
   }
   if(i === 0){
@@ -71,8 +81,6 @@ function DisplayPurchaseReportTblDataOnclick(){
             data:{fromDate:fromDate,toDate:toDate},
             success:function(response){
               var count = Object.keys(response).length;
-            //  alert(response.msg);
-              // alert(count);
               if(response.msg === undefined){
                  $('#allSalesTbldiv').show();
                  $('#noDataDiv').hide();
@@ -85,12 +93,34 @@ function DisplayPurchaseReportTblDataOnclick(){
                     tblData  += '<td>'+response[i].Rate+'</td>';
                     tblData  += '<td>'+response[i].Total+'</td>';
                     tblData  += '<td>'+response[i].supplierName+'</td></tr>';
+                    tQty += parseInt(response[i].Quantity);
+                    total += parseFloat(response[i].Total);
                   }
-                  $('#tblData').html(tblData);
+              tfootData += '<tr style="font-weight:bold"><td></td><td>Total</td><td></td><td></td><td>'+tQty.toFixed(2)+'</td><td></td><td>'+total.toFixed(2)+'</td><td></td></tr>';
+              $('#tfootData').html(tfootData);
+             $('#tblData').html(tblData);
+             $('#allSalesTbl').DataTable({
+                 searching: true,
+                 retrieve: true,
+                 bPaginate: $('tbody tr').length > 10,
+                 order: [],
+                 columnDefs: [{
+                     orderable: false,
+                     targets: [0, 1, 2, 3, 4, 5,6,7]
+                 }],
+                 destroy: true,
+                      dom: 'Bfrtip',
+                      buttons: [
+                        { extend: 'copy', footer: true },
+                        { extend: 'excel', footer: true },
+                        { extend: 'csv', footer: true },
+                        { extend: 'pdf', footer: true },
+                        { extend: 'print', footer: true }
+                    ]
+             });
             }
             else{
                 var msg = response.msg;
-                // $('#allSalesTbl').attr('data-provide','datatables');
                 $('#noDataDiv').show();
                 $('#noDataDiv').html(msg);
             }
