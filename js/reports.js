@@ -1,33 +1,24 @@
 function DisplayOpeningClosingData() {
-    // alert('ok');
-
     var fromDate = document.getElementById('fromDate').value;
     var toDate = document.getElementById('toDate').value;
-    // var fromDate = moment(new Date(fdate)).format("YYYY-MM-DD");
-    // var toDate = moment(new Date(tdate)).format("YYYY-MM-DD");
 
     var response = [];
     var tblData = '';
-    // alert("fromDate"+fromDate + "toDate"+ toDate );
+    var tfootData = '';
+    var  openB =0,purB=0,saleB=0,closeB=0;
     var i = 0;
     if (fromDate === "") {
-        // alert('ok');
         $('#fromDate').focus();
         i = 1;
     } else {
-        // var fromDate = moment(new Date(fdate)).format("YYYY-MM-DD");
         var fromDate = moment(new Date(fromDate)).format("YYYY-MM-DD");
-
     }
     if (toDate === "") {
-        // alert('ok');
         $('#toDate').focus();
         i = 1;
     } else {
-        // var toDate = moment(new Date(tdate)).format("YYYY-MM-DD");
         var toDate = moment(new Date(toDate)).format("YYYY-MM-DD");
     }
-
     if (i === 0) {
         $.ajax({
             url: "../src/openingClosingReport.php",
@@ -46,9 +37,14 @@ function DisplayOpeningClosingData() {
                     tblData += '<td>' + response[i].PurchaseBal + '</td>';
                     tblData += '<td>' + response[i].Sale + '</td>';
                     tblData += '<td>' + response[i].ClosingBal + '</td></tr>';
+                    openB += parseInt(response[i].OpeningBal);
+                    purB += parseInt(response[i].PurchaseBal);
+                    saleB += parseInt(response[i].Sale);
+                    closeB += parseInt(response[i].ClosingBal);
                 }
                 $('#tblData').html(tblData);
-
+                tfootData += '<tr style="font-weight:bold"><td></td><td>Total</td><td>'+openB.toFixed(2)+'</td><td>'+purB.toFixed(2)+'</td><td>'+saleB.toFixed(2)+'</td><td>'+closeB.toFixed(2)+'</td></tr>';
+                $('#tfootData').html(tfootData);
                 $('#allSalesTbl').DataTable({
                     searching: true,
                     retrieve: true,
@@ -58,9 +54,15 @@ function DisplayOpeningClosingData() {
                         orderable: false,
                         targets: [0, 1, 2, 3, 4, 5]
                     }],
-                    dom: 'Bfrtip',
-                    buttons: ['copy', 'excel', 'pdf', 'print'],
-                    destroy: true
+                    destroy: true,
+                      dom: 'Bfrtip',
+                      buttons: [
+                        { extend: 'copy', footer: true },
+                        { extend: 'excel', footer: true },
+                        { extend: 'csv', footer: true },
+                        { extend: 'pdf', footer: true },
+                        { extend: 'print', footer: true }
+                    ]
                 });
             }
         });
