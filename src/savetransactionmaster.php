@@ -79,20 +79,44 @@ session_start();
   if($formtype==="U"){
       $type= "Inserted";
 
-     $getitem ="SELECT IDM.ItemId, TD.itemDetailId,TD.qty,TM.TransactionId,TM.TransactionNumber FROM TransactionDetails TD
+     $getitem ="SELECT IDM.ItemId, TD.itemDetailId,TD.qty,TM.TransactionId,TM.TransactionNumber,TD.itemunitval,IDM.PackingQty,IDM.SubPacking,PS.Quantity,PS.TotalQty FROM TransactionDetails TD
                 LEFT JOIN TransactionMaster TM ON TM.TransactionId = TD.TransactionId
                 LEFT JOIN ItemDetailMaster IDM ON IDM.itemDetailId = TD.itemDetailId
-                WHERE TM.TransactionId = '$htransactionid'";
+                LEFT JOIN ProductStock PS ON IDM.itemDetailId = PS.itemDetailId
+                WHERE TM.TransactionId = '$htransactionid' and TM.companyId=PS.companyId";
      $resultgetitem = mysqli_query($con,$getitem);
-     if(mysqli_num_rows($resultgetitem)>0){
+     if(mysqli_num_rows($resultgetitem)>0)
+     {
             while($row=mysqli_fetch_array($resultgetitem))
             {
+
               $itemidno = $row['ItemId'];
               $itemdetailid =$row['itemDetailId'];
               $quantityval = $row['qty'];
+              $itemunitval = $row['itemunitval'];
+              $PackingQty = $row['PackingQty'];
+              $SubPacking = $row['SubPacking'];
+              $Quantity = $row['Quantity'];
+              $TotalQty1 = $row['TotalQty'];
+              $totalqty = 1;
+              switch ($itemunitval) {
+                case 1:
+                    $totalqty = $quantityval;
+                    break;
+                case 2:
+                    $totalqty = $quantityval*$SubPacking;
+                    break;
+                case 3:
+                    $totalqty = $quantityval*$PackingQty;
+                    break;
+                default:
+                    $totalqty = $quantityval;
+                  }
+
                 if($formid==1){
+                  $setqty  = ($TotalQty1+$totalqty)/$PackingQty;
                   // $sqlup ="UPDATE ProductStock SET ProductStock.Quantity=ProductStock.Quantity+$quantityval WHERE ProductStock.itemDetailId=$itemdetailid and ProductStock.companyId=$companyId";
-                  $sqlup ="UPDATE ProductStock SET ProductStock.Quantity=ProductStock.Quantity-$quantityval WHERE ProductStock.itemDetailId=$itemdetailid and ProductStock.companyId=$companyId";
+                  $sqlup ="UPDATE ProductStock SET ProductStock.Quantity=$setqty,ProductStock.TotalQty=ProductStock.TotalQty+$totalqty  WHERE ProductStock.itemDetailId=$itemdetailid and ProductStock.companyId=$companyId";
                   // echo $sqlup;
                   //$sqlup = "UPDATE ItemDetailMaster SET Quantity = Quantity + $quantityval where ItemId=$itemidno";
                   // $sqlup = "UPDATE ItemDetailMaster SET ItemDetailMaster.Quantity = ItemDetailMaster.Quantity -$qty where ItemDetailMaster.itemDetailId=$itemdetailid";
@@ -100,8 +124,9 @@ session_start();
                 }
                 if($formid==2)
                 {
+                  $setqty  = ($TotalQty1-$totalqty)/$PackingQty;
                   // $sqlup ="UPDATE ProductStock SET ProductStock.Quantity=ProductStock.Quantity-$quantityval WHERE ProductStock.itemDetailId=$itemdetailid and ProductStock.companyId=$companyId";
-                  $sqlup ="UPDATE ProductStock SET ProductStock.Quantity=ProductStock.Quantity+$quantityval WHERE ProductStock.itemDetailId=$itemdetailid and ProductStock.companyId=$companyId";
+                  $sqlup ="UPDATE ProductStock SET ProductStock.Quantity=$setqty,ProductStock.TotalQty=ProductStock.TotalQty-$totalqty  WHERE ProductStock.itemDetailId=$itemdetailid and ProductStock.companyId=$companyId";
                   //$sqlup = "UPDATE ItemDetailMaster SET Quantity = Quantity - $quantityval where ItemId=$itemidno";
                   // $sqlup = "UPDATE ItemDetailMaster SET ItemDetailMaster.Quantity = ItemDetailMaster.Quantity +$qty where ItemDetailMaster.itemDetailId=$itemdetailid";
                   mysqli_query($con,$sqlup);

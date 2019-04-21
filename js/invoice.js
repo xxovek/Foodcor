@@ -257,6 +257,7 @@ function transactionmaster(){
   var contactid= $("#hidecontactid").val();
   var remainamount = parseFloat($("#remainamount").val());
   var finaltotal = parseFloat($("#finaltotal").text());
+  
   if(contactid===""){
     contactid=0;
   }

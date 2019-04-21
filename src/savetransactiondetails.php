@@ -1,17 +1,13 @@
 <?php
-include '../config/connection.php';
-session_start();
-$companyId = $_SESSION['company_id'];
-// $method = $_SERVER['REQUEST_METHOD'];
-// if($method == "POST")
-// {
+  include '../config/connection.php';
+  session_start();
+  $companyId = $_SESSION['company_id'];
   $formid = $_REQUEST['formid'];
   $formtype = $_REQUEST['formtype'];
   $hidetransactionid = $_REQUEST['hidetransactionid'];
   $transactionId = $_REQUEST['transactionId'];
   $itemdetailid = $_REQUEST['itemdetailid'];
   // $desc = $_REQUEST['desc'];
-
   $qty = $_REQUEST['qty'];
   $billingqty = $_REQUEST['billingqty'];
   $rate = $_REQUEST['rate'];
@@ -22,24 +18,28 @@ $companyId = $_SESSION['company_id'];
   $unitremainqty = $_REQUEST['unitremainqty'];
   $hiddenqtyonhand = $_REQUEST['hiddenqtyonhand'];
 
-
+  $sql1= "SELECT PS.Quantity,PS.TotalQty FROM ProductStock PS WHERE PS.itemdetailId=$itemdetailid  and PS.companyId=$companyId";
+  $result1 = mysqli_query($con,$sql1);
+  $row1= mysqli_fetch_array($result1);
+  $Quantity = $row1['Quantity'];
+  $TotalQty1 = $row1['TotalQty'];
   $totalqty = 1;
   switch ($itemunits) {
     case 1:
-        $totalqty = 1;
+        $totalqty = $qty;
         break;
     case 2:
-        $totalqty = 1*$unitsubpackingqty;
+        $totalqty = $qty*$unitsubpackingqty;
         break;
     case 3:
-        $totalqty = 1*$unitpackingqty;
+        $totalqty = $qty*$unitpackingqty;
         break;
     default:
-        $totalqty = 1;
+        $totalqty = $qty;
       }
-  $totalqty = $totalqty*$qty;
-  $remaintotqty = $unitremainqty -$totalqty;
-  $remqty = floor($hiddenqtyonhand-($remaintotqty/$unitpackingqty));
+  // $totalqty = $totalqty*$qty;
+  // $remaintotqty = $unitremainqty -$totalqty;
+  // $remqty = floor($hiddenqtyonhand-($remaintotqty/$unitpackingqty));
 
   $tax = $_REQUEST['tax'];
 
@@ -58,14 +58,16 @@ $companyId = $_SESSION['company_id'];
     $response['ItemDetailId'] =  $item_id;
       if($formtype==="U"){
         if($formid==1){
-          $sqlup ="UPDATE ProductStock SET  ProductStock.Quantity=$remqty,ProductStock.TotalQty=ProductStock.TotalQty-$totalqty WHERE ProductStock.itemDetailId=$itemdetailid and ProductStock.companyId=$companyId";
+          $setqty  = ($TotalQty1-$totalqty)/$unitpackingqty;
+          $sqlup ="UPDATE ProductStock SET  ProductStock.Quantity=$setqty,ProductStock.TotalQty=ProductStock.TotalQty-$totalqty WHERE ProductStock.itemDetailId=$itemdetailid and ProductStock.companyId=$companyId";
           // $sqlup = "UPDATE ItemDetailMaster SET ItemDetailMaster.Quantity = ItemDetailMaster.Quantity -$remqty ,ItemDetailMaster.totalqty=ItemDetailMaster.totalqty-$totalqty where ItemDetailMaster.itemDetailId=$itemdetailid";
-          // echo $sqlup;
+           // echo $sqlup;
           mysqli_query($con,$sqlup);
         }
         if($formid==2)
         {
-          $sqlup ="UPDATE ProductStock SET  ProductStock.Quantity=$remqty,ProductStock.TotalQty=ProductStock.TotalQty+$totalqty WHERE ProductStock.itemDetailId=$itemdetailid and ProductStock.companyId=$companyId";
+          $setqty  = ($TotalQty1+$totalqty)/$unitpackingqty;
+          $sqlup ="UPDATE ProductStock SET  ProductStock.Quantity=$setqty,ProductStock.TotalQty=ProductStock.TotalQty+$totalqty WHERE ProductStock.itemDetailId=$itemdetailid and ProductStock.companyId=$companyId";
           // $sqlup = "UPDATE ItemDetailMaster SET ItemDetailMaster.Quantity = ItemDetailMaster.Quantity +$remqty ,ItemDetailMaster.totalqty=ItemDetailMaster.totalqty+$totalqty where ItemDetailMaster.itemDetailId=$itemdetailid";
           mysqli_query($con,$sqlup);
         }
@@ -74,14 +76,20 @@ $companyId = $_SESSION['company_id'];
 
 
     if($formid==1){
-      $sqlup ="UPDATE ProductStock SET ProductStock.Quantity=ProductStock.Quantity-$remqty,ProductStock.TotalQty=ProductStock.TotalQty-$totalqty WHERE ProductStock.itemDetailId=$itemdetailid and ProductStock.companyId=$companyId";
+        $setqty  = ($TotalQty1-$totalqty)/$unitpackingqty;
+        $sqlup ="UPDATE ProductStock SET ProductStock.Quantity=$setqty,ProductStock.TotalQty=ProductStock.TotalQty-$totalqty WHERE ProductStock.itemDetailId=$itemdetailid and ProductStock.companyId=$companyId";
+
+      // $sqlup ="UPDATE ProductStock SET ProductStock.Quantity=ProductStock.Quantity-$remqty,ProductStock.TotalQty=ProductStock.TotalQty-$totalqty WHERE ProductStock.itemDetailId=$itemdetailid and ProductStock.companyId=$companyId";
       // $sqlup = "UPDATE ItemDetailMaster SET ItemDetailMaster.Quantity = ItemDetailMaster.Quantity -$remqty ,ItemDetailMaster.totalqty=ItemDetailMaster.totalqty-$totalqty where ItemDetailMaster.itemDetailId=$itemdetailid";
       // echo $sqlup;
       mysqli_query($con,$sqlup);
     }
     if($formid==2)
     {
-      $sqlup ="UPDATE ProductStock SET ProductStock.Quantity=ProductStock.Quantity+$remqty,ProductStock.TotalQty=ProductStock.TotalQty+$totalqty WHERE ProductStock.itemDetailId=$itemdetailid and ProductStock.companyId=$companyId";
+        $setqty  = ($TotalQty1+$totalqty)/$unitpackingqty;
+        $sqlup ="UPDATE ProductStock SET ProductStock.Quantity=$setqty,ProductStock.TotalQty=ProductStock.TotalQty+$totalqty WHERE ProductStock.itemDetailId=$itemdetailid and ProductStock.companyId=$companyId";
+
+      // $sqlup ="UPDATE ProductStock SET ProductStock.Quantity=ProductStock.Quantity+$remqty,ProductStock.TotalQty=ProductStock.TotalQty+$totalqty WHERE ProductStock.itemDetailId=$itemdetailid and ProductStock.companyId=$companyId";
       // $sqlup = "UPDATE ItemDetailMaster SET ItemDetailMaster.Quantity = ItemDetailMaster.Quantity +$remqty ,ItemDetailMaster.totalqty=ItemDetailMaster.totalqty+$totalqty where ItemDetailMaster.itemDetailId=$itemdetailid";
       mysqli_query($con,$sqlup);
     }

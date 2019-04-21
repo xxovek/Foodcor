@@ -15,7 +15,7 @@ $currentcompanyId = $row1['companyId'];
 $response = [];
 if($currentcompanyId===$companyId)
 {
-  $sql = "SELECT IDM.ItemId, TD.itemDetailId,TD.itemunitval,TM.PersonId,TM.companyId,IDM.PackingQty,IDM.SubPacking,PS.TotalQty,
+  $sql = "SELECT IDM.ItemId, TD.itemDetailId,TD.itemunitval,TM.PersonId,TM.companyId,IDM.PackingQty,IDM.SubPacking,PS.TotalQty,PS.Quantity,
           TD.qty,TD.rate,TD.TaxType,TD.BillQty,TD.TaxPercent,TD.discountAmount,TD.description,
           TM.discount,TM.TransactionId,TM.PaytermsId,TM.FinancialYear,TM.TransactionNumber,
           TM.DueDate,TM.DateCreated,TM.remarks,TM.contactId FROM TransactionDetails TD
@@ -25,7 +25,7 @@ if($currentcompanyId===$companyId)
           WHERE TM.TransactionId = $transactionno and TM.companyId= PS.companyId";
 }
 else {
-  $sql = "SELECT IDM.ItemId,PM.PersonId, TD.itemDetailId,IDM.PackingQty,IDM.SubPacking,PS.TotalQty,
+  $sql = "SELECT IDM.ItemId,PM.PersonId, TD.itemDetailId,IDM.PackingQty,IDM.SubPacking,PS.TotalQty,PS.Quantity,
           TD.itemunitval,TM.companyId,
           TD.qty,TD.rate,TD.TaxType,TD.BillQty,TD.TaxPercent,TD.discountAmount,TD.description,
           TM.discount,TM.TransactionId,TM.PaytermsId,TM.FinancialYear,TM.TransactionNumber,
@@ -66,7 +66,8 @@ if(mysqli_num_rows($result)>0){
         'PaytermsId' => $row['PaytermsId'],
         'PackingQty' => $row['PackingQty'],
         'SubPacking' => $row['SubPacking'],
-        'TotalQty' => $row['TotalQty']
+        'TotalQty' => $row['TotalQty'],
+        'Quantity' => $row['Quantity']
       ]);
     }
   }
