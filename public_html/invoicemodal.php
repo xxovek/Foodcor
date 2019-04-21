@@ -62,18 +62,18 @@
                     </div>
                   </div>
 
-                  <div class="col-md-4">
+                  <!-- <div class="col-md-4">
                     <div class="form-group">
-                      <label for="input-normal"><strong>Place Of Supply</strong></label>
+                      <label for="input-normal"><strong>Place Of Supply</strong></label> -->
                       <!-- <span id="setplacesupply"></span> -->
-                      <select class="form-control" data-provide="selectpicker" data-live-search="true"  title="Choose Place Of Supply" id="placeofsupply">
+                      <!-- <select class="form-control" data-provide="selectpicker" data-live-search="true"  title="Choose Place Of Supply" id="placeofsupply">
                      <option value="Pune">Pune</option>
                         <option value="Dhule">Dhule</option>
                         <option value="Jalgoan">Jalgoan</option>
                       </select>
 
                     </div>
-                  </div>
+                  </div> -->
 
                 </div>
                 <div class="row">
