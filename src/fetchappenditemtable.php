@@ -22,7 +22,7 @@ if($currentcompanyId===$companyId)
           LEFT JOIN TransactionMaster TM ON TM.TransactionId = TD.TransactionId
           LEFT JOIN ItemDetailMaster IDM ON IDM.itemDetailId = TD.itemDetailId
           LEFT JOIN ProductStock PS ON IDM.itemDetailId = PS.itemDetailId
-          WHERE TM.TransactionId = '$transactionno' and TM.companyId=$companyId";
+          WHERE TM.TransactionId = $transactionno and TM.companyId= PS.companyId";
 }
 else {
   $sql = "SELECT IDM.ItemId,PM.PersonId, TD.itemDetailId,IDM.PackingQty,IDM.SubPacking,PS.TotalQty,
@@ -34,7 +34,7 @@ else {
           LEFT JOIN ItemDetailMaster IDM ON IDM.itemDetailId = TD.itemDetailId
           LEFT JOIN ProductStock PS ON IDM.itemDetailId = PS.itemDetailId
           LEFT JOIN PersonMaster PM ON PM.PersonCompanyId = TM.companyId
-          WHERE TM.TransactionId = '$transactionno' and PM.companyId=$companyId and PM.PersonCompanyId=$currentcompanyId";
+          WHERE TM.TransactionId = $transactionno and PM.companyId=$companyId and PM.PersonCompanyId=$currentcompanyId AND PS.companyId =$companyId ";
 }
 
 

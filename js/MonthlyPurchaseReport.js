@@ -38,7 +38,7 @@ if(i === 0){
                     tblData  += '<td>'+parseFloat(response[i].SGST).toFixed(2)+'</td>';
                     tblData  += '<td>'+parseFloat(response[i].TotalGST).toFixed(2)+'</td></tr>';
                   }
-                  tfootData += '<tr style="font-weight:bold"><td></td><td></td><td></td><td>Total</td><td>'+invValue.toFixed(2)+'</td><td>'+taxableValue.toFixed(2)+'</td><td>'+CGST.toFixed(2)+'</td><td>'+ SGST.toFixed(2)+'</td><td>'+totalGst.toFixed(2)+'</td></tr>';
+                  tfootData = '<tr style="font-weight:bold"><td></td><td></td><td></td><td>Total</td><td>'+invValue.toFixed(2)+'</td><td>'+taxableValue.toFixed(2)+'</td><td>'+CGST.toFixed(2)+'</td><td>'+ SGST.toFixed(2)+'</td><td>'+totalGst.toFixed(2)+'</td></tr>';
                   $('#tblData').html(tblData);
                   $('#tfootData').html(tfootData);
 
@@ -109,7 +109,7 @@ function DisplaySalesReportTblDataOnclick(){
                       tblData  += '<td>'+parseFloat(response[i].SGST).toFixed(2)+'</td>';
                       tblData  += '<td>'+parseFloat(response[i].TotalGST).toFixed(2)+'</td></tr>';
                     }
-                    tfootData += '<tr style="font-weight:bold"><td></td><td></td><td></td><td>Total</td><td>'+invValue.toFixed(2)+'</td><td>'+taxableValue.toFixed(2)+'</td><td>'+CGST.toFixed(2)+'</td><td>'+ SGST.toFixed(2)+'</td><td>'+totalGst.toFixed(2)+'</td></tr>';
+                    tfootData = '<tr style="font-weight:bold"><td></td><td></td><td></td><td>Total</td><td>'+invValue.toFixed(2)+'</td><td>'+taxableValue.toFixed(2)+'</td><td>'+CGST.toFixed(2)+'</td><td>'+ SGST.toFixed(2)+'</td><td>'+totalGst.toFixed(2)+'</td></tr>';
                     $('#tblData').html(tblData);
                     $('#tfootData').html(tfootData);
                     $('#allSalesTbl').DataTable({
