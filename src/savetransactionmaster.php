@@ -17,68 +17,66 @@ session_start();
   $amountreceived=$finaltotal;
   $remainamount=$_REQUEST['remainamount'];
   $maintransactionstatus = 'Open';
-  if($remainamount>0){
-  if($finaltotal<=$remainamount){
-    $sqlu ="UPDATE TransactionMaster TM SET TM.TransactionStatus ='Closed',TM.RemainingAmount=0 WHERE TM.PersonId =$personId AND TM.TransactionTypeId=3 AND TM.TransactionStatus IN ('Partial','Unapplied') AND TM.TransactionId NOT IN (SELECT maxa from (SELECT MAX(TransactionId) AS maxa FROM TransactionMaster TD where TD.PersonId =$personId
-     and TD.TransactionTypeId=3 and TD.TransactionStatus IN ('Partial','Unapplied') order by
-     TD.TransactionId) t)";
-    // echo $sqlu;
-    mysqli_query($con,$sqlu);
-    $balance = $remainamount - $finaltotal;
-    if($balance>0){
-      $transactionstatus ='Partial';
-    }
-    else {
-      $transactionstatus ='Closed';
-    }
-    $sqlun ="UPDATE TransactionMaster SET TransactionMaster.TransactionStatus='$transactionstatus',TransactionMaster.RemainingAmount='$balance' where TransactionMaster.PersonId ='$personId'
-    and TransactionMaster.TransactionTypeId=3 and TransactionMaster.TransactionStatus IN ('Partial','Unapplied') order by
-    TransactionMaster.TransactionId desc LIMIT 1";
-    mysqli_query($con,$sqlun);
-    $maintransactionstatus = 'Paid';
-    $amountreceived = $finaltotal; // IF Invoice amount is strickly less than credit balance
-    $finaltotal = 0;
-  }
-  else{
-    $balance = $remainamount;
-    if($balance>0){
-      $transactionstatus ='Closed';
-    }
+  // if($remainamount>0){
+  // if($finaltotal<=$remainamount){
+  //   $sqlu ="UPDATE TransactionMaster TM SET TM.TransactionStatus ='Closed',TM.RemainingAmount=0 WHERE TM.PersonId =$personId AND TM.TransactionTypeId=3 AND TM.TransactionStatus IN ('Partial','Unapplied') AND TM.TransactionId NOT IN (SELECT maxa from (SELECT MAX(TransactionId) AS maxa FROM TransactionMaster TD where TD.PersonId =$personId
+  //    and TD.TransactionTypeId=3 and TD.TransactionStatus IN ('Partial','Unapplied') order by
+  //    TD.TransactionId) t)";
+  //   // echo $sqlu;
+  //   mysqli_query($con,$sqlu);
+  //   $balance = $remainamount - $finaltotal;
+  //   if($balance>0){
+  //     $transactionstatus ='Partial';
+  //   }
+  //   else {
+  //     $transactionstatus ='Closed';
+  //   }
+  //   $sqlun ="UPDATE TransactionMaster SET TransactionMaster.TransactionStatus='$transactionstatus',TransactionMaster.RemainingAmount='$balance' where TransactionMaster.PersonId ='$personId'
+  //   and TransactionMaster.TransactionTypeId=3 and TransactionMaster.TransactionStatus IN ('Partial','Unapplied') order by
+  //   TransactionMaster.TransactionId desc LIMIT 1";
+  //   mysqli_query($con,$sqlun);
+  //   $maintransactionstatus = 'Paid';
+  //   $amountreceived = $finaltotal; // IF Invoice amount is strickly less than credit balance
+  //   $finaltotal = 0;
+  // }
+  // else{
+  //   $balance = $remainamount;
+  //   if($balance>0){
+  //     $transactionstatus ='Closed';
+  //   }
+  //
+  //
+  //   $sqlu ="UPDATE TransactionMaster TM SET TM.TransactionStatus ='Closed',TM.RemainingAmount=0 WHERE TM.PersonId =$personId AND TM.TransactionTypeId=3 AND TM.TransactionStatus IN ('Partial','Unapplied') AND TM.TransactionId NOT IN (SELECT maxa from (SELECT MAX(TransactionId) AS maxa FROM TransactionMaster TD where TD.PersonId =$personId
+  //    and TD.TransactionTypeId=3 and TD.TransactionStatus IN ('Partial','Unapplied') order by
+  //    TD.TransactionId) t)";
+  //     mysqli_query($con,$sqlu);
+  //
+  //     $sqlun ="UPDATE TransactionMaster SET TransactionMaster.TransactionStatus='$transactionstatus',TransactionMaster.RemainingAmount='0' where TransactionMaster.PersonId ='$personId'
+  //     and TransactionMaster.TransactionTypeId=3 and TransactionMaster.TransactionStatus IN ('Partial','Unapplied') order by
+  //     TransactionMaster.TransactionId desc LIMIT 1";
+  //     mysqli_query($con,$sqlun);
+  //     $remainfinaltotal = $finaltotal - $remainamount;
+  //     if($remainfinaltotal>0){
+  //       $maintransactionstatus = 'Partial';
+  //     }
+  //     else {
+  //       $maintransactionstatus = 'Paid';
+  //     }
+  //     $amountreceived = $remainamount; // IF Invoice amount is strickly greater than credit balance
+  //     $finaltotal = $remainfinaltotal;
+  //
+  // }
+  // }
 
-
-    $sqlu ="UPDATE TransactionMaster TM SET TM.TransactionStatus ='Closed',TM.RemainingAmount=0 WHERE TM.PersonId =$personId AND TM.TransactionTypeId=3 AND TM.TransactionStatus IN ('Partial','Unapplied') AND TM.TransactionId NOT IN (SELECT maxa from (SELECT MAX(TransactionId) AS maxa FROM TransactionMaster TD where TD.PersonId =$personId
-     and TD.TransactionTypeId=3 and TD.TransactionStatus IN ('Partial','Unapplied') order by
-     TD.TransactionId) t)";
-      mysqli_query($con,$sqlu);
-
-      $sqlun ="UPDATE TransactionMaster SET TransactionMaster.TransactionStatus='$transactionstatus',TransactionMaster.RemainingAmount='0' where TransactionMaster.PersonId ='$personId'
-      and TransactionMaster.TransactionTypeId=3 and TransactionMaster.TransactionStatus IN ('Partial','Unapplied') order by
-      TransactionMaster.TransactionId desc LIMIT 1";
-      mysqli_query($con,$sqlun);
-      $remainfinaltotal = $finaltotal - $remainamount;
-      if($remainfinaltotal>0){
-        $maintransactionstatus = 'Partial';
-      }
-      else {
-        $maintransactionstatus = 'Paid';
-      }
-      $amountreceived = $remainamount; // IF Invoice amount is strickly greater than credit balance
-      $finaltotal = $remainfinaltotal;
-
-  }
-  }
-    // echo $contactId;
-  // $contactId = !empty($contactId) ? "'$contactId'" : "NULL";
   $discount = $_REQUEST['discount'];
 
   $datecreated = $_REQUEST['datecreated'];
   $duedate = $_REQUEST['duedate'];
-  // $datecreated = date('Y-m-d', strtotime(str_replace('-', '/', $datecreated)));
-  // $duedate = date('Y-m-d', strtotime(str_replace('-', '/', $duedate)));
   $paytermval = $_REQUEST['paytermval'];
   $remark = $_REQUEST['remark'];
   $financialyear = Date('Y');
   $type= "Created";
+  // echo $formtype;
   if($formtype==="U"){
       $type= "Inserted";
 
@@ -113,9 +111,9 @@ session_start();
      }
      $updtrans = "UPDATE TransactionMaster SET changeStatusFlag=1 where TransactionId=$htransactionid";
      mysqli_query($con,$updtrans);
-     //$deltrans = "DELETE FROM TransactionMaster WHERE TransactionId=$htransactionid";
+     $deltrans = "DELETE FROM TransactionMaster WHERE TransactionId=$htransactionid";
      // echo $deltrans."</br>";
-     //mysqli_query($con,$deltrans);
+     mysqli_query($con,$deltrans);
   }
   $response = [];
   $sqlty = "SELECT TransactionType,AccountAffected,inventoryAffected FROM TransactionType WHERE TransactionTypeId='$formid'";
