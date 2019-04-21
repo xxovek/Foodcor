@@ -15,6 +15,15 @@ function company_info()
   $row1 = mysqli_fetch_array($result1);
   $cId=$row1['companyId'];
   $uid=$row1['PersonId'];
+  $sql2 = "SELECT Cd.DocumentNumber FROM ContactDocument Cd WHERE Cd.personId='$cId' and Cd.DocumentId=4";
+  $result2 = mysqli_query($con,$sql2);
+  $row2 = mysqli_fetch_array($result2);
+  $DocumentNo=$row2['DocumentNumber'];
+
+  $sql3 = "SELECT Cd.DocumentNumber FROM ContactDocument Cd WHERE Cd.personId='$uid' and Cd.DocumentId=4";
+  $result3 = mysqli_query($con,$sql3);
+  $row3 = mysqli_fetch_array($result3);
+  $DocumentNo1=$row3['DocumentNumber'];
   $sql = "SELECT companyName,contactAddress,contactNumber,country,CState, city,zipcode,logo FROM
    `CompanyMaster` cm,`ContactMaster` c WHERE cm.`contactId`=c.`contactId` AND cm.`CompanyId`='$cId'";
    $sql_person = "SELECT * FROM PersonMaster PM  LEFT JOIN PersonContact PC ON PC.PersonId = PM.PersonId LEFT JOIN ContactMaster CM ON CM.contactId = PC.ContactId
@@ -44,7 +53,7 @@ function company_info()
     <td style="height:25px;"><strong>'.ucwords($row['companyName']).'.</strong></td>
     </tr>
     <tr>
-    <td style="height:25px;">'.$row['contactAddress'].'<br>'.$row['country'].',' .$row['CState'].','.$row['city'].','.$row['zipcode'].'<br>'.$row['contactNumber'].'<br>GSTIN:27BTNPC3346N1ZA</td>
+    <td style="height:25px;">'.$row['contactAddress'].'<br>'.$row['country'].',' .$row['CState'].','.$row['city'].','.$row['zipcode'].'<br>'.$row['contactNumber'].'<br>GSTIN:'.$DocumentNo.'</td>
     </tr>
 
     </table>
@@ -89,7 +98,7 @@ function company_info()
     <td style="height:25px;"><strong>'.ucwords($row_cust['FirstName'].' '.$row_cust['lastName']).'.</strong> </td>
     </tr>
     <tr>
-    <td style="height:25px;">'.$row_cust['contactAddress'].'<br>'.$row_cust['country'].',' .$row_cust['CState'].','.$row_cust['city'].','.$row_cust['zipcode'].'<br>'  .$row_cust['EmailId'].'<br>'. $row_cust['contactNumber'].'</td>
+    <td style="height:25px;">'.$row_cust['contactAddress'].'<br>'.$row_cust['country'].',' .$row_cust['CState'].','.$row_cust['city'].','.$row_cust['zipcode'].'<br>'  .$row_cust['EmailId'].'<br>'. $row_cust['contactNumber'].'<br>GSTIN :'.$DocumentNo1.'</td>
     </tr>
 
     </table>
@@ -113,7 +122,7 @@ function company_info()
     <td style="height:25px;"><strong>'.ucwords($row_cust['FirstName'].' '.$row_cust['lastName']).'.</strong> </td>
     </tr>
     <tr>
-    <td style="height:25px;">'.$row_cust['contactAddress'].'<br>'.$row_cust['country'].',' .$row_cust['CState'].','.$row_cust['city'].','.$row_cust['zipcode'].'<br>'  .$row_cust['EmailId'].'<br>'. $row_cust['contactNumber'].'</td>
+    <td style="height:25px;">'.$row_cust['contactAddress'].'<br>'.$row_cust['country'].',' .$row_cust['CState'].','.$row_cust['city'].','.$row_cust['zipcode'].'<br>'  .$row_cust['EmailId'].'<br>'. $row_cust['contactNumber'].'<br>GSTIN :'.$DocumentNo1.'</td>
     </tr>
     </table>';
   }
