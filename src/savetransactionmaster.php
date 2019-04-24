@@ -125,8 +125,10 @@ session_start();
                 if($formid==2)
                 {
                   $setqty  = ($TotalQty1-$totalqty)/$PackingQty;
+                  
                   // $sqlup ="UPDATE ProductStock SET ProductStock.Quantity=ProductStock.Quantity-$quantityval WHERE ProductStock.itemDetailId=$itemdetailid and ProductStock.companyId=$companyId";
                   $sqlup ="UPDATE ProductStock SET ProductStock.Quantity=$setqty,ProductStock.TotalQty=ProductStock.TotalQty-$totalqty  WHERE ProductStock.itemDetailId=$itemdetailid and ProductStock.companyId=$companyId";
+                  
                   //$sqlup = "UPDATE ItemDetailMaster SET Quantity = Quantity - $quantityval where ItemId=$itemidno";
                   // $sqlup = "UPDATE ItemDetailMaster SET ItemDetailMaster.Quantity = ItemDetailMaster.Quantity +$qty where ItemDetailMaster.itemDetailId=$itemdetailid";
                   mysqli_query($con,$sqlup);

@@ -72,7 +72,12 @@ function AddCustomer(companyId,EmailId){
         data:{EmailId:EmailId,companyId:companyId},
         dataType:'json',
         success:function(response){
-           alert(response);
+          app.toast('Customer Added SuccessFully', {
+            actionTitle: 'Success',
+            // actionUrl: 'something',
+            actionColor: 'success',
+            duration: 4000
+          });
         }
     })
 }
