@@ -23,6 +23,7 @@
   $row1= mysqli_fetch_array($result1);
   $Quantity = $row1['Quantity'];
   $TotalQty1 = $row1['TotalQty'];
+  // echo $sql1;
   $totalqty = 1;
   switch ($itemunits) {
     case 1:
@@ -37,6 +38,7 @@
     default:
         $totalqty = $qty;
       }
+  // echo "The Total Quantity".$totalqty."\n";
   // $totalqty = $totalqty*$qty;
   // $remaintotqty = $unitremainqty -$totalqty;
   // $remqty = floor($hiddenqtyonhand-($remaintotqty/$unitpackingqty));
@@ -59,16 +61,21 @@
       if($formtype==="U"){
         if($formid==1){
           $setqty  = ($TotalQty1-$totalqty)/$unitpackingqty;
+          // echo $setqty;
           $sqlup ="UPDATE ProductStock SET  ProductStock.Quantity=$setqty,ProductStock.TotalQty=ProductStock.TotalQty-$totalqty WHERE ProductStock.itemDetailId=$itemdetailid and ProductStock.companyId=$companyId";
           // $sqlup = "UPDATE ItemDetailMaster SET ItemDetailMaster.Quantity = ItemDetailMaster.Quantity -$remqty ,ItemDetailMaster.totalqty=ItemDetailMaster.totalqty-$totalqty where ItemDetailMaster.itemDetailId=$itemdetailid";
-           // echo $sqlup;
-          mysqli_query($con,$sqlup);
+          // echo $sqlup;
+           mysqli_query($con,$sqlup);
         }
         if($formid==2)
         {
+          // echo "TotalQty ".$totalqty."\n";
+          // echo "TotalQty1 ".$TotalQty1."\n";
           $setqty  = ($TotalQty1+$totalqty)/$unitpackingqty;
-          $sqlup ="UPDATE ProductStock SET  ProductStock.Quantity=$setqty,ProductStock.TotalQty=ProductStock.TotalQty+$totalqty WHERE ProductStock.itemDetailId=$itemdetailid and ProductStock.companyId=$companyId";
+          // echo "SETQty ".$setqty."\n";
+           $sqlup ="UPDATE ProductStock SET  ProductStock.Quantity=$setqty,ProductStock.TotalQty=ProductStock.TotalQty+$totalqty WHERE ProductStock.itemDetailId=$itemdetailid and ProductStock.companyId=$companyId";
           // $sqlup = "UPDATE ItemDetailMaster SET ItemDetailMaster.Quantity = ItemDetailMaster.Quantity +$remqty ,ItemDetailMaster.totalqty=ItemDetailMaster.totalqty+$totalqty where ItemDetailMaster.itemDetailId=$itemdetailid";
+          // echo $sqlup."\n";
           mysqli_query($con,$sqlup);
         }
       }
