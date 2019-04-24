@@ -37,6 +37,19 @@ if(mysqli_query($con, $sql_insert_contact)){
         }
       }
     }
+//For companyId connection in TransactionMaster And PersonMaster
+    $sql_person_check = "SELECT PersonId FROM PersonMaster WHERE EmailId = '$EmailId' AND personTypeId <> 4 ";
+    if($result_2 = mysqli_query($con, $sql_person_check)){
+      if(mysqli_num_rows($result_2)>0){
+        $sql_update_personId = "UPDATE PersonMaster SET PersonCompanyId=$company_id WHERE EmailId = '$EmailId' AND personTypeId <> 4";
+        mysqli_query($con,$sql_update_personId) or die(mysqli_error($con));
+        while($row = mysqli_fetch_array($result_2)){
+          $PersonId = $row['PersonId'];
+          $sql_for_tm = "UPDATE TransactionMaster SET personCompanyId = $company_id WHERE PersonId = $PersonId";
+          mysqli_query($con,$sql_for_tm) or die(mysqli_error($con));
+        }
+      }
+    }
       }
     } 
   }
