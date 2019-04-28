@@ -29,12 +29,14 @@
 
       <form data-provide="validation" method="post" id="login" class="">
         <div class="form-group">
+            <div id="msgemail" style="float:right;" ></div>
           <label for="username" class="require"  data-provide="tooltip" title="Enter E-mail Id">Email</label>
           <input type="text" class="form-control" name="uname" id="uname"  required>
 
         </div>
 
         <div class="form-group">
+             <div id="msgpass" style="float:right;" ></div>
           <label for="password" class="require">Password</label>
           <input type="password" class="form-control" name="pwd" id="pwd" required>
 
@@ -72,12 +74,17 @@
     if(uname=="")
     {
     $("#uname").focus();
+    $("#msgemail").html("<font color='red'>Enter E-mail Id</font>");
     }
     else if(pwd=="")
     {
     $("#pwd").focus();
+    $("#msgemail").html("");
+    $("#msgpass").html("<font color='red'>Enter Password</font>");
     }
     else {
+         $("#msgemail").html("");
+         $("#msgpass").html("");
     $.ajax({
       url:'../src/userLogin.php',
       data:{uname:uname,pwd:pwd},
