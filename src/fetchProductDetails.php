@@ -6,7 +6,7 @@ if(isset($_SESSION['company_id'])){
 }else{
   $companyId = $_POST['company_id'];
 }
-$sql = "SELECT IM.Description,IM.ItemId,IM.ItemName,IM.SKU,IM.HSN,IM.Unit,SM.SizeValue,PS.Quantity,PS.TotalQty,PS.ReorderLabel,IP.price,ID.SubPacking,ID.PackingQty
+$sql = "SELECT IM.Description,IM.ItemId,IM.ItemName,IM.SKU,IM.HSN,IM.Unit,SM.SizeValue,PS.Quantity,PS.TotalQty,COALESCE(PS.ReorderLabel,0) ReorderLabel,IP.price,ID.SubPacking,ID.PackingQty
 FROM ItemMaster IM
 LEFT JOIN ItemDetailMaster ID ON IM.ItemId = ID.ItemId LEFT JOIN ItemPrice IP ON IP.ItemDetailId = ID.itemDetailId
 LEFT JOIN ProductStock PS ON PS.itemdetailId = ID.itemDetailId
