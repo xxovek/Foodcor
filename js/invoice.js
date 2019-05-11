@@ -255,6 +255,8 @@ function transactionmaster(){
   var  emailaddress = $("#emailaddress").val();
   var billingaddress = $("#billingaddress").val();
   var  placeofsupply = $("#placeofsupply").val();
+  var ponumber = $("#ponumber").val();
+
   var  terms = $("#terms").val();
   var  invoicedate = $("#invoicedate").val();
   var  duedate = $("#duedate").val();
@@ -263,7 +265,7 @@ function transactionmaster(){
   var contactid= $("#hidecontactid").val();
   var remainamount = parseFloat($("#remainamount").val());
   var finaltotal = parseFloat($("#finaltotal").text());
-  
+
   if(contactid===""){
     contactid=0;
   }
@@ -276,6 +278,7 @@ function transactionmaster(){
         formtype:formtype,
         htransactionid:transactionid,
         personId:customername,
+        ponumber:ponumber,
         contactId:contactid,
         discount:discount,
         datecreated:invoicedate,
@@ -295,7 +298,7 @@ function transactionmaster(){
            // alert("ID:"+response['ItemDetailId']);
            savetransactiondetails(response['ItemDetailId'],''+response['TransactionNumber']+'');
         }
-       
+
       },
       complete:function(){
             $('#loader').hide();

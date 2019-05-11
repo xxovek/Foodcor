@@ -34,10 +34,10 @@ else {
           LEFT JOIN ItemDetailMaster IDM ON IDM.itemDetailId = TD.itemDetailId
           LEFT JOIN ProductStock PS ON IDM.itemDetailId = PS.itemDetailId
           LEFT JOIN PersonMaster PM ON PM.PersonCompanyId = TM.companyId
-          WHERE TM.TransactionId = $transactionno and PM.companyId=$companyId and PM.PersonCompanyId=$currentcompanyId AND PS.companyId =$companyId ";
+          WHERE TM.TransactionId = $transactionno and PM.personTypeId=1 and PM.companyId=$companyId and PM.PersonCompanyId=$currentcompanyId AND PS.companyId =$companyId ";
 }
 
-
+// echo $sql;
 $result = mysqli_query($con,$sql);
 
 if(mysqli_num_rows($result)>0){
@@ -67,6 +67,7 @@ if(mysqli_num_rows($result)>0){
         'PackingQty' => $row['PackingQty'],
         'SubPacking' => $row['SubPacking'],
         'TotalQty' => $row['TotalQty'],
+        'PoNumber' => $row['FinancialYear'].'-'.$row['TransactionNumber'],
         'Quantity' => $row['Quantity']
       ]);
     }

@@ -70,7 +70,12 @@
                       <textarea class="form-control" id="billingaddress" rows="3"></textarea>
                     </div>
                   </div>
-
+                  <div class="col-md-4">
+                    <div class="form-group">
+                      <label for="input-normal"><strong>PO Number</strong></label>
+                      <input type="text"  class="form-control" id="ponumber"/>
+                  </div>
+                  </div>
                   <!-- <div class="col-md-4">
                     <div class="form-group">
                       <label for="input-normal"><strong>Place Of Supply</strong></label> -->

@@ -9,7 +9,7 @@ session_start();
   // echo $transactionid;
   $personId = $_REQUEST['personId'];
   $contactId = $_REQUEST['contactId'];
-
+  $ponumber = $_REQUEST['ponumber'];
   if($contactId==0){
     $contactId="NULL";
   }
@@ -201,10 +201,10 @@ session_start();
      $TransactionNumber=1;
   }
   // echo $TransactionNumber;
-  $sql_insert = "INSERT INTO TransactionMaster(companyId, PersonId,personCompanyId, contactId, TransactionTypeId, FinancialYear,
+  $sql_insert = "INSERT INTO TransactionMaster(companyId, PersonId,personCompanyId, contactId, TransactionTypeId,PoNumber, FinancialYear,
     TransactionNumber, discount, DateCreated, DueDate, PaytermsId, remarks,TransactionStatus,AmountRecieved,RemainingAmount) VALUES
-  ($companyId,$personId,$PersonCompanyId,$contactId,'$formid','$financialyear','$TransactionNumber','$discount','$datecreated','$duedate',$PaytermsId,'$remark','$maintransactionstatus','$amountreceived','$finaltotal')";
-   // echo $sql_insert;
+  ($companyId,$personId,$PersonCompanyId,$contactId,'$formid','$ponumber','$financialyear','$TransactionNumber','$discount','$datecreated','$duedate',$PaytermsId,'$remark','$maintransactionstatus','$amountreceived','$finaltotal')";
+
   if(mysqli_query($con,$sql_insert)){
     $item_id = mysqli_insert_id($con);
     $response['msg'] = 'Inserted';
