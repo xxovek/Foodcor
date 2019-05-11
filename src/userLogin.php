@@ -14,6 +14,11 @@ if(mysqli_num_rows($result)==1){
     $_SESSION['company_id'] = $row['companyId'];
     $_SESSION['company_flag'] = $row['flag'];
     $_SESSION['isAdmin'] = $row['isAdmin'];
+    //For Android
+     $response['person_id']  = $row['PersonId'];
+    $response['company_id'] = $row['companyId'];
+    $response['company_flag'] = $row['flag'];
+    $response['isAdmin'] = $row['isAdmin'];
 }else{
     $response['msg'] = 0;
 }

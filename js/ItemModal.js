@@ -27,6 +27,15 @@ function SaveItems(){
     var SupplierId       = document.getElementById('SupplierId').value;
     var ItemId           = document.getElementById('ItemId').value;
     var ItemDetailId     = document.getElementById('ItemDetailId').value;
+    // ItemUnit="Box";
+    // ItemCategory=2;
+    // ItemSize=1;
+    // ItemReorderLabel=10;
+    // ItemSizeQty=24;
+    // ItemQuantity=10;
+    // ItemSizeSubQty=12;
+    // ItemPrice=50;
+    // ItemTax=1;
     if(ItemId != ""){
       serverMethod = 'PUT';
     }
@@ -87,6 +96,9 @@ function SaveItems(){
           ItemDetailId:ItemDetailId,SupplierId:SupplierId
         }),
         dataType:'json',
+        beforeSend:function(){
+          $('#loader1').show();
+      },
         success:function(response){
           $('#goback').click();
           app.toast(response.msg, {
@@ -99,6 +111,7 @@ function SaveItems(){
         },
         complete:function(){
           document.getElementById('ItemForm').reset();
+          $('#loader1').hide();
         }
       })
   }

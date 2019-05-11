@@ -642,3 +642,8 @@
 [16-Feb-2019 14:00:48 UTC] PHP Warning:  mysqli_query(): Couldn't fetch mysqli in /home/xxovek/public_html/khajana/src/userLogin.php on line 9
 [16-Feb-2019 14:00:48 UTC] PHP Warning:  mysqli_num_rows() expects parameter 1 to be mysqli_result, null given in /home/xxovek/public_html/khajana/src/userLogin.php on line 10
 [16-Feb-2019 14:00:48 UTC] PHP Warning:  mysqli_close(): Couldn't fetch mysqli in /home/xxovek/public_html/khajana/src/userLogin.php on line 22
+[26-Apr-2019 05:04:38 UTC] PHP Warning:  mysqli_fetch_array() expects parameter 1 to be mysqli_result, boolean given in /home/fastinvo/public_html/app/src/fetchCustomer.php on line 9
+[26-Apr-2019 05:04:38 UTC] PHP Warning:  mysqli_fetch_array() expects parameter 1 to be mysqli_result, boolean given in /home/fastinvo/public_html/app/src/fetchCustomer.php on line 12
+[26-Apr-2019 05:04:38 UTC] PHP Warning:  mysqli_fetch_array() expects parameter 1 to be mysqli_result, boolean given in /home/fastinvo/public_html/app/src/fetchCustomer.php on line 18
+[26-Apr-2019 05:04:38 UTC] PHP Warning:  mysqli_fetch_array() expects parameter 1 to be mysqli_result, boolean given in /home/fastinvo/public_html/app/src/fetchCustomer.php on line 24
+[08-May-2019 06:36:37 UTC] PHP Warning:  mysqli_fetch_array() expects parameter 1 to be mysqli_result, boolean given in /home/fastinvo/public_html/app/src/savetransactiondetails.php on line 23

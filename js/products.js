@@ -93,6 +93,7 @@ function displayOutStockItems(){
 
 function displayProducts(){
     $('#tblData tbody').empty();
+    $('#tblDatabody').empty();
   var tblData = '';
   $.ajax({
     type:'GET',
@@ -123,7 +124,7 @@ function displayProducts(){
         $('#tblData').DataTable({
           searching: true,
           retrieve: true,
-          bPaginate: $('tbody tr').length>10,
+          bPaginate: $('#tblData tbody tr').length>10,
           order: [],
           columnDefs: [ { orderable: false, targets: [0,1,2,3,4,5,6,7] } ],
           dom: 'Bfrtip',

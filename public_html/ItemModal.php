@@ -5,6 +5,13 @@
     <span class="close" data-toggle="quickview"><i class="ti-close"></i></span>
   </header>
   <div class="quickview-body">
+      <div class="preloader" id='loader1'>
+      <div class="spinner-dots">
+        <span class="dot1"></span>
+        <span class="dot2"></span>
+        <span class="dot3"></span>
+      </div>
+    </div>
     <div style="padding:5px;">
       <form data-provide="validation" class="card" data-disable="false" id="ItemForm">
 <div class="card-body">

@@ -21,6 +21,15 @@
       <div class="modal-body">
 
         <form data-provide="validation" id="invoiceform" >
+
+<!-- Image loader -->
+<div class="preloader" id='loader'>
+      <div class="spinner-dots">
+        <span class="dot1"></span>
+        <span class="dot2"></span>
+        <span class="dot3"></span>
+      </div>
+    </div>
         <div class="row ">
           <div class="col-md-6">
             <div class="row">

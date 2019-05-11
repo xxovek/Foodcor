@@ -6,7 +6,7 @@ if(isset($_SESSION['company_id'])){
 }else{
   $companyId = $_POST['company_id'];
 }
-$ItemId = $_GET['productId'];
+$ItemId = $_REQUEST['productId'];
 // $sql = "SELECT IM.ItemId,IM.ItemName,IM.SKU,IM.HSN,IM.Unit,IM.CategoryId,IM.Description,ID.sizeId,
 // ID.PackingTypeId,PM.FirstName,PM.lastName,
 // ID.PackingQty,ID.SubPacking,ID.Quantity,ID.ReorderLabel,IT.TaxId,IP.price,IP.fromDate,ID.itemDetailId

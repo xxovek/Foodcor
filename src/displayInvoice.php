@@ -1,7 +1,11 @@
 <?php
 include '../config/connection.php';
 session_start();
-$companyId = $_SESSION['company_id'];
+if(isset($_SESSION['company_id'])){
+  $companyId = $_SESSION['company_id'];  
+}else{
+     $companyId = $_POST['company_id']; 
+}
 $TransactionType = $_POST['Ttype'];
 
  $sql = "SELECT TM.TransactionId,PM.FirstName,PM.lastName,DATE_FORMAT(TM.DateCreated,'%d %b %Y') AS DateCreated, COALESCE(DATE_FORMAT(TM.DueDate,'%d %b %Y'),'-') as DueDate

@@ -209,6 +209,9 @@ function savetransactiondetails(param,param1){
               hiddenqtyonhand:hiddenqtyonhand,
               tax:tax
             },
+            beforeSend:function(){
+                // alert('in save');
+            },
             success: function(msg) {
                // alert(msg);
               // var response = JSON.parse(msg);
@@ -217,6 +220,9 @@ function savetransactiondetails(param,param1){
               //    // alert("ID:"+response['ItemDetailId']);
               //    savetransactiondetails(response['ItemDetailId']);
               // }
+            },
+            complete:function(){
+                // alert('in complete');
             }
         });
         $("#rem"+value).remove();
@@ -279,6 +285,9 @@ function transactionmaster(){
         finaltotal:finaltotal,
         remark:remark
       },
+      beforeSend:function(){
+          $('#loader').show();
+      },
       success: function(msg) {
         var response = JSON.parse(msg);
         var count = Object.keys(response).length;
@@ -286,7 +295,11 @@ function transactionmaster(){
            // alert("ID:"+response['ItemDetailId']);
            savetransactiondetails(response['ItemDetailId'],''+response['TransactionNumber']+'');
         }
-      }
+       
+      },
+      complete:function(){
+            $('#loader').hide();
+        }
   });
 
 }
